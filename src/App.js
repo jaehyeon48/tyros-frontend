@@ -1,9 +1,9 @@
 import React from 'react';
 
-import DatabaseTest from './components/DatabaseTest';
+
 
 export default function App() {
   return (
-    <DatabaseTest />
+    <div>Welcome to tyros portfolio tracking app!</div>
   );
 }

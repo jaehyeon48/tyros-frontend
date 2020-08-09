@@ -1,0 +1,9 @@
+.main--dark-theme {
+  background-color: var(--dark-theme-bg-color);
+  color: #fff;
+}
+
+.main--light-theme {
+  background-color: var(--light-theme-bg-color);
+  color: #000;
+}

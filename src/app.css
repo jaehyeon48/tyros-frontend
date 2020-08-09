@@ -1,0 +1,16 @@
+/* Global Styles */
+:root {
+  --primary-color: #17a2b8;
+  --dark-color: #343a40;
+  --light-color: #f4f4f4;
+  --warning-color: #ffc415;
+  --danger-color: #dc3545;
+  --success-color: #28a745;
+  --orange-color: #f68440;
+  --darkgray-color: #b8b8b8;
+  --main-color: #78a8a4;
+  --dark-theme-bg-color: #1c1d1e;
+  --dark-theme-nav-bg-color: #262728;
+  --light-theme-bg-color: #f1f1f1;
+  --light-theme-nav-bg-color: #f5fbff;
+}

@@ -14,3 +14,45 @@
   --light-theme-bg-color: #f1f1f1;
   --light-theme-nav-bg-color: #f5fbff;
 }
+
+/* Fonts */
+@font-face {
+  font-family: 'Catamaran';
+  font-weight: 300;
+  src: url('../src/fonts/Catamaran-Light.ttf');
+}
+
+@font-face {
+  font-family: 'Catamaran';
+  font-weight: 400;
+  src: url('../src/fonts/Catamaran-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Catamaran';
+  font-weight: 500;
+  src: url('../src/fonts/Catamaran-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'Catamaran';
+  font-weight: 600;
+  src: url('../src/fonts/Catamaran-SemiBold.ttf');
+}
+
+@font-face {
+  font-family: 'Catamaran';
+  font-weight: 700;
+  src: url('../src/fonts/Catamaran-Bold.ttf');
+}
+
+@font-face {
+  font-family: 'Catamaran';
+  font-weight: 800;
+  src: url('../src/fonts/Catamaran-ExtraBold.ttf');
+}
+
+html {
+  font-family: 'Catamaran', sans-serif;
+  font-size: 1rem;
+}

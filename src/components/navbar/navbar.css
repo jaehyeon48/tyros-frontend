@@ -38,12 +38,61 @@
   cursor: pointer;
 }
 
-.navbar-bars {
+.navbar-bars-icon {
   position: absolute;
   right: 50px;
   width: 30px;
   height: 30px;
   display: none;
+}
+
+.navbar-sidebar {
+  position: absolute;
+  right: 0px;
+  top: 68px;
+  width: 120px;
+  height: 100vh;
+  z-index: 99;
+  animation: showSidebar;
+  animation-duration: 500ms;
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
+@keyframes showSidebar {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 120px;
+  }
+}
+
+@keyframes closeSidebar {
+  from {
+    width: 120px;
+  }
+
+  to {
+    width: 0;
+  }
+}
+
+.sidebar--dark-theme {
+  background-color: var(--dark-theme-nav-bg-color);
+  color: var(--light-color);
+}
+
+.sidebar--light-theme {
+  background-color: var(--light-theme-nav-bg-color);
+  color: var(--dark-color);
+}
+
+.sidebar-content {
+  text-align: center;
+  padding: 20px 10px;
+  border-bottom: 1px solid;
 }
 
 @media only screen and (max-width: 767px) {
@@ -55,7 +104,7 @@
     display: none;
   }
 
-  .navbar-bars {
+  .navbar-bars-icon {
     display: block;
   }
 }

@@ -11,6 +11,7 @@ import {
 const initialState = {
   loading: true,
   isAuthenticated: false,
+  theme: 'dark',
   user: null
 };
 

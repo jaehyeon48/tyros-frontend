@@ -29,6 +29,9 @@ const Navbar = ({
 
   const handleClickLogo = () => {
     history.push('/');
+    if (isSidebarOpen) {
+      handleClickSidebar();
+    }
   };
 
   const navGuest = (

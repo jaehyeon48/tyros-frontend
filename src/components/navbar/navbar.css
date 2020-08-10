@@ -1,9 +1,61 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  position: relative;
+  font-size: 1.5rem;
+}
+
 .navbar--dark-theme {
   background-color: var(--dark-theme-nav-bg-color);
-  color: #fff;
+  color: var(--light-color);
 }
 
 .navbar--light-theme {
   background-color: var(--light-theme-nav-bg-color);
-  color: #000;
+  color: var(--dark-color);
+}
+
+.navbar-signup {
+  position: absolute;
+  right: 170px;
+}
+
+.navbar-signup:hover {
+  color: var(--highlight-color);
+}
+
+.navbar-login {
+  position: absolute;
+  right: 70px;
+}
+
+.navbar-login:hover {
+  color: var(--highlight-color);
+}
+
+.main-logo {
+  margin: 2px 0 10px 5px;
+  cursor: pointer;
+}
+
+.navbar-bars {
+  position: absolute;
+  right: 50px;
+  width: 30px;
+  height: 30px;
+  display: none;
+}
+
+@media only screen and (max-width: 767px) {
+  .navbar-signup {
+    display: none;
+  }
+
+  .navbar-login {
+    display: none;
+  }
+
+  .navbar-bars {
+    display: block;
+  }
 }

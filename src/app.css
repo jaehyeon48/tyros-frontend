@@ -1,7 +1,7 @@
 /* Global Styles */
 :root {
   --primary-color: #17a2b8;
-  --dark-color: #343a40;
+  --dark-color: #1a1d20;
   --light-color: #f4f4f4;
   --warning-color: #ffc415;
   --danger-color: #dc3545;
@@ -55,4 +55,14 @@
 html {
   font-family: 'Catamaran', sans-serif;
   font-size: 1rem;
+}
+
+/* link */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:visited {
+  color: inherit;
 }

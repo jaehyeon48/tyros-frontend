@@ -23,7 +23,7 @@
 
 .landing-header-title h1 {
   margin: 0;
-  font-size: 50px;
+  font-size: 3.5rem;
   font-weight: 500;
   max-width: 344px;
 }
@@ -38,4 +38,20 @@
   font-size: 28px;
   font-weight: 400;
   color: #fff;
+}
+
+@media only screen and (max-width: 767px) {
+  .landing-header-subtitle {
+    grid-column: 5 / span 20;
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  .landing-header-title h1 {
+    font-size: 3rem;
+  }
+
+  .landing-header-subtitle {
+    grid-column: 5 / span 24;
+  }
 }

@@ -1,11 +1,21 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import './maintheme.css';
 
-export default function MainTheme(props) {
+const MainTheme = ({
+  children,
+  theme
+}) => {
   return (
-    <div className="main--dark-theme">
-      {props.children}
+    <div className={theme === 'dark' ? 'main--dark-theme' : 'main--light-theme'}>
+      {children}
     </div>
   );
 }
+
+const mapStateToProps = state => ({
+  theme: state.auth.theme
+});
+
+export default connect(mapStateToProps)(MainTheme);

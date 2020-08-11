@@ -1,13 +1,11 @@
 .main--dark-theme {
   background-color: var(--dark-theme-bg-color);
   color: #fff;
-  height: 92vh;
-  overflow: hidden;
+  min-height: 92vh;
 }
 
 .main--light-theme {
   background-color: var(--light-theme-bg-color);
   color: #000;
-  height: 92vh;
-  overflow: hidden;
+  min-height: 92vh;
 }

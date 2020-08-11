@@ -3,6 +3,7 @@
   align-items: center;
   position: relative;
   font-size: 1.5rem;
+  height: 8vh;
 }
 
 .navbar--dark-theme {
@@ -95,7 +96,7 @@
   border-bottom: 1px solid;
 }
 
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 768px) {
   .navbar-signup {
     display: none;
   }

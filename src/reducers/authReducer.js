@@ -40,7 +40,8 @@ export default function authReducer(state = initialState, action) {
         ...state,
         loading: false,
         isAuthenticated: true,
-        user: payload
+        user: payload,
+        theme: payload.theme
       };
     default:
       return state;

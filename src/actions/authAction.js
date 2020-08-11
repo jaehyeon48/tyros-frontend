@@ -30,6 +30,26 @@ export const loadUser = () => async dispatch => {
   }
 }
 
+export const login = (formData) => async (dispatch) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    withCredentials: true
+  };
+  const reqBody = JSON.stringify(formData);
+
+  try {
+    await axios.post(`${SERVER_URL}/api/auth/login`, reqBody, config);
+
+    dispatch({ type: LOGIN_SUCCESS });
+    dispatch(loadUser());
+  } catch (error) {
+    dispatch({ type: LOGIN_FAIL });
+    console.error(error.response.data);
+  }
+}
+
 export const signUp = (formData) => async (dispatch) => {
   const config = {
     headers: {

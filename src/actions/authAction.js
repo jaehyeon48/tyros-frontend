@@ -14,9 +14,15 @@ export const loadUser = () => async dispatch => {
   try {
     const loadResponse = await axios.get(`${SERVER_URL}/api/auth`, { withCredentials: true });
 
+    const userPayloadData = {
+      userId: loadResponse.data.user_id,
+      firstName: loadResponse.data.first_name,
+      lastName: loadResponse.data.last_name,
+      theme: loadResponse.data.theme
+    }
     dispatch({
       type: USER_LOADED,
-      payload: loadResponse.data
+      payload: userPayloadData
     })
   } catch (error) {
     dispatch({ type: AUTH_FAIL });

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
@@ -10,7 +10,11 @@ import MainTheme from './components/maintheme/MainTheme';
 import MainPage from './components/mainpage/MainPage';
 import './app.css';
 
+import { loadUser } from './actions/authAction';
+
 export default function App() {
+  useEffect(() => { store.dispatch(loadUser()) }, []);
+
   return (
     <Provider store={store} >
       <Router>

@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import validator from 'validator';
+
+import { signUp } from '../../actions/authAction';
 
 const SignUp = ({
-  isAuthenticated
+  isAuthenticated,
+  signUp
 }) => {
   const [signupFormData, setSignupFormData] = useState({
     firstName: '',
@@ -12,13 +16,91 @@ const SignUp = ({
     email: '',
     password: ''
   });
+  const [firstNameErr, setFirstNameErr] = useState(false);
+  const [lastNameErr, setLastNameErr] = useState(false);
+  const [emailErr, setEmailErr] = useState(false);
+  const [passwordErr, setPasswordErr] = useState(false);
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(false);
+  const [isFirstSubmit, setIsFirstSubmit] = useState(true);
 
   const [showPassword, setShowPassword] = useState(false);
 
   const { firstName, lastName, email, password } = signupFormData;
 
+  useEffect(() => {
+    if (!isFirstSubmit && firstName.trim() === '') {
+      setFirstNameErr(true);
+    }
+    else if (!isFirstSubmit && firstName.trim() !== '') {
+      setFirstNameErr(false);
+    }
+  }, [isFirstSubmit, firstNameErr, firstName]);
+
+
+  useEffect(() => {
+    if (!isFirstSubmit && lastName.trim() === '') {
+      setLastNameErr(true);
+    }
+    else if (!isFirstSubmit && lastName.trim() !== '') {
+      setLastNameErr(false);
+    }
+  }, [isFirstSubmit, lastNameErr, lastName]);
+
+
+  useEffect(() => {
+    if (!isFirstSubmit && !validator.isEmail(email)) {
+      setEmailErr(true);
+    }
+    else if (!isFirstSubmit && validator.isEmail(email)) {
+      setEmailErr(false);
+    }
+  }, [isFirstSubmit, emailErr, email]);
+
+
+  useEffect(() => {
+    if (!isFirstSubmit && !validator.isLength(password, { min: 4 })) {
+      setPasswordErr(true);
+    }
+    else if (!isFirstSubmit && validator.isLength(password, { min: 4 })) {
+      setPasswordErr(false);
+    }
+  }, [isFirstSubmit, passwordErr, password]);
+
+
+  useEffect(() => {
+    if (!isFirstSubmit && (firstNameErr || lastNameErr || emailErr || passwordErr)) {
+      setIsSubmitDisabled(true);
+    }
+    else {
+      setIsSubmitDisabled(false);
+    }
+  }, [isFirstSubmit, firstNameErr, lastNameErr, emailErr, passwordErr]);
+
   function handleSubmit(e) {
-    console.log(e.target);
+    e.preventDefault();
+
+    if (isFirstSubmit) {
+      setIsFirstSubmit(false);
+      setIsSubmitDisabled(true);
+      if (firstName.trim() === '') {
+        setFirstNameErr(true);
+      }
+      if (lastName.trim() === '') {
+        setLastNameErr(true);
+      }
+      if (!validator.isEmail(email)) {
+        setEmailErr(true);
+      }
+      if (!validator.isLength(password, { min: 4 })) {
+        setPasswordErr(true);
+      }
+      else {
+        signUp(signupFormData);
+      }
+    }
+    else {
+      signUp(signupFormData);
+    }
   }
 
   function handleChange(e) {
@@ -43,10 +125,10 @@ const SignUp = ({
         <h1 className="auth-form-title">CREATE YOUR ACCOUNT</h1>
         <form className="auth-form" onSubmit={handleSubmit}>
           <div className="auth-form-group">
-            <label className="auth-form-label">First Name</label>
+            <label className={`auth-form-label ${firstNameErr ? "form-label-error" : null}`}>First Name</label>
             <input
               type="text"
-              className="auth-form-field"
+              className={`auth-form-field ${firstNameErr ? "form-field-error" : null}`}
               name="firstName"
               value={firstName}
               placeholder="First Name"
@@ -54,10 +136,10 @@ const SignUp = ({
             />
           </div>
           <div className="auth-form-group">
-            <label className="auth-form-label">Last Name</label>
+            <label className={`auth-form-label ${lastNameErr ? "form-label-error" : null}`}>Last Name</label>
             <input
               type="text"
-              className="auth-form-field"
+              className={`auth-form-field ${lastNameErr ? "form-field-error" : null}`}
               name="lastName"
               value={lastName}
               placeholder="Last Name"
@@ -65,10 +147,10 @@ const SignUp = ({
             />
           </div>
           <div className="auth-form-group">
-            <label className="auth-form-label">Email</label>
+            <label className={`auth-form-label ${emailErr ? "form-label-error" : null}`}>Email</label>
             <input
               type="text"
-              className="auth-form-field"
+              className={`auth-form-field ${emailErr ? "form-field-error" : null}`}
               name="email"
               value={email}
               placeholder="Email"
@@ -76,10 +158,10 @@ const SignUp = ({
             />
           </div>
           <div className="auth-form-group">
-            <label className="auth-form-label">Password</label>
+            <label className={`auth-form-label ${passwordErr ? "form-label-error" : null}`}>Password</label>
             <input
               type={showPassword ? "text" : "password"}
-              className="auth-form-field"
+              className={`auth-form-field ${passwordErr ? "form-field-error" : null}`}
               name="password"
               value={password}
               placeholder="Password"
@@ -92,7 +174,7 @@ const SignUp = ({
             <span className="checkmark"></span>
           </label>
           <div className="auth-form-group">
-            <button type="submit" className="btn auth-button">SIGN UP</button>
+            <button type="submit" className="btn auth-button" disabled={isSubmitDisabled}>SIGN UP</button>
           </div>
         </form>
         <div className="auth-footer">
@@ -104,11 +186,12 @@ const SignUp = ({
 }
 
 SignUp.propTypes = {
-  isAuthenticated: PropTypes.bool.isRequired
+  isAuthenticated: PropTypes.bool.isRequired,
+  signUp: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
+  isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps)(SignUp);
+export default connect(mapStateToProps, { signUp })(SignUp);

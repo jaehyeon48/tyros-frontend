@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import './signup.css';
-
 const SignUp = ({
   isAuthenticated
 }) => {

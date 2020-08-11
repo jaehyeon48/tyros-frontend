@@ -19,6 +19,7 @@ const Navbar = ({
 }) => {
   const sideBarRef = useRef();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
 
   const handleClickSidebar = async () => {
     if (isSidebarOpen) {
@@ -37,6 +38,15 @@ const Navbar = ({
       handleClickSidebar();
     }
   };
+
+
+  const openProfileMenu = () => {
+    setIsProfileMenuOpen(true);
+  }
+
+  const closeProfileMenu = () => {
+    setIsProfileMenuOpen(false);
+  }
 
   const navGuest = (
     <React.Fragment>
@@ -62,11 +72,22 @@ const Navbar = ({
   );
   const navAuth = (
     <React.Fragment>
-      <div className="navbar-user-avatar-container">
-        {/* avatar is going to implemented at a later version. */}
-        <img src={defaultAvatar} alt="user avatar" className="avatar-image" />
+      <div className="navbar-avatar-event-wrapper" onMouseEnter={openProfileMenu} onMouseLeave={closeProfileMenu}>
+        <div className="navbar-user-avatar-container">
+          {/* avatar is going to be implemented at a later version. */}
+          <img src={defaultAvatar} alt="user avatar" className="avatar-image" />
+          {isProfileMenuOpen ? (
+            <div className={`navbar-profile-menu ${theme === 'dark' ? "sidebar--dark-theme" : "sidebar--light-theme"}`}>
+              <div className="profile-menu-item profile-user-info">
+                <span className="user-info-name">{user.firstName} {user.lastName}</span>
+                <span className="user-info-email">{user.email}</span>
+              </div>
+              <div className="profile-menu-item profile-portfolio">My portfolio</div>
+              <div className="profile-menu-item profile-logout" onClick={() => logout()}>Logout</div>
+            </div>
+          ) : null}
+        </div>
       </div>
-      <div className="navbar-logout" onClick={() => logout()}>Logout</div>
     </React.Fragment>
   );
 

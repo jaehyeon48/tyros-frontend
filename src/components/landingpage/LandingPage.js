@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom';
 
 import './landingpage.css';
 
-const LandingPage = (isAuthenticated) => {
+const LandingPage = ({ isAuthenticated }) => {
   if (isAuthenticated) {
     return <Redirect to="/main" />
   }
@@ -29,7 +29,7 @@ LandingPage.propTypes = {
 }
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth
+  isAuthenticated: state.auth.isAuthenticated
 });
 
 export default connect(mapStateToProps)(LandingPage);

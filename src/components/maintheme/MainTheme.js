@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import './maintheme.css';
@@ -13,6 +14,10 @@ const MainTheme = ({
     </div>
   );
 }
+
+MainTheme.propTypes = {
+  theme: PropTypes.string.isRequired
+};
 
 const mapStateToProps = state => ({
   theme: state.auth.theme

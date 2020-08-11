@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 import LandingPage from './components/landingpage/LandingPage';
 import Navbar from './components/navbar/Navbar';
+import SignUp from './components/auth/SignUp';
 import MainTheme from './components/maintheme/MainTheme';
 import MainPage from './components/mainpage/MainPage';
 import './app.css';
@@ -14,9 +15,10 @@ export default function App() {
     <Provider store={store} >
       <Router>
         <Navbar />
-        <Route path="/" component={LandingPage} exact={true} />
         <Switch>
           <MainTheme>
+            <Route path="/" component={LandingPage} exact={true} />
+            <Route path="/signup" component={SignUp} exact={true} />
             <Route path="/main" component={MainPage} exact={true} />
           </MainTheme>
         </Switch>

@@ -208,7 +208,7 @@ a:visited {
   }
 }
 
-@media only screen and (min-width: 426px) and (max-width: 768px) {
+@media only screen and (min-width: 427px) and (max-width: 768px) {
   .auth-form-container {
     padding: 3.2rem 2rem 1rem 5.5rem !important;
   }
@@ -235,7 +235,7 @@ a:visited {
   }
 }
 
-@media only screen and (max-width: 425px) {
+@media only screen and (max-width: 426px) {
   .auth-form-container {
     padding: 3.2rem 2rem 1rem 3.5rem !important;
   }

@@ -50,8 +50,8 @@
 .navbar-sidebar {
   position: absolute;
   right: 0px;
-  top: 68px;
-  width: 120px;
+  top: 0px;
+  width: 200px;
   height: 100vh;
   z-index: 99;
   animation: showSidebar;
@@ -66,13 +66,13 @@
   }
 
   to {
-    width: 120px;
+    width: 200px;
   }
 }
 
 @keyframes closeSidebar {
   from {
-    width: 120px;
+    width: 200px;
   }
 
   to {
@@ -90,10 +90,55 @@
   color: var(--dark-color);
 }
 
+.sidebar-close-btn-container {
+  height: 60px;
+  margin-top: 10px 0 0 0;
+  padding-left: 115px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid;
+}
+
+.sidebar-close-btn-container > .fa-times {
+  height: 40px;
+}
+
 .sidebar-content {
   text-align: center;
   padding: 20px 10px;
   border-bottom: 1px solid;
+  margin: 7px 0;
+}
+
+.navbar-logout {
+  position: absolute;
+  right: 100px;
+  cursor: pointer;
+}
+
+.navbar-logout:hover {
+  color: var(--highlight-color);
+}
+
+.navbar-user-avatar-container {
+  background-color: var(--light-color);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  background-size: cover;
+  background-position: 50% 50%;
+  position: absolute;
+  right: 200px;
+  cursor: pointer;
+}
+
+.avatar-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: 50% 50%;
 }
 
 @media only screen and (max-width: 768px) {
@@ -107,10 +152,5 @@
 
   .navbar-bars-icon {
     display: block;
-  }
-
-  .navbar-sidebar {
-    padding-top: 10px;
-    top: 45px;
   }
 }

@@ -6,12 +6,16 @@ import { Link, withRouter } from 'react-router-dom';
 import './navbar.css';
 import mainLogoWhite from '../../images/tyros_logo_white.png';
 import mainLogoBlack from '../../images/tyros_logo_black.png';
+import defaultAvatar from '../../images/default_avatar.png';
+
+import { logout } from '../../actions/authAction';
 
 const Navbar = ({
   isAuthenticated,
   theme,
   user,
-  history
+  history,
+  logout
 }) => {
   const sideBarRef = useRef();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -43,6 +47,9 @@ const Navbar = ({
       </div>
       {isSidebarOpen ? (
         <div ref={sideBarRef} className={`navbar-sidebar ${theme === 'dark' ? 'sidebar--dark-theme' : 'sidebar--light-theme'}`}>
+          <div className="sidebar-close-btn-container">
+            <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" className="svg-inline--fa fa-times fa-w-11" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512" onClick={handleClickSidebar}><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg>
+          </div>
           <div className="sidebar-content sidebar-signup">
             <Link to="signup" onClick={handleClickSidebar}>Sign Up</Link>
           </div>
@@ -54,7 +61,13 @@ const Navbar = ({
     </React.Fragment>
   );
   const navAuth = (
-    <React.Fragment></React.Fragment>
+    <React.Fragment>
+      <div className="navbar-user-avatar-container">
+        {/* avatar is going to implemented at a later version. */}
+        <img src={defaultAvatar} alt="user avatar" className="avatar-image" />
+      </div>
+      <div className="navbar-logout" onClick={() => logout()}>Logout</div>
+    </React.Fragment>
   );
 
   return (
@@ -66,7 +79,8 @@ const Navbar = ({
 }
 
 Navbar.propTypes = {
-  isAuthenticated: PropTypes.bool.isRequired
+  isAuthenticated: PropTypes.bool.isRequired,
+  logout: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -75,4 +89,4 @@ const mapStateToProps = state => ({
   user: state.auth.user
 });
 
-export default connect(mapStateToProps)(withRouter(Navbar));
+export default connect(mapStateToProps, { logout })(withRouter(Navbar));

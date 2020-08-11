@@ -77,6 +77,16 @@ a:visited {
   cursor: pointer;
 }
 
+.btn:disabled {
+  background-color: var(--darkgray-color);
+}
+
+.btn:disabled:hover {
+  background-color: var(--darkgray-color);
+  color: var(--light-color);
+  cursor: not-allowed;
+}
+
 /* auth form */
 .auth-form-container {
   display: flex;
@@ -169,6 +179,14 @@ a:visited {
 
 .auth-footer a:hover {
   color: var(--lightgray-color);
+}
+
+.form-field-error {
+  box-shadow: 0 0 0 3px var(--danger-color);
+}
+
+.form-label-error {
+  color: var(--danger-color);
 }
 
 @media only screen and (min-width: 769px) and (max-width: 1024px) {

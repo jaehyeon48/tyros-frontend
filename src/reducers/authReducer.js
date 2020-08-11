@@ -42,7 +42,7 @@ export default function authReducer(state = initialState, action) {
         user: {}
       }
     case USER_LOADED:
-      const { userId, firstName, lastName, theme } = payload;
+      const { userId, firstName, lastName, email, theme } = payload;
       return {
         ...state,
         loading: false,
@@ -50,7 +50,8 @@ export default function authReducer(state = initialState, action) {
         user: {
           userId,
           firstName,
-          lastName
+          lastName,
+          email
         },
         theme: theme
       };

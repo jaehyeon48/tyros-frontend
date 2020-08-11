@@ -18,6 +18,7 @@ export const loadUser = () => async dispatch => {
       userId: loadResponse.data.user_id,
       firstName: loadResponse.data.first_name,
       lastName: loadResponse.data.last_name,
+      email: loadResponse.data.email,
       theme: loadResponse.data.theme
     }
     dispatch({

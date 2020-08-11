@@ -49,3 +49,13 @@ export const signUp = (formData) => async (dispatch) => {
     console.error(error.response.data);
   }
 }
+
+export const logout = () => async (dispatch) => {
+  try {
+    await axios.get(`${SERVER_URL}/api/auth/logout`, { withCredentials: true });
+    dispatch({ type: LOGOUT });
+  } catch (error) {
+    console.error(error);
+    dispatch({ type: AUTH_FAIL });
+  }
+}

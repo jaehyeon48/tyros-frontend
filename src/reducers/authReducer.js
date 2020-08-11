@@ -29,12 +29,18 @@ export default function authReducer(state = initialState, action) {
     case SIGNUP_FAIL:
     case LOGIN_FAIL:
     case AUTH_FAIL:
-    case LOGOUT:
       return {
         ...state,
         loading: false,
         isAuthenticated: false
       };
+    case LOGOUT:
+      return {
+        ...state,
+        loading: false,
+        isAuthenticated: false,
+        user: {}
+      }
     case USER_LOADED:
       const { userId, firstName, lastName, theme } = payload;
       return {

@@ -6,6 +6,7 @@ import store from './store';
 import LandingPage from './components/landingpage/LandingPage';
 import Navbar from './components/navbar/Navbar';
 import SignUp from './components/auth/SignUp';
+import Login from './components/auth/Login';
 import MainTheme from './components/maintheme/MainTheme';
 import MainPage from './components/mainpage/MainPage';
 import './app.css';
@@ -23,6 +24,7 @@ export default function App() {
           <MainTheme>
             <Route path="/" component={LandingPage} exact={true} />
             <Route path="/signup" component={SignUp} exact={true} />
+            <Route path="/login" component={Login} exact={true} />
             <Route path="/main" component={MainPage} exact={true} />
           </MainTheme>
         </Switch>

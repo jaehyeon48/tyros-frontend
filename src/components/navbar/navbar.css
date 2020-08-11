@@ -108,4 +108,9 @@
   .navbar-bars-icon {
     display: block;
   }
+
+  .navbar-sidebar {
+    padding-top: 10px;
+    top: 45px;
+  }
 }

@@ -140,6 +140,13 @@
   cursor: pointer;
 }
 
+.sidebar-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
 .avatar-image {
   max-width: 45px;
   max-height: 45px;
@@ -213,5 +220,9 @@
 
   .navbar-bars-icon {
     display: block;
+  }
+
+  .navbar-avatar-event-wrapper {
+    display: none;
   }
 }

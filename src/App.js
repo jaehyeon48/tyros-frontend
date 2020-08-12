@@ -27,7 +27,7 @@ export default function App() {
             <Route path="/signup" component={SignUp} exact={true} />
             <Route path="/login" component={Login} exact={true} />
             <Route path="/main" component={MainPage} exact={true} />
-            <Route path="/portfolio" component={ManagePortfolio} exact={true} />
+            <Route path="/portfolios" component={ManagePortfolio} exact={true} />
           </MainTheme>
         </Switch>
       </Router>

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import PortfolioItem from './PortfolioItem';
 import { loadPortfolios } from '../../actions/portfolioAction';
 
 const ManagePortfolio = ({
@@ -13,7 +14,7 @@ const ManagePortfolio = ({
   return (
     <div>
       {portfolioList.map((portfolio) => (
-        <div key={portfolio.portfolioId}>{portfolio.portfolioName}</div>
+        <PortfolioItem portfolio={portfolio} />
       ))}
     </div>
   );

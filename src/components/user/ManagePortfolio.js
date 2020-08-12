@@ -12,7 +12,9 @@ const ManagePortfolio = ({
 
   return (
     <div>
-
+      {portfolioList.map((portfolio) => (
+        <div key={portfolio.portfolioId}>{portfolio.portfolioName}</div>
+      ))}
     </div>
   );
 }

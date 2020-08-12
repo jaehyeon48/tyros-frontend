@@ -9,6 +9,7 @@ import SignUp from './components/auth/SignUp';
 import Login from './components/auth/Login';
 import MainTheme from './components/maintheme/MainTheme';
 import MainPage from './components/mainpage/MainPage';
+import ManagePortfolio from './components/user/ManagePortfolio';
 import './app.css';
 
 import { loadUser } from './actions/authAction';
@@ -26,6 +27,7 @@ export default function App() {
             <Route path="/signup" component={SignUp} exact={true} />
             <Route path="/login" component={Login} exact={true} />
             <Route path="/main" component={MainPage} exact={true} />
+            <Route path="/portfolio" component={ManagePortfolio} exact={true} />
           </MainTheme>
         </Switch>
       </Router>

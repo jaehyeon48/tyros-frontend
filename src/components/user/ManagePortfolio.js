@@ -8,7 +8,7 @@ const ManagePortfolio = ({
   portfolioList,
   loadPortfolios
 }) => {
-  useEffect(() => { loadPortfolios() }, [loadPortfolios, portfolioList]);
+  useEffect(() => { loadPortfolios() }, [loadPortfolios]);
 
   return (
     <div>

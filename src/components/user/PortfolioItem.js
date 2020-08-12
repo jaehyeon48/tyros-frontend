@@ -1,11 +1,11 @@
 import React from 'react';
 
 const PortfolioItem = ({
-  portfolio
+  portfolioName
 }) => {
   return (
-    <div key={portfolio.portfolioId}>
-      {portfolio.portfolioName}
+    <div>
+      {portfolioName}
     </div>
   )
 }

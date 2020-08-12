@@ -14,7 +14,7 @@ const ManagePortfolio = ({
   return (
     <div>
       {portfolioList.map((portfolio) => (
-        <PortfolioItem portfolio={portfolio} />
+        <PortfolioItem key={portfolio.portfolioId} portfolioName={portfolio.portfolioName} />
       ))}
     </div>
   );

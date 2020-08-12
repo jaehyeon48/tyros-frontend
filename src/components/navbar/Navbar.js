@@ -94,7 +94,7 @@ const Navbar = ({
             </div>
           </div>
           <div className="sidebar-content">
-            <Link to="/portfolio">My Portfolios</Link>
+            <Link to="/portfolios" onClick={handleClickSidebar}>My Portfolios</Link>
           </div>
           <div className="sidebar-content">
             <span onClick={handleClickSidebarLogout}>Logout</span>
@@ -112,7 +112,7 @@ const Navbar = ({
                 <span className="user-info-email">{user.email}</span>
               </div>
               <div className="profile-menu-item profile-portfolio">
-                <Link to="/portfolio">My Portfolios</Link>
+                <Link to="/portfolios">My Portfolios</Link>
               </div>
               <div className="profile-menu-item profile-logout" onClick={() => logout()}>Logout</div>
             </div>

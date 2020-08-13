@@ -4,17 +4,23 @@ import { connect } from 'react-redux';
 
 import PortfolioItem from './PortfolioItem';
 import { loadPortfolios } from '../../actions/portfolioAction';
+import './portfolio.css';
 
 const ManagePortfolio = ({
   portfolioList,
+  currentPortfolio,
   loadPortfolios
 }) => {
   useEffect(() => { loadPortfolios() }, [loadPortfolios]);
 
   return (
-    <div>
+    <div className="portfolios-container">
       {portfolioList.map((portfolio) => (
-        <PortfolioItem key={portfolio.portfolioId} portfolioName={portfolio.portfolioName} />
+        <PortfolioItem
+          key={portfolio.portfolioId}
+          portfolio={portfolio}
+          currentPortfolio={currentPortfolio}
+        />
       ))}
     </div>
   );
@@ -22,11 +28,13 @@ const ManagePortfolio = ({
 
 ManagePortfolio.propTypes = {
   portfolioList: PropTypes.array,
+  currentPortfolio: PropTypes.object,
   loadPortfolios: PropTypes.func
 };
 
 const mapStateToProps = (state) => ({
-  portfolioList: state.portfolio.portfolioList
+  portfolioList: state.portfolio.portfolioList,
+  currentPortfolio: state.portfolio.currentPortfolio
 });
 
 export default connect(mapStateToProps, { loadPortfolios })(ManagePortfolio);

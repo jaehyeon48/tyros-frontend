@@ -1,0 +1,65 @@
+.portfolios-container {
+  display: flex;
+  flex-direction: column;
+  padding: 10rem 15%;
+  /* to position at the center of screen */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
+
+.portfolio-item {
+  position: relative;
+  margin: 2rem 0;
+  padding: 1rem;
+  border: 1px solid var(--primary-color);
+  border-radius: 0.4rem;
+  font-size: 1.6rem;
+  font-weight: 300;
+  display: flex;
+  align-items: center;
+}
+
+.portfolio-item:hover {
+  box-shadow: 0 0 0 5px var(--primary-color);
+}
+
+.btn-portfolio-edit {
+  position: absolute;
+  right: 280px;
+  width: 60px;
+  background-color: var(--orange-color);
+  color: var(--white-color);
+  transition: all 100ms ease;
+}
+
+.btn-portfolio-edit:hover {
+  background-color: var(--dark-orange-color);
+}
+
+.btn-portfolio-delete {
+  position: absolute;
+  right: 170px;
+  background-color: var(--danger-color);
+  color: var(--white-color);
+  transition: all 100ms ease;
+}
+
+.btn-portfolio-delete:hover {
+  background-color: var(--dark-red-color);
+}
+
+.select-notice {
+  position: absolute;
+  right: 30px;
+}
+
+.selected-portfolio {
+  color: var(--highlight-color);
+}
+
+.not-selected-portfolio {
+  color: var(--darkgray-color);
+}

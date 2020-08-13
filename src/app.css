@@ -1,14 +1,16 @@
 /* Global Styles */
 :root {
   --primary-color: #17a2b8;
-  --lightdark-color: #393a3b;
+  --light-dark-color: #393a3b;
   --dark-color: #1a1d20;
   --white-color: #f4f4f4;
   --light-color: #e8f0fe;
   --warning-color: #ffc415;
   --danger-color: #dc3545;
   --success-color: #28a745;
-  --orange-color: #f68440;
+  --orange-color: #ff9252;
+  --dark-red-color: #ad2a2a;
+  --dark-orange-color: #c06f41;
   --lightgray-color: #cfcfcf;
   --darkgray-color: #b8b8b8;
   --highlight-color: #409eb8;

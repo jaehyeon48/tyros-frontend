@@ -1,11 +1,18 @@
 import React from 'react';
 
 const PortfolioItem = ({
-  portfolioName
+  portfolio,
+  currentPortfolio
 }) => {
   return (
-    <div>
-      {portfolioName}
+    <div className="portfolio-item">
+      {portfolio.portfolioName}
+      <button className="btn btn-portfolio-edit">EDIT</button>
+      <button className="btn btn-portfolio-delete">DELETE</button>
+      <span className={
+        `select-notice 
+        ${portfolio && (portfolio.portfolioId === currentPortfolio.portfolioId)
+          ? "selected-portfolio" : "not-selected-portfolio"}`}>SELECTED</span>
     </div>
   )
 }

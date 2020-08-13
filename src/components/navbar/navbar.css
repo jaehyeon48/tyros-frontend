@@ -185,7 +185,7 @@
 }
 
 .profile-menu-item:hover {
-  background-color: var(--lightdark-color);
+  background-color: var(--light-dark-color);
 }
 
 .profile-user-info {

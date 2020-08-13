@@ -6,7 +6,8 @@ import {
   DELETE_PORTFOLIO,
   PORTFOLIO_LOAD_ERROR,
   PORTFOLIO_EDIT_ERROR,
-  PORTFOLIO_DELETE_ERROR
+  PORTFOLIO_DELETE_ERROR,
+  EMPTY_PORTFOLIO
 } from './actionTypes';
 import SERVER_URL from './serverURL';
 
@@ -26,9 +27,22 @@ export const loadPortfolios = (userId) => async (dispatch) => {
   }
 }
 
-export const selectCurrentPortfolio = (selectedPortfolio) => (dispatch) => {
-  dispatch({
-    type: SELECT_PORTFOLIO,
-    payload: selectedPortfolio
-  });
+export const selectCurrentPortfolio = () => async (dispatch) => {
+  try {
+    const selectResponse = await axios.get(`${SERVER_URL}/api/portfolio/select`, { withCredentials: true });
+
+    const selectedPortfolioId = selectResponse.data.selectedPortfolioId;
+
+    dispatch({
+      type: SELECT_PORTFOLIO,
+      payload: selectedPortfolioId
+    });
+  } catch (error) {
+    if (error.response.status === 404) { // if the user's portfolio does not exist
+      dispatch({ type: EMPTY_PORTFOLIO });
+    }
+    else {
+      console.error(error);
+    }
+  }
 }

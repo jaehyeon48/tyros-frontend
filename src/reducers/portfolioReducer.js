@@ -7,6 +7,7 @@ import {
   PORTFOLIO_LOAD_ERROR,
   PORTFOLIO_EDIT_ERROR,
   PORTFOLIO_DELETE_ERROR,
+  EMPTY_PORTFOLIO,
   LOGOUT
 } from '../actions/actionTypes'
 
@@ -30,6 +31,7 @@ export default function portfolioReducer(state = initialState, action) {
         portfolioList: payload
       };
     case PORTFOLIO_LOAD_ERROR:
+    case EMPTY_PORTFOLIO:
     case LOGOUT:
       return {
         ...state,

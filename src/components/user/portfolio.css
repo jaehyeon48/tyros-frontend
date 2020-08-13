@@ -1,7 +1,6 @@
 .portfolios-container {
   display: flex;
   flex-direction: column;
-  padding: 10rem 15%;
   width: 87vw;
   max-width: 1100px;
   /* to position at the center of screen */
@@ -10,6 +9,48 @@
   left: 50%;
   margin-right: -50%;
   transform: translate(-50%, -50%);
+}
+
+.new-portfolio-form-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 87vw;
+  max-width: 1100px;
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
+
+.new-portfolio-label {
+  font-size: 1.3rem;
+}
+
+.new-portfolio-form-field {
+  width: 60%;
+  height: 100%;
+  margin: 0 10px;
+  padding: 5px;
+  font-size: 1.2rem;
+  border: none;
+  outline: none;
+  border-radius: 0.4rem;
+}
+
+.new-portfolio-form-field:focus {
+  box-shadow: 0 0 0 3px var(--highlight-color);
+}
+
+.btn-new-portfolio {
+  background-color: var(--success-color);
+  color: var(--white-color);
+  transition: all 100ms ease;
+}
+
+.btn-new-portfolio:hover {
+  background-color: var(--dark-green-color);
 }
 
 .portfolio-item {

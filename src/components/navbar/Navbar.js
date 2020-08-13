@@ -93,7 +93,7 @@ const Navbar = ({
             <div className="navbar-user-avatar-container">
               <img src={defaultAvatar} alt="user avatar" className="avatar-image" />
             </div>
-            <div className="profile-menu-item profile-user-info">
+            <div className="profile-user-info">
               <span className="user-info-name">{user.firstName} {user.lastName}</span>
               <span className="user-info-email">{user.email}</span>
             </div>

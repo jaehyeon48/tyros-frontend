@@ -6,7 +6,7 @@ const PortfolioItem = ({
 }) => {
   return (
     <div className="portfolio-item">
-      {portfolio.portfolioName}
+      <div className="portfolio-name">{portfolio.portfolioName}</div>
       <button className="btn btn-portfolio-edit">EDIT</button>
       <button className="btn btn-portfolio-delete">DELETE</button>
       <span className={

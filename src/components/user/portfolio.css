@@ -3,20 +3,18 @@
   flex-direction: column;
   width: 87vw;
   max-width: 1100px;
-  /* to position at the center of screen */
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-right: -50%;
-  transform: translate(-50%, -50%);
+  margin: 0 auto;
+  padding: 11rem 0;
 }
 
 .new-portfolio-form-container {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   align-items: center;
   width: 87vw;
-  max-width: 1100px;
+  height: 40px;
+  max-width: 1000px;
   position: absolute;
   top: 20%;
   left: 50%;
@@ -24,15 +22,11 @@
   transform: translate(-50%, -50%);
 }
 
-.new-portfolio-label {
-  font-size: 1.3rem;
-}
-
 .new-portfolio-form-field {
   width: 60%;
-  height: 100%;
-  margin: 0 10px;
+  height: 90%;
   padding: 5px;
+  margin-left: 50px;
   font-size: 1.2rem;
   border: none;
   outline: none;
@@ -54,15 +48,23 @@
 }
 
 .portfolio-item {
-  position: relative;
   margin: 2rem 0;
   padding: 1rem;
   border: 1px solid var(--primary-color);
   border-radius: 0.4rem;
   font-size: 1.6rem;
   font-weight: 300;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(30, 1fr);
   align-items: center;
+}
+
+.portfolio-name {
+  grid-row: 1;
+  grid-column: 1 / span 14;
+  max-height: 50px;
+  text-align: center;
+  overflow: hidden;
 }
 
 .portfolio-item:hover {
@@ -70,9 +72,10 @@
 }
 
 .btn-portfolio-edit {
-  position: absolute;
-  right: 280px;
-  width: 60px;
+  grid-row: 1;
+  grid-column: 17 / span 3;
+  max-width: 95px;
+  max-height: 40px;
   background-color: var(--orange-color);
   color: var(--white-color);
   transition: all 100ms ease;
@@ -83,8 +86,10 @@
 }
 
 .btn-portfolio-delete {
-  position: absolute;
-  right: 170px;
+  grid-row: 1;
+  grid-column: 21 / span 4;
+  max-width: 100px;
+  max-height: 40px;
   background-color: var(--danger-color);
   color: var(--white-color);
   transition: all 100ms ease;
@@ -95,8 +100,8 @@
 }
 
 .select-notice {
-  position: absolute;
-  right: 30px;
+  grid-row: 1;
+  grid-column: 26 / span 4;
 }
 
 .selected-portfolio {
@@ -105,4 +110,130 @@
 
 .not-selected-portfolio {
   color: var(--darkgray-color);
+}
+
+@media only screen and (min-width: 577px) and (max-width: 768px) {
+  .new-portfolio-form-container {
+    width: 92vw;
+  }
+
+  .portfolios-container {
+    width: 92vw;
+  }
+
+  .portfolio-item {
+    font-size: 1.4rem;
+  }
+
+  .portfolio-name {
+    grid-column: 1 / span 10;
+  }
+
+  .new-portfolio-form-field {
+    height: 80%;
+    margin-left: 20px;
+    width: 55%;
+  }
+
+  .btn-portfolio-edit {
+    grid-column: 13 / span 4;
+  }
+
+  .btn-portfolio-delete {
+    grid-column: 18 / span 5;
+  }
+
+  .select-notice {
+    grid-column: 25 / span 4;
+  }
+}
+
+@media only screen and (min-width: 426px) and (max-width: 576px) {
+  .new-portfolio-form-container {
+    width: 92vw;
+    flex-direction: column;
+  }
+
+  .new-portfolio-form-field {
+    height: 80%;
+    margin: 0 0 10px 0;
+    width: 80%;
+  }
+
+  .portfolios-container {
+    width: 92vw;
+  }
+
+  .portfolio-item {
+    font-size: 1.3rem;
+  }
+
+  .portfolio-name {
+    grid-column: 1 / span 30;
+    margin: 0 0 20px 0;
+  }
+
+  .btn-new-portfolio {
+    font-size: 1.3rem !important;
+  }
+
+  .btn-portfolio-edit {
+    grid-row: 2;
+    grid-column: 3 / span 6;
+  }
+
+  .btn-portfolio-delete {
+    grid-row: 2;
+    grid-column: 12 / span 8;
+  }
+
+  .select-notice {
+    grid-row: 2;
+    grid-column: 23 / span 6;
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  .new-portfolio-form-container {
+    width: 95vw;
+    flex-direction: column;
+  }
+
+  .new-portfolio-form-field {
+    height: 80%;
+    margin: 0 0 10px 0;
+    width: 90%;
+  }
+
+  .portfolios-container {
+    width: 95vw;
+  }
+
+  .portfolio-item {
+    font-size: 1.3rem;
+  }
+
+  .portfolio-name {
+    grid-column: 1 / span 30;
+    margin: 0 0 20px 0;
+  }
+
+  .btn-new-portfolio {
+    font-size: 1.2rem !important;
+  }
+
+  .btn-portfolio-edit {
+    grid-row: 2;
+    grid-column: 1 / span 7;
+  }
+
+  .btn-portfolio-delete {
+    grid-row: 2;
+    grid-column: 10 / span 9;
+  }
+
+  .select-notice {
+    grid-row: 2;
+    grid-column: 21 / span 6;
+  }
 }

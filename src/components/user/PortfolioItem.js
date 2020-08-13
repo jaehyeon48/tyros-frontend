@@ -11,7 +11,7 @@ const PortfolioItem = ({
       <button className="btn btn-portfolio-delete">DELETE</button>
       <span className={
         `select-notice 
-        ${portfolio && (portfolio.portfolioId === currentPortfolio.portfolioId)
+        ${currentPortfolio && (portfolio.portfolioId === currentPortfolio.portfolioId)
           ? "selected-portfolio" : "not-selected-portfolio"}`}>SELECTED</span>
     </div>
   )

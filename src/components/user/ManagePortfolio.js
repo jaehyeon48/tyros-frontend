@@ -3,15 +3,20 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import PortfolioItem from './PortfolioItem';
-import { loadPortfolios } from '../../actions/portfolioAction';
+import {
+  loadPortfolios,
+  selectCurrentPortfolio
+} from '../../actions/portfolioAction';
 import './portfolio.css';
 
 const ManagePortfolio = ({
   portfolioList,
   currentPortfolio,
-  loadPortfolios
+  loadPortfolios,
+  selectCurrentPortfolio
 }) => {
   useEffect(() => { loadPortfolios() }, [loadPortfolios]);
+  useEffect(() => { selectCurrentPortfolio() }, [selectCurrentPortfolio]);
 
   return (
     <div className="portfolios-container">
@@ -28,8 +33,9 @@ const ManagePortfolio = ({
 
 ManagePortfolio.propTypes = {
   portfolioList: PropTypes.array,
-  currentPortfolio: PropTypes.object,
-  loadPortfolios: PropTypes.func
+  currentPortfolio: PropTypes.number,
+  loadPortfolios: PropTypes.func,
+  selectCurrentPortfolio: PropTypes.func
 };
 
 const mapStateToProps = (state) => ({
@@ -37,4 +43,7 @@ const mapStateToProps = (state) => ({
   currentPortfolio: state.portfolio.currentPortfolio
 });
 
-export default connect(mapStateToProps, { loadPortfolios })(ManagePortfolio);
+export default connect(mapStateToProps, {
+  loadPortfolios,
+  selectCurrentPortfolio
+})(ManagePortfolio);

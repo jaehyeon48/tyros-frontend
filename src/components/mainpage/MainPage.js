@@ -21,11 +21,7 @@ const MainPage = ({
     loadPortfolios();
   }, [loadPortfolios]);
 
-  useEffect(() => { // Initialize default current portfolio
-    if (!currentPortfolio && portfolioList && portfolioList.length > 0) {
-      selectCurrentPortfolio(portfolioList[0]);
-    }
-  }, [selectCurrentPortfolio, portfolioList, currentPortfolio]);
+  useEffect(() => { selectCurrentPortfolio() }, [selectCurrentPortfolio]);
 
   if (!isAuthenticated) {
     return <Redirect to="/login" />
@@ -42,7 +38,7 @@ MainPage.propTypes = {
   user: PropTypes.object,
   isAuthenticated: PropTypes.bool,
   portfolioList: PropTypes.array,
-  currentPortfolio: PropTypes.object,
+  currentPortfolio: PropTypes.number,
   loadPortfolios: PropTypes.func,
   selectCurrentPortfolio: PropTypes.func
 };

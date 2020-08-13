@@ -178,16 +178,14 @@
 }
 
 .profile-menu-item {
+  display: block;
   padding: 5px;
   transition: all 100ms ease;
+  border-bottom: 1px solid;
 }
 
 .profile-menu-item:hover {
   background-color: var(--lightdark-color);
-}
-
-.profile-menu-item:not(:last-of-type) {
-  border-bottom: 1px solid;
 }
 
 .profile-user-info {
@@ -195,7 +193,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 5px 0;
+  margin: 5px 0 0 0;
 }
 
 .user-info-name {

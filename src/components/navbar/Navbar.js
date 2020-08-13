@@ -111,9 +111,7 @@ const Navbar = ({
                 <span className="user-info-name">{user.firstName} {user.lastName}</span>
                 <span className="user-info-email">{user.email}</span>
               </div>
-              <div className="profile-menu-item profile-portfolio">
-                <Link to="/portfolios">My Portfolios</Link>
-              </div>
+              <Link to="/portfolios" className="profile-menu-item">My Portfolios</Link>
               <div className="profile-menu-item profile-logout" onClick={() => logout()}>Logout</div>
             </div>
           ) : null}

@@ -22,13 +22,28 @@ const ManagePortfolio = ({
   useEffect(() => { selectCurrentPortfolio() }, [selectCurrentPortfolio]);
 
   const [newPortfolioName, setNewPortfolioName] = useState('');
+  const [isPortfolioNameError, setIsPortfolioNameError] = useState(false);
+
+  useEffect(() => {
+    if (isPortfolioNameError && newPortfolioName.trim() !== '') {
+      setIsPortfolioNameError(false);
+    }
+    else if (isPortfolioNameError && newPortfolioName.trim() === '') {
+      setIsPortfolioNameError(true);
+    }
+  }, [newPortfolioName, isPortfolioNameError]);
 
   const handleChange = (e) => {
     setNewPortfolioName(e.target.value);
   }
 
   const handleAddNewPortfolio = () => {
-    createPortfolio(newPortfolioName);
+    if (newPortfolioName.trim() === '') {
+      setIsPortfolioNameError(true);
+    }
+    else {
+      createPortfolio(newPortfolioName);
+    }
   }
 
   return (
@@ -38,7 +53,7 @@ const ManagePortfolio = ({
           type="text"
           value={newPortfolioName}
           onChange={handleChange}
-          className="new-portfolio-form-field"
+          className={`new-portfolio-form-field ${isPortfolioNameError ? "form-field-error" : null}`}
         />
         <button className="btn btn-new-portfolio" onClick={handleAddNewPortfolio}>ADD NEW PORTFOLIO</button>
       </div>

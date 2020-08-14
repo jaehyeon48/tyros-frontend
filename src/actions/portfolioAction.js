@@ -73,3 +73,16 @@ export const createPortfolio = (portfolioName) => async (dispatch) => {
     }
   }
 }
+
+export const deletePortfolio = (portfolioId) => async (dispatch) => {
+  try {
+    await axios.delete(`${SERVER_URL}/api/portfolio/${portfolioId}`, { withCredentials: true });
+
+    dispatch({ type: DELETE_PORTFOLIO });
+    dispatch(loadPortfolios());
+    dispatch(selectCurrentPortfolio());
+  } catch (error) {
+    dispatch({ type: PORTFOLIO_DELETE_ERROR });
+    console.error(error.response);
+  }
+}

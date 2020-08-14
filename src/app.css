@@ -137,7 +137,7 @@ a:visited {
   outline: none;
   border-radius: 0.4rem;
   transition: all 100ms ease;
-  background-color: #e8f0fe;
+  background-color: #92b6f5;
 }
 
 .auth-form-field:focus {

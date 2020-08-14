@@ -31,6 +31,7 @@
   border: none;
   outline: none;
   border-radius: 0.4rem;
+  background-color: #92b6f5;
 }
 
 .new-portfolio-form-field:focus {
@@ -110,6 +111,14 @@
 
 .not-selected-portfolio {
   color: var(--darkgray-color);
+}
+
+.no-portfolio-notice {
+  text-align: center;
+  font-size: 3rem;
+  font-weight: 600;
+  margin: 20px 0 0 0;
+  color: var(--primary-color);
 }
 
 @media only screen and (min-width: 577px) and (max-width: 768px) {
@@ -235,5 +244,9 @@
   .select-notice {
     grid-row: 2;
     grid-column: 21 / span 6;
+  }
+
+  .no-portfolio-notice {
+    font-size: 2.5rem;
   }
 }

@@ -9,11 +9,14 @@ import {
 } from '../../actions/portfolioAction';
 import './portfolio.css';
 
+import { createPortfolio } from '../../actions/portfolioAction';
+
 const ManagePortfolio = ({
   portfolioList,
   currentPortfolio,
   loadPortfolios,
-  selectCurrentPortfolio
+  selectCurrentPortfolio,
+  createPortfolio
 }) => {
   useEffect(() => { loadPortfolios() }, [loadPortfolios]);
   useEffect(() => { selectCurrentPortfolio() }, [selectCurrentPortfolio]);
@@ -25,7 +28,7 @@ const ManagePortfolio = ({
   }
 
   const handleAddNewPortfolio = () => {
-
+    createPortfolio(newPortfolioName);
   }
 
   return (
@@ -56,7 +59,8 @@ ManagePortfolio.propTypes = {
   portfolioList: PropTypes.array,
   currentPortfolio: PropTypes.number,
   loadPortfolios: PropTypes.func,
-  selectCurrentPortfolio: PropTypes.func
+  selectCurrentPortfolio: PropTypes.func,
+  createPortfolio: PropTypes.func
 };
 
 const mapStateToProps = (state) => ({
@@ -66,5 +70,6 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   loadPortfolios,
-  selectCurrentPortfolio
+  selectCurrentPortfolio,
+  createPortfolio
 })(ManagePortfolio);

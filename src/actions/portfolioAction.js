@@ -5,6 +5,7 @@ import {
   EDIT_PORTFOLIO,
   DELETE_PORTFOLIO,
   PORTFOLIO_LOAD_ERROR,
+  PORTFOLIO_CREATE_ERROR,
   PORTFOLIO_EDIT_ERROR,
   PORTFOLIO_DELETE_ERROR,
   EMPTY_PORTFOLIO
@@ -43,6 +44,31 @@ export const selectCurrentPortfolio = () => async (dispatch) => {
     }
     else {
       console.error(error);
+    }
+  }
+}
+
+export const createPortfolio = (portfolioName) => async (dispatch) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    withCredentials: true
+  };
+
+  const reqBody = JSON.stringify({ portfolioName });
+
+  try {
+    await axios.post(`${SERVER_URL}/api/portfolio`, reqBody, config);
+
+    dispatch({ type: CREATE_PORTFOLIO });
+    dispatch(loadPortfolios());
+  } catch (error) {
+    if (error.response.status === 400) {
+      dispatch({ type: PORTFOLIO_CREATE_ERROR });
+    }
+    else {
+      console.error(error.response);
     }
   }
 }

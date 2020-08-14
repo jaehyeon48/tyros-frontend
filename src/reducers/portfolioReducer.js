@@ -5,6 +5,7 @@ import {
   EDIT_PORTFOLIO,
   DELETE_PORTFOLIO,
   PORTFOLIO_LOAD_ERROR,
+  PORTFOLIO_CREATE_ERROR,
   PORTFOLIO_EDIT_ERROR,
   PORTFOLIO_DELETE_ERROR,
   EMPTY_PORTFOLIO,
@@ -38,6 +39,7 @@ export default function portfolioReducer(state = initialState, action) {
         portfolioList: [],
         currentPortfolio: null
       };
+    case PORTFOLIO_CREATE_ERROR:
     case PORTFOLIO_EDIT_ERROR:
     case PORTFOLIO_DELETE_ERROR:
     case CREATE_PORTFOLIO:

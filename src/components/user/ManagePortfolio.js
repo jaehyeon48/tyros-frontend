@@ -43,13 +43,13 @@ const ManagePortfolio = ({
         <button className="btn btn-new-portfolio" onClick={handleAddNewPortfolio}>ADD NEW PORTFOLIO</button>
       </div>
       <div className="portfolios-container">
-        {portfolioList.map((portfolio) => (
+        {portfolioList.length > 0 ? portfolioList.map((portfolio) => (
           <PortfolioItem
             key={portfolio.portfolioId}
             portfolio={portfolio}
             currentPortfolio={currentPortfolio}
           />
-        ))}
+        )) : <div className="no-portfolio-notice">CREATE YOUR FIRST PORTFOLIO!</div>}
       </div>
     </React.Fragment>
   );

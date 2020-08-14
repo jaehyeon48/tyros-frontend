@@ -63,6 +63,7 @@ export const createPortfolio = (portfolioName) => async (dispatch) => {
 
     dispatch({ type: CREATE_PORTFOLIO });
     dispatch(loadPortfolios());
+    dispatch(selectCurrentPortfolio());
   } catch (error) {
     if (error.response.status === 400) {
       dispatch({ type: PORTFOLIO_CREATE_ERROR });

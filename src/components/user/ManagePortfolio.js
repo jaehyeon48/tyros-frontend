@@ -22,16 +22,17 @@ const ManagePortfolio = ({
   useEffect(() => { selectCurrentPortfolio() }, [selectCurrentPortfolio]);
 
   const [newPortfolioName, setNewPortfolioName] = useState('');
+  const [isErrorOccurred, setIsErrorOccurred] = useState(false);
   const [isPortfolioNameError, setIsPortfolioNameError] = useState(false);
 
   useEffect(() => {
-    if (isPortfolioNameError && newPortfolioName.trim() !== '') {
+    if (isErrorOccurred && newPortfolioName.trim() !== '') {
       setIsPortfolioNameError(false);
     }
-    else if (isPortfolioNameError && newPortfolioName.trim() === '') {
+    else if (isErrorOccurred && newPortfolioName.trim() === '') {
       setIsPortfolioNameError(true);
     }
-  }, [newPortfolioName, isPortfolioNameError]);
+  }, [newPortfolioName, isErrorOccurred]);
 
   const handleChange = (e) => {
     setNewPortfolioName(e.target.value);
@@ -40,6 +41,7 @@ const ManagePortfolio = ({
   const handleAddNewPortfolio = () => {
     if (newPortfolioName.trim() === '') {
       setIsPortfolioNameError(true);
+      setIsErrorOccurred(true);
     }
     else {
       createPortfolio(newPortfolioName);
@@ -55,7 +57,8 @@ const ManagePortfolio = ({
           onChange={handleChange}
           className={`new-portfolio-form-field ${isPortfolioNameError ? "form-field-error" : null}`}
         />
-        <button className="btn btn-new-portfolio" onClick={handleAddNewPortfolio}>ADD NEW PORTFOLIO</button>
+        {isPortfolioNameError ? <small className="new-portfolio-error-notice">Please enter valid name.</small> : null}
+        <button className="btn btn-new-portfolio" onClick={handleAddNewPortfolio} disabled={isPortfolioNameError}>ADD NEW PORTFOLIO</button>
       </div>
       <div className="portfolios-container">
         {portfolioList.length > 0 ? portfolioList.map((portfolio) => (

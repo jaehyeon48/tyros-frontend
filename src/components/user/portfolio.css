@@ -24,7 +24,7 @@
 
 .new-portfolio-form-field {
   width: 60%;
-  height: 90%;
+  height: 35px;
   padding: 5px;
   margin-left: 50px;
   font-size: 1.2rem;
@@ -32,6 +32,14 @@
   outline: none;
   border-radius: 0.4rem;
   background-color: #92b6f5;
+}
+
+.new-portfolio-error-notice {
+  color: var(--danger-color);
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  font-size: 1.1rem;
 }
 
 .new-portfolio-form-field:focus {
@@ -139,9 +147,12 @@
   }
 
   .new-portfolio-form-field {
-    height: 80%;
     margin-left: 20px;
     width: 55%;
+  }
+
+  .new-portfolio-error-notice {
+    left: 22px;
   }
 
   .btn-portfolio-edit {
@@ -164,7 +175,6 @@
   }
 
   .new-portfolio-form-field {
-    height: 80%;
     margin: 0 0 10px 0;
     width: 80%;
   }
@@ -175,6 +185,11 @@
 
   .portfolio-item {
     font-size: 1.3rem;
+  }
+
+  .new-portfolio-error-notice {
+    left: 50px;
+    top: -25px;
   }
 
   .portfolio-name {
@@ -225,6 +240,11 @@
   .portfolio-name {
     grid-column: 1 / span 30;
     margin: 0 0 20px 0;
+  }
+
+  .new-portfolio-error-notice {
+    left: 20px;
+    top: -25px;
   }
 
   .btn-new-portfolio {

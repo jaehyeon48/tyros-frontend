@@ -45,8 +45,8 @@
 @media only screen and (min-width: 426px) and (max-width: 768px) {
   .modal-content {
     margin: 16% auto;
-    padding: 45px 25px;
-    width: 70vw;
+    padding: 48px 25px;
+    width: 80vw;
   }
 
   .close-modal-btn {
@@ -62,8 +62,8 @@
 @media only screen and (max-width: 425px) {
   .modal-content {
     margin: 23% auto;
-    padding: 45px 25px;
-    width: 75vw;
+    padding: 48px 15px;
+    width: 86vw;
   }
 
   .close-modal-btn {

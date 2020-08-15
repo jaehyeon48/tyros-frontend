@@ -14,11 +14,12 @@
   --dark-green-color: #228138;
   --lightgray-color: #cfcfcf;
   --darkgray-color: #b8b8b8;
-  --highlight-color: #409eb8;
+  --highlight-color: #43cbce;
   --dark-theme-bg-color: #1c1d1e;
   --dark-theme-nav-bg-color: #262728;
-  --light-theme-bg-color: #fcfcfc;
-  --light-theme-nav-bg-color: #f3f9fd;
+  --light-theme-bg-color: #ececec;
+  --light-theme-nav-bg-color: #dfeaf1;
+  --form-bg-color: #bbc2b6;
 }
 
 /* Fonts */
@@ -137,7 +138,7 @@ a:visited {
   outline: none;
   border-radius: 0.4rem;
   transition: all 100ms ease;
-  background-color: #92b6f5;
+  background-color: var(--form-bg-color);
 }
 
 .auth-form-field:focus {

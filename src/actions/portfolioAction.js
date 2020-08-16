@@ -64,12 +64,15 @@ export const createPortfolio = (portfolioName) => async (dispatch) => {
     dispatch({ type: CREATE_PORTFOLIO });
     dispatch(loadPortfolios());
     dispatch(selectCurrentPortfolio());
+    return false;
   } catch (error) {
+    console.error(error);
+    dispatch({ type: PORTFOLIO_CREATE_ERROR });
     if (error.response.status === 400) {
-      dispatch({ type: PORTFOLIO_CREATE_ERROR });
+      return true; // true for name duplication
     }
     else {
-      console.error(error.response);
+      return false;
     }
   }
 }
@@ -92,11 +95,10 @@ export const editPortfolio = (portfolioId, newPortfolioName) => async (dispatch)
     return false;
   } catch (error) {
     console.error(error);
-    if (error.response.status === 400) {
-      dispatch({ type: PORTFOLIO_EDIT_ERROR });
-      return true; // true for name is duplicated
-    }
     dispatch({ type: PORTFOLIO_EDIT_ERROR });
+    if (error.response.status === 400) {
+      return true; // true for name duplication
+    }
     return false;
   }
 }

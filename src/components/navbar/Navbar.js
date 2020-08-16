@@ -11,6 +11,7 @@ import defaultAvatar from '../../images/default_avatar.png';
 import { logout } from '../../actions/authAction';
 
 const Navbar = ({
+  loading,
   isAuthenticated,
   theme,
   user,
@@ -129,17 +130,19 @@ const Navbar = ({
   return (
     <nav className={`navbar ${theme === 'dark' ? 'navbar--dark-theme' : 'navbar--light-theme'}`}>
       <img src={theme === 'dark' ? mainLogoWhite : mainLogoBlack} alt="main logo" className="main-logo" onClick={handleClickLogo} />
-      {isAuthenticated ? navAuth : navGuest}
+      {isAuthenticated && !loading ? navAuth : navGuest}
     </nav>
   );
 }
 
 Navbar.propTypes = {
+  loading: PropTypes.bool,
   isAuthenticated: PropTypes.bool.isRequired,
   logout: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
+  loading: state.auth.loading,
   isAuthenticated: state.auth.isAuthenticated,
   theme: state.auth.theme,
   user: state.auth.user

@@ -11,6 +11,7 @@ import './mainpage.css';
 
 const MainPage = ({
   user,
+  loading,
   isAuthenticated,
   portfolioList,
   currentPortfolio,
@@ -23,7 +24,7 @@ const MainPage = ({
 
   useEffect(() => { selectCurrentPortfolio() }, [selectCurrentPortfolio]);
 
-  if (!isAuthenticated) {
+  if (!isAuthenticated && !loading) {
     return <Redirect to="/login" />
   }
 
@@ -36,6 +37,7 @@ const MainPage = ({
 
 MainPage.propTypes = {
   user: PropTypes.object,
+  loading: PropTypes.bool,
   isAuthenticated: PropTypes.bool,
   portfolioList: PropTypes.array,
   currentPortfolio: PropTypes.number,
@@ -45,6 +47,7 @@ MainPage.propTypes = {
 
 const mapStateToProps = (state) => ({
   user: state.auth.user,
+  loading: state.auth.loading,
   isAuthenticated: state.auth.isAuthenticated,
   portfolioList: state.portfolio.portfolioList,
   currentPortfolio: state.portfolio.currentPortfolio

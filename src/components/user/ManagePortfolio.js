@@ -14,6 +14,7 @@ import Modal from '../modal/Modal';
 import { createPortfolio } from '../../actions/portfolioAction';
 
 const ManagePortfolio = ({
+  loading,
   isAuthenticated,
   portfolioList,
   currentPortfolio,
@@ -73,7 +74,7 @@ const ManagePortfolio = ({
     setIsAddModalOpen(false);
   }
 
-  if (!isAuthenticated) {
+  if (!isAuthenticated && !loading) {
     return <Redirect to="/login" />
   }
 
@@ -120,6 +121,7 @@ const ManagePortfolio = ({
 }
 
 ManagePortfolio.propTypes = {
+  loading: PropTypes.bool,
   isAuthenticated: PropTypes.bool,
   portfolioList: PropTypes.array,
   currentPortfolio: PropTypes.number,
@@ -129,6 +131,7 @@ ManagePortfolio.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
+  loading: state.auth.loading,
   isAuthenticated: state.auth.isAuthenticated,
   portfolioList: state.portfolio.portfolioList,
   currentPortfolio: state.portfolio.currentPortfolio

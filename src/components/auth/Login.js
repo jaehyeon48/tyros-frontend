@@ -7,6 +7,7 @@ import validator from 'validator';
 import { login } from '../../actions/authAction';
 
 const Login = ({
+  loading,
   isAuthenticated,
   login
 }) => {
@@ -90,55 +91,59 @@ const Login = ({
 
   return (
     <React.Fragment>
-      <div className="auth-form-container">
-        <p className="auth-form-subtitle">Join TYROS</p>
-        <h1 className="auth-form-title">Login</h1>
-        <form className="auth-form" onSubmit={handleSubmit}>
-          <div className="auth-form-group">
-            <label className={`auth-form-label ${emailErr ? "form-label-error" : null}`}>Email</label>
-            <input
-              type="text"
-              className={`auth-form-field ${emailErr ? "form-field-error" : null}`}
-              name="email"
-              value={email}
-              placeholder="Email"
-              onChange={handleChange}
-            />
-          </div>
-          <div className="auth-form-group">
-            <label className={`auth-form-label ${passwordErr ? "form-label-error" : null}`}>Password</label>
-            <input
-              type={showPassword ? "text" : "password"}
-              className={`auth-form-field ${passwordErr ? "form-field-error" : null}`}
-              name="password"
-              value={password}
-              placeholder="Password"
-              onChange={handleChange}
-            />
-            <small className="auth-form-text">Password must be at least 8 characters long. </small>
-          </div>
-          <label className="auth-checkbox-container">Show password
+      {!loading ? (
+        <div className="auth-form-container">
+          <p className="auth-form-subtitle">Join TYROS</p>
+          <h1 className="auth-form-title">Login</h1>
+          <form className="auth-form" onSubmit={handleSubmit}>
+            <div className="auth-form-group">
+              <label className={`auth-form-label ${emailErr ? "form-label-error" : null}`}>Email</label>
+              <input
+                type="text"
+                className={`auth-form-field ${emailErr ? "form-field-error" : null}`}
+                name="email"
+                value={email}
+                placeholder="Email"
+                onChange={handleChange}
+              />
+            </div>
+            <div className="auth-form-group">
+              <label className={`auth-form-label ${passwordErr ? "form-label-error" : null}`}>Password</label>
+              <input
+                type={showPassword ? "text" : "password"}
+                className={`auth-form-field ${passwordErr ? "form-field-error" : null}`}
+                name="password"
+                value={password}
+                placeholder="Password"
+                onChange={handleChange}
+              />
+              <small className="auth-form-text">Password must be at least 8 characters long. </small>
+            </div>
+            <label className="auth-checkbox-container">Show password
             <input type="checkbox" onClick={handleShowPassword} />
-            <span className="checkmark"></span>
-          </label>
-          <div className="auth-form-group">
-            <button type="submit" className="btn auth-button" disabled={isSubmitDisabled}>LOGIN</button>
+              <span className="checkmark"></span>
+            </label>
+            <div className="auth-form-group">
+              <button type="submit" className="btn auth-button" disabled={isSubmitDisabled}>LOGIN</button>
+            </div>
+          </form>
+          <div className="auth-footer">
+            Doesn't have an account? <Link to="/signup">Sign Up</Link>
           </div>
-        </form>
-        <div className="auth-footer">
-          Doesn't have an account? <Link to="/signup">Sign Up</Link>
         </div>
-      </div>
+      ) : null}
     </React.Fragment>
   );
 }
 
 Login.propTypes = {
+  loading: PropTypes.bool,
   isAuthenticated: PropTypes.bool.isRequired,
   login: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
+  loading: state.auth.loading,
   isAuthenticated: state.auth.isAuthenticated
 });
 

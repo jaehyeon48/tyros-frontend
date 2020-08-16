@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import PortfolioItem from './PortfolioItem';
@@ -13,6 +14,7 @@ import Modal from '../modal/Modal';
 import { createPortfolio } from '../../actions/portfolioAction';
 
 const ManagePortfolio = ({
+  isAuthenticated,
   portfolioList,
   currentPortfolio,
   loadPortfolios,
@@ -71,6 +73,10 @@ const ManagePortfolio = ({
     setIsAddModalOpen(false);
   }
 
+  if (!isAuthenticated) {
+    return <Redirect to="/login" />
+  }
+
   return (
     <React.Fragment>
       <div className="portfolios-container">
@@ -114,6 +120,7 @@ const ManagePortfolio = ({
 }
 
 ManagePortfolio.propTypes = {
+  isAuthenticated: PropTypes.bool,
   portfolioList: PropTypes.array,
   currentPortfolio: PropTypes.number,
   loadPortfolios: PropTypes.func,
@@ -122,6 +129,7 @@ ManagePortfolio.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
   portfolioList: state.portfolio.portfolioList,
   currentPortfolio: state.portfolio.currentPortfolio
 });

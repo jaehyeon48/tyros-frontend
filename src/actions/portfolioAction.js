@@ -74,6 +74,33 @@ export const createPortfolio = (portfolioName) => async (dispatch) => {
   }
 }
 
+export const editPortfolio = (portfolioId, newPortfolioName) => async (dispatch) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    withCredentials: true
+  };
+
+  const reqBody = JSON.stringify({ newPortfolioName });
+  try {
+    await axios.put(`${SERVER_URL}/api/portfolio/${portfolioId}`, reqBody, config);
+
+    dispatch({ type: EDIT_PORTFOLIO });
+    dispatch(loadPortfolios());
+    dispatch(selectCurrentPortfolio());
+    return false;
+  } catch (error) {
+    console.error(error);
+    if (error.response.status === 400) {
+      dispatch({ type: PORTFOLIO_EDIT_ERROR });
+      return true; // true for name is duplicated
+    }
+    dispatch({ type: PORTFOLIO_EDIT_ERROR });
+    return false;
+  }
+}
+
 export const deletePortfolio = (portfolioId) => async (dispatch) => {
   try {
     await axios.delete(`${SERVER_URL}/api/portfolio/${portfolioId}`, { withCredentials: true });

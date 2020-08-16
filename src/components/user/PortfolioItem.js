@@ -3,15 +3,21 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import Modal from '../modal/Modal';
-import { deletePortfolio } from '../../actions/portfolioAction';
+import {
+  editPortfolio,
+  deletePortfolio
+} from '../../actions/portfolioAction';
 
 const PortfolioItem = ({
   portfolio,
   currentPortfolio,
+  editPortfolio,
   deletePortfolio
 }) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editPortfolioName, setEditPortfolioName] = useState(portfolio.portfolioName);
+  const [isEditFail, setIsEditFail] = useState(false);
+
 
   const openEditModal = () => {
     setIsEditModalOpen(true);
@@ -21,8 +27,18 @@ const PortfolioItem = ({
     setIsEditModalOpen(false);
   }
 
-  const handleEditPortfolio = () => {
+  const handleEditPfName = (e) => {
+    setEditPortfolioName(e.target.value);
+  }
 
+  const handleEditPortfolio = async () => {
+    const isNameDuplicate = await editPortfolio(portfolio.portfolioId, editPortfolioName);
+    if (!isNameDuplicate) {
+      closeEditModal();
+    }
+    else {
+      setIsEditFail(isNameDuplicate);
+    }
   }
 
   const handleDeletePortfolio = () => {
@@ -43,14 +59,19 @@ const PortfolioItem = ({
       {isEditModalOpen ? (
         <Modal closeModalFunc={closeEditModal}>
           <div className="portfolio-form">
-            <label className="portfolio-form-label">Portfolio Name: </label>
+            <label
+              className={`portfolio-form-label ${isEditFail ? "form-label-error" : null}`}
+            >Portfolio Name: </label>
             <input
               type="text"
               value={editPortfolioName}
-              onChange={setEditPortfolioName}
-              className="portfolio-form-field"
+              onChange={handleEditPfName}
+              className={`portfolio-form-field ${isEditFail ? "form-field-error" : null}`}
             />
-            <button className="btn portfolio-form-edit-btn">EDIT</button>
+            {isEditFail ? (
+              <small className="notice-edit-name-duplicate">Name is duplicated!</small>
+            ) : null}
+            <button className="btn portfolio-form-edit-btn" onClick={handleEditPortfolio}>EDIT</button>
           </div>
         </Modal>
       ) : null}
@@ -58,4 +79,12 @@ const PortfolioItem = ({
   )
 }
 
-export default connect(null, { deletePortfolio })(PortfolioItem);
+PortfolioItem.propTypes = {
+  editPortfolio: PropTypes.func,
+  deletePortfolio: PropTypes.func
+};
+
+export default connect(null, {
+  editPortfolio,
+  deletePortfolio
+})(PortfolioItem);

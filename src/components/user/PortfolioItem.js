@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -16,7 +16,18 @@ const PortfolioItem = ({
 }) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editPortfolioName, setEditPortfolioName] = useState(portfolio.portfolioName);
+  const [isNameEmptyErr, setIsNameEmptyErr] = useState(false);
+  const [isPfNameEmpty, setIsPfNameEmpty] = useState(false);
   const [isEditFail, setIsEditFail] = useState(false);
+
+  useEffect(() => {
+    if (isNameEmptyErr && editPortfolioName.trim() !== '') {
+      setIsPfNameEmpty(false);
+    }
+    else if (isNameEmptyErr && editPortfolioName.trim() === '') {
+      setIsPfNameEmpty(true);
+    }
+  }, [editPortfolioName, isNameEmptyErr]);
 
 
   const openEditModal = () => {
@@ -24,6 +35,9 @@ const PortfolioItem = ({
   }
 
   const closeEditModal = () => {
+    setIsNameEmptyErr(false);
+    setIsPfNameEmpty(false);
+    setIsEditFail(false);
     setIsEditModalOpen(false);
   }
 
@@ -32,12 +46,21 @@ const PortfolioItem = ({
   }
 
   const handleEditPortfolio = async () => {
-    const isNameDuplicate = await editPortfolio(portfolio.portfolioId, editPortfolioName);
-    if (!isNameDuplicate) {
-      closeEditModal();
+    setIsNameEmptyErr(false);
+    setIsPfNameEmpty(false);
+    setIsEditFail(false);
+    if (editPortfolioName.trim() === '') {
+      setIsPfNameEmpty(true);
+      setIsNameEmptyErr(true);
     }
     else {
-      setIsEditFail(isNameDuplicate);
+      const isNameDuplicate = await editPortfolio(portfolio.portfolioId, editPortfolioName);
+      if (!isNameDuplicate) {
+        closeEditModal();
+      }
+      else {
+        setIsEditFail(isNameDuplicate);
+      }
     }
   }
 
@@ -60,18 +83,21 @@ const PortfolioItem = ({
         <Modal closeModalFunc={closeEditModal}>
           <div className="portfolio-form">
             <label
-              className={`portfolio-form-label ${isEditFail ? "form-label-error" : null}`}
+              className={`portfolio-form-label ${isEditFail || isPfNameEmpty ? "form-label-error" : null}`}
             >Portfolio Name: </label>
             <input
               type="text"
               value={editPortfolioName}
               onChange={handleEditPfName}
-              className={`portfolio-form-field ${isEditFail ? "form-field-error" : null}`}
+              className={`portfolio-form-field ${isEditFail || isPfNameEmpty ? "form-field-error" : null}`}
             />
             {isEditFail ? (
-              <small className="notice-edit-name-duplicate">Name is duplicated!</small>
+              <small className="notice-pf-name-error">Name is duplicated!</small>
             ) : null}
-            <button className="btn portfolio-form-edit-btn" onClick={handleEditPortfolio}>EDIT</button>
+            {isPfNameEmpty ? (
+              <small className="notice-pf-name-error">Name is Empty!</small>
+            ) : null}
+            <button className="btn portfolio-form-btn pf-edit-btn" onClick={handleEditPortfolio}>EDIT</button>
           </div>
         </Modal>
       ) : null}

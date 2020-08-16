@@ -181,13 +181,13 @@
 
 .profile-menu-item {
   display: block;
-  padding: 5px;
+  padding: 9px;
   transition: all 100ms ease;
   border-bottom: 1px solid;
 }
 
-.profile-menu-item:hover {
-  background-color: var(--light-dark-color);
+.profile-menu-item:hover > span {
+  color: var(--highlight-color);
 }
 
 .profile-user-info {

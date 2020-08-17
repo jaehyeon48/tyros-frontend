@@ -10,6 +10,7 @@ import Login from './components/auth/Login';
 import MainTheme from './components/maintheme/MainTheme';
 import MainPage from './components/mainpage/MainPage';
 import ManagePortfolio from './components/user/ManagePortfolio';
+import Profile from './components/user/Profile';
 import './app.css';
 
 import { loadUser } from './actions/authAction';
@@ -28,6 +29,7 @@ export default function App() {
             <Route path="/login" component={Login} exact={true} />
             <Route path="/main" component={MainPage} exact={true} />
             <Route path="/portfolios" component={ManagePortfolio} exact={true} />
+            <Route path="/profile" component={Profile} exact={true} />
           </MainTheme>
         </Switch>
       </Router>

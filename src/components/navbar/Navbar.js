@@ -58,6 +58,10 @@ const Navbar = ({
     logout();
   }
 
+  const goToProfilePage = () => {
+    history.push('/profile');
+  }
+
   const navGuest = (
     <React.Fragment>
       <Link to="/signup" className="navbar-signup">Sign Up</Link>
@@ -94,7 +98,7 @@ const Navbar = ({
             <div className="navbar-user-avatar-container">
               <img src={defaultAvatar} alt="user avatar" className="avatar-image" />
             </div>
-            <div className="profile-user-info">
+            <div className="profile-user-info" onClick={goToProfilePage}>
               <span className="user-info-name">{user && user.firstName} {user && user.lastName}</span>
               <span className="user-info-email">{user && user.email}</span>
             </div>
@@ -113,7 +117,7 @@ const Navbar = ({
           <img src={defaultAvatar} alt="user avatar" className="avatar-image" />
           {isProfileMenuOpen ? (
             <div className={`navbar-profile-menu ${theme === 'dark' ? "sidebar--dark-theme" : "sidebar--light-theme"}`}>
-              <div className="profile-menu-item profile-user-info">
+              <div className="profile-menu-item profile-user-info" onClick={goToProfilePage}>
                 <span className="user-info-name">{user.firstName} {user.lastName}</span>
                 <span className="user-info-email">{user.email}</span>
               </div>

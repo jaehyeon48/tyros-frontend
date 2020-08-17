@@ -22,7 +22,7 @@ const Modal = ({
 }
 
 Modal.propTypes = {
-
+  theme: PropTypes.string
 }
 
 const mapStateToProps = (state) => ({

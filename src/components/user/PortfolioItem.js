@@ -79,28 +79,23 @@ const PortfolioItem = ({
         ${portfolio.portfolioId === currentPortfolio
             ? "selected-portfolio" : "not-selected-portfolio"}`}>SELECTED</span>
       </div>
-      {isEditModalOpen ? (
+      {isEditModalOpen &&
         <Modal closeModalFunc={closeEditModal}>
           <div className="portfolio-form">
             <label
-              className={`portfolio-form-label ${isEditFail || isPfNameEmpty ? "form-label-error" : null}`}
+              className={`portfolio-form-label ${(isEditFail || isPfNameEmpty) && "form-label-error"}`}
             >Portfolio Name: </label>
             <input
               type="text"
               value={editPortfolioName}
               onChange={handleEditPfName}
-              className={`portfolio-form-field ${isEditFail || isPfNameEmpty ? "form-field-error" : null}`}
+              className={`portfolio-form-field ${(isEditFail || isPfNameEmpty) && "form-field-error"}`}
             />
-            {isEditFail ? (
-              <small className="notice-pf-name-error">Name is duplicated!</small>
-            ) : null}
-            {isPfNameEmpty ? (
-              <small className="notice-pf-name-error">Name is Empty!</small>
-            ) : null}
+            {isEditFail && <small className="notice-pf-name-error">Name is duplicated!</small>}
+            {isPfNameEmpty && <small className="notice-pf-name-error">Name is Empty!</small>}
             <button className="btn portfolio-form-btn pf-edit-btn" onClick={handleEditPortfolio}>EDIT</button>
           </div>
-        </Modal>
-      ) : null}
+        </Modal>}
     </React.Fragment>
   )
 }

@@ -90,17 +90,17 @@ const ManagePortfolio = ({
           />
         )) : <div className="no-portfolio-notice">CREATE YOUR FIRST PORTFOLIO!</div>}
       </div>
-      {isAddModalOpen ? (
+      {isAddModalOpen &&
         <Modal closeModalFunc={closeAddModal}>
           <div className="portfolio-form">
             <label
-              className={`portfolio-form-label ${isAddFail || isPfNameEmpty ? "form-label-error" : null}`}
+              className={`portfolio-form-label ${(isAddFail || isPfNameEmpty) && "form-label-error"}`}
             >Portfolio Name: </label>
             <input
               type="text"
               value={newPortfolioName}
               onChange={handleAddPfName}
-              className={`portfolio-form-field ${isAddFail || isPfNameEmpty ? "form-field-error" : null}`}
+              className={`portfolio-form-field ${(isAddFail || isPfNameEmpty) && "form-field-error"}`}
             />
             {isAddFail ? (
               <small className="notice-pf-name-error">Name is duplicated!</small>
@@ -114,8 +114,7 @@ const ManagePortfolio = ({
               disabled={isPfNameEmpty}
             >CREATE</button>
           </div>
-        </Modal>
-      ) : null}
+        </Modal>}
     </React.Fragment>
   );
 }

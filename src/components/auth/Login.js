@@ -91,16 +91,16 @@ const Login = ({
 
   return (
     <React.Fragment>
-      {!loading ? (
+      {!loading &&
         <div className="auth-form-container">
           <p className="auth-form-subtitle">Join TYROS</p>
           <h1 className="auth-form-title">Login</h1>
           <form className="auth-form" onSubmit={handleSubmit}>
             <div className="auth-form-group">
-              <label className={`auth-form-label ${emailErr ? "form-label-error" : null}`}>Email</label>
+              <label className={`auth-form-label ${emailErr && "form-label-error"}`}>Email</label>
               <input
                 type="text"
-                className={`auth-form-field ${emailErr ? "form-field-error" : null}`}
+                className={`auth-form-field ${emailErr && "form-field-error"}`}
                 name="email"
                 value={email}
                 placeholder="Email"
@@ -108,10 +108,10 @@ const Login = ({
               />
             </div>
             <div className="auth-form-group">
-              <label className={`auth-form-label ${passwordErr ? "form-label-error" : null}`}>Password</label>
+              <label className={`auth-form-label ${passwordErr && "form-label-error"}`}>Password</label>
               <input
                 type={showPassword ? "text" : "password"}
-                className={`auth-form-field ${passwordErr ? "form-field-error" : null}`}
+                className={`auth-form-field ${passwordErr && "form-field-error"}`}
                 name="password"
                 value={password}
                 placeholder="Password"
@@ -130,8 +130,7 @@ const Login = ({
           <div className="auth-footer">
             Doesn't have an account? <Link to="/signup">Sign Up</Link>
           </div>
-        </div>
-      ) : null}
+        </div>}
     </React.Fragment>
   );
 }

@@ -21,7 +21,7 @@ const Navbar = ({
 }) => {
   const sideBarRef = useRef();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const [isDropdownMenuOpen, setIsDropdownMenuOpen] = useState(false);
 
   const handleClickSidebar = async () => {
     if (isSidebarOpen) {
@@ -47,15 +47,15 @@ const Navbar = ({
   }
 
   const openProfileMenu = () => {
-    setIsProfileMenuOpen(true);
+    setIsDropdownMenuOpen(true);
   }
 
   const closeProfileMenu = () => {
-    setIsProfileMenuOpen(false);
+    setIsDropdownMenuOpen(false);
   }
 
   const handleProfileMenuLogout = () => {
-    setIsProfileMenuOpen(false);
+    setIsDropdownMenuOpen(false);
     logout();
   }
 
@@ -98,7 +98,7 @@ const Navbar = ({
             <div className="sidebar-avatar-container">
               <AvatarImage />
             </div>
-            <div className="profile-user-info" onClick={goToProfilePage}>
+            <div className="sidebar-user-info" onClick={goToProfilePage}>
               <span className="user-info-name">{user && user.firstName} {user && user.lastName}</span>
               <span className="user-info-email">{user && user.email}</span>
             </div>
@@ -112,15 +112,15 @@ const Navbar = ({
         </div>}
       <div className="navbar-avatar-container" onMouseEnter={openProfileMenu} onMouseLeave={closeProfileMenu}>
         <AvatarImage />
-        {isProfileMenuOpen &&
-          <div className={`navbar-profile-menu ${theme === 'dark' ? "sidebar--dark-theme" : "sidebar--light-theme"}`}>
-            <div className="profile-menu-item profile-user-info" onClick={goToProfilePage}>
+        {isDropdownMenuOpen &&
+          <div className={`navbar-dropdown-menu ${theme === 'dark' ? "sidebar--dark-theme" : "sidebar--light-theme"}`}>
+            <div className="dropdown-menu-item dropdown-user-info" onClick={goToProfilePage}>
               <span className="user-info-name">{user.firstName} {user.lastName}</span>
               <span className="user-info-email">{user.email}</span>
             </div>
-            <Link to="/portfolios" className="profile-menu-item" onClick={closeProfileMenu}>
+            <Link to="/portfolios" className="dropdown-menu-item" onClick={closeProfileMenu}>
               <span>My Portfolios</span></Link>
-            <div className="profile-menu-item profile-logout" onClick={handleProfileMenuLogout}><span>Logout</span></div>
+            <div className="dropdown-menu-item" onClick={handleProfileMenuLogout}><span>Logout</span></div>
           </div>}
       </div>
     </React.Fragment>

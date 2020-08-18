@@ -146,7 +146,7 @@
   margin: 0 0 13px 0;
 }
 
-.navbar-profile-menu {
+.navbar-dropdown-menu {
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -157,7 +157,7 @@
   font-size: 1.4rem;
 }
 
-.navbar-profile-menu::before {
+.navbar-dropdown-menu::before {
   position: absolute;
   top: -16px;
   right: 33px;
@@ -167,7 +167,7 @@
   border-bottom-color: var(--highlight-color);
 }
 
-.profile-menu-item {
+.dropdown-menu-item {
   display: block;
   padding: 9px;
   transition: all 100ms ease;
@@ -175,11 +175,12 @@
   cursor: pointer;
 }
 
-.profile-menu-item:hover > span {
+.dropdown-menu-item:hover > span {
   color: var(--highlight-color);
 }
 
-.profile-user-info {
+.dropdown-user-info,
+.sidebar-user-info {
   display: flex;
   flex-direction: column;
   justify-content: center;

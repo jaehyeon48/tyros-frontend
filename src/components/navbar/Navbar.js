@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 
 import './navbar.css';
+import AvatarImage from '../avatar/AvatarImage';
 import mainLogoWhite from '../../images/tyros_logo_white.png';
 import mainLogoBlack from '../../images/tyros_logo_black.png';
 import defaultAvatar from '../../images/default_avatar.png';
@@ -94,9 +95,10 @@ const Navbar = ({
             <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" className="svg-inline--fa fa-times fa-w-11" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512" onClick={handleClickSidebar}><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg>
           </div>
           <div className="sidebar-content sidebar-avatar">
-            <div className="navbar-user-avatar-container">
-              <img src={defaultAvatar} alt="user avatar" className="avatar-image" />
-            </div>
+            <AvatarImage
+              width={45}
+              height={45}
+            />
             <div className="profile-user-info" onClick={goToProfilePage}>
               <span className="user-info-name">{user && user.firstName} {user && user.lastName}</span>
               <span className="user-info-email">{user && user.email}</span>
@@ -110,20 +112,20 @@ const Navbar = ({
           </div>
         </div>}
       <div className="navbar-avatar-event-wrapper" onMouseEnter={openProfileMenu} onMouseLeave={closeProfileMenu}>
-        <div className="navbar-user-avatar-container">
-          {/* avatar is going to be implemented at a later version. */}
-          <img src={defaultAvatar} alt="user avatar" className="avatar-image" />
-          {isProfileMenuOpen &&
-            <div className={`navbar-profile-menu ${theme === 'dark' ? "sidebar--dark-theme" : "sidebar--light-theme"}`}>
-              <div className="profile-menu-item profile-user-info" onClick={goToProfilePage}>
-                <span className="user-info-name">{user.firstName} {user.lastName}</span>
-                <span className="user-info-email">{user.email}</span>
-              </div>
-              <Link to="/portfolios" className="profile-menu-item" onClick={closeProfileMenu}>
-                <span>My Portfolios</span></Link>
-              <div className="profile-menu-item profile-logout" onClick={handleProfileMenuLogout}><span>Logout</span></div>
-            </div>}
-        </div>
+        <AvatarImage
+          width={45}
+          height={45}
+        />
+        {isProfileMenuOpen &&
+          <div className={`navbar-profile-menu ${theme === 'dark' ? "sidebar--dark-theme" : "sidebar--light-theme"}`}>
+            <div className="profile-menu-item profile-user-info" onClick={goToProfilePage}>
+              <span className="user-info-name">{user.firstName} {user.lastName}</span>
+              <span className="user-info-email">{user.email}</span>
+            </div>
+            <Link to="/portfolios" className="profile-menu-item" onClick={closeProfileMenu}>
+              <span>My Portfolios</span></Link>
+            <div className="profile-menu-item profile-logout" onClick={handleProfileMenuLogout}><span>Logout</span></div>
+          </div>}
       </div>
     </React.Fragment>
   );

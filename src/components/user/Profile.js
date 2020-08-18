@@ -1,21 +1,51 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+
+import AvatarImage from '../avatar/AvatarImage';
+import Modal from '../modal/Modal';
+import './profile.css';
 
 const Profile = ({
   loading,
   isAuthenticated
 }) => {
-
+  const [isAvatarModalOpen, setIsAvatarModalOpen] = useState(false);
   if (!isAuthenticated && !loading) {
     return <Redirect to="/login" />
   }
 
+  const openAvatarModal = () => {
+    setIsAvatarModalOpen(true);
+  }
+
+  const closeAvatarModal = () => {
+    setIsAvatarModalOpen(false);
+  }
+
   return (
-    <div>
-      profile test
-    </div>
+    <React.Fragment>
+      <div className="profile-container">
+        <div className="profile-side">
+          <div className="profile-avatar-container">
+            <AvatarImage />
+          </div>
+          <button className="btn btn-edit-avatar" onClick={openAvatarModal}>EDIT AVATAR</button>
+        </div>
+
+        <div className="profile-user-info">
+
+        </div>
+      </div>
+      {isAvatarModalOpen && (
+        <Modal
+          closeModalFunc={closeAvatarModal}
+        >
+
+        </Modal>
+      )}
+    </React.Fragment>
   )
 }
 

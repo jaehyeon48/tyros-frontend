@@ -9,14 +9,11 @@ const AvatarImage = ({
   height
 }) => {
   return (
-    <div
-      className="avatar-container"
-      style={{ width: `${width}px`, height: `${height}px` }}>
+    <div className="avatar-container">
       <img
         src={defaultAvatar}
         alt="user's avatar"
         className="avatar-image"
-        style={{ width: `${width}px`, height: `${height}px` }}
       />
     </div>
   )

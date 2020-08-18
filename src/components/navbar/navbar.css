@@ -121,9 +121,10 @@
   color: var(--highlight-color);
 }
 
-.navbar-avatar-event-wrapper {
-  width: 80px;
-  height: 100%;
+.navbar-avatar-container {
+  width: 58px;
+  height: 58px;
+  padding: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -132,11 +133,17 @@
   cursor: pointer;
 }
 
-.sidebar-avatar {
+.sidebar-user {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+}
+
+.sidebar-avatar-container {
+  width: 70px;
+  height: 70px;
+  margin: 0 0 13px 0;
 }
 
 .navbar-profile-menu {
@@ -144,16 +151,16 @@
   display: flex;
   flex-direction: column;
   z-index: 99;
-  width: 220px;
-  top: 68px;
+  width: 240px;
+  top: 67px;
   right: -8px;
   font-size: 1.4rem;
 }
 
 .navbar-profile-menu::before {
   position: absolute;
-  top: -18px;
-  right: 37px;
+  top: -16px;
+  right: 33px;
   display: inline-block;
   content: '';
   border: 9px solid transparent;
@@ -204,7 +211,7 @@
     display: block;
   }
 
-  .navbar-avatar-event-wrapper {
+  .navbar-avatar-container {
     display: none;
   }
 }

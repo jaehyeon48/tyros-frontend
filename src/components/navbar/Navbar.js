@@ -94,11 +94,10 @@ const Navbar = ({
           <div className="sidebar-close-btn-container">
             <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" className="svg-inline--fa fa-times fa-w-11" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512" onClick={handleClickSidebar}><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg>
           </div>
-          <div className="sidebar-content sidebar-avatar">
-            <AvatarImage
-              width={45}
-              height={45}
-            />
+          <div className="sidebar-content sidebar-user">
+            <div className="sidebar-avatar-container">
+              <AvatarImage />
+            </div>
             <div className="profile-user-info" onClick={goToProfilePage}>
               <span className="user-info-name">{user && user.firstName} {user && user.lastName}</span>
               <span className="user-info-email">{user && user.email}</span>
@@ -111,11 +110,8 @@ const Navbar = ({
             <span onClick={handleClickSidebarLogout}>Logout</span>
           </div>
         </div>}
-      <div className="navbar-avatar-event-wrapper" onMouseEnter={openProfileMenu} onMouseLeave={closeProfileMenu}>
-        <AvatarImage
-          width={45}
-          height={45}
-        />
+      <div className="navbar-avatar-container" onMouseEnter={openProfileMenu} onMouseLeave={closeProfileMenu}>
+        <AvatarImage />
         {isProfileMenuOpen &&
           <div className={`navbar-profile-menu ${theme === 'dark' ? "sidebar--dark-theme" : "sidebar--light-theme"}`}>
             <div className="profile-menu-item profile-user-info" onClick={goToProfilePage}>

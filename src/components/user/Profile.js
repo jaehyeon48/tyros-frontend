@@ -5,6 +5,7 @@ import { Redirect } from 'react-router-dom';
 
 import AvatarImage from '../avatar/AvatarImage';
 import Modal from '../modal/Modal';
+import UploadAvatar from '../avatar/UploadAvatar';
 import './profile.css';
 
 const Profile = ({
@@ -39,10 +40,9 @@ const Profile = ({
         </div>
       </div>
       {isAvatarModalOpen && (
-        <Modal
-          closeModalFunc={closeAvatarModal}
-        >
-
+        <Modal closeModalFunc={closeAvatarModal}>
+          <div className="title-edit-avatar-modal">EDIT YOUR AVATAR!</div>
+          <UploadAvatar />
         </Modal>
       )}
     </React.Fragment>

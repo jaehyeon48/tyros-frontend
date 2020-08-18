@@ -38,3 +38,11 @@
   grid-column: 12 / span 29;
   border: 1px solid;
 }
+
+.title-edit-avatar-modal {
+  font-size: 3rem;
+  font-weight: 500;
+  color: var(--highlight-color);
+  text-align: center;
+  margin: 20px 0 30px 0;
+}

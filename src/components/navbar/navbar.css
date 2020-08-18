@@ -129,6 +129,7 @@
   align-items: center;
   position: absolute;
   right: 100px;
+  cursor: pointer;
 }
 
 .navbar-user-avatar-container {
@@ -184,6 +185,7 @@
   padding: 9px;
   transition: all 100ms ease;
   border-bottom: 1px solid;
+  cursor: pointer;
 }
 
 .profile-menu-item:hover > span {

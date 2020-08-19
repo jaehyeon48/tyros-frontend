@@ -62,7 +62,12 @@ const Navbar = ({
   }
 
   const goToProfilePage = () => {
-    handleClickSidebar();
+    if (isSidebarOpen) {
+      handleClickSidebar();
+    }
+    else {
+      setIsDropdownMenuOpen(false);
+    }
     history.push('/profile');
   }
 

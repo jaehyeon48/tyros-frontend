@@ -7,14 +7,12 @@ import './avatarImage.css';
 import SERVER_URL from '../../actions/serverURL';
 
 const AvatarImage = ({
-  width,
-  height,
-  avatar
+  user
 }) => {
   return (
     <div className="avatar-container">
       <img
-        src={avatar ? `${SERVER_URL}/avatars/${avatar}` : defaultAvatar}
+        src={user && user.avatar ? `${SERVER_URL}/avatars/${user.avatar}` : defaultAvatar}
         alt="user's avatar"
         className="avatar-image"
       />
@@ -23,13 +21,11 @@ const AvatarImage = ({
 }
 
 AvatarImage.propTypes = {
-  width: PropTypes.number,
-  height: PropTypes.number,
   avatar: PropTypes.string
 }
 
 const mapStateToProps = (state) => ({
-  avatar: state.auth.user.avatar
+  user: state.auth.user
 });
 
 export default connect(mapStateToProps)(AvatarImage);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
@@ -10,7 +10,8 @@ import './profile.css';
 
 const Profile = ({
   loading,
-  isAuthenticated
+  isAuthenticated,
+  user
 }) => {
   const [formData, setFormData] = useState({
     firstName: '',
@@ -21,6 +22,12 @@ const Profile = ({
   const [isAvatarModalOpen, setIsAvatarModalOpen] = useState(false);
 
   const { firstName, lastName, currentPassword, newPassword } = formData;
+
+  useEffect(() => {
+    if (user) {
+      setFormData({ firstName: user.firstName, lastName: user.lastName });
+    }
+  }, [user])
 
   if (!isAuthenticated && !loading) {
     return <Redirect to="/login" />
@@ -97,12 +104,14 @@ const Profile = ({
 
 Profile.propTypes = {
   loading: PropTypes.bool,
-  isAuthenticated: PropTypes.bool
+  isAuthenticated: PropTypes.bool,
+  user: PropTypes.object
 }
 
 const mapStateToProps = (state) => ({
   loading: state.auth.loading,
-  isAuthenticated: state.auth.isAuthenticated
+  isAuthenticated: state.auth.isAuthenticated,
+  user: state.auth.user
 })
 
 export default connect(mapStateToProps)(Profile);

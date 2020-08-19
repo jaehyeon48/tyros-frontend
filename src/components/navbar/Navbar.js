@@ -7,7 +7,6 @@ import './navbar.css';
 import AvatarImage from '../avatar/AvatarImage';
 import mainLogoWhite from '../../images/tyros_logo_white.png';
 import mainLogoBlack from '../../images/tyros_logo_black.png';
-import defaultAvatar from '../../images/default_avatar.png';
 
 import { logout } from '../../actions/authAction';
 

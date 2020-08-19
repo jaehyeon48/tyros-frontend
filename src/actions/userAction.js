@@ -2,9 +2,12 @@ import axios from 'axios';
 
 import {
   UPLOAD_AVATAR,
-  AVATAR_ERROR
+  AVATAR_ERROR,
+  UPDATE_USER,
+  FAIL_UPDATE_USER
 } from './actionTypes';
 
+import { loadUser } from './authAction';
 import SERVER_URL from './serverURL';
 
 export const uploadAvatar = (avatarImage) => async (dispatch) => {
@@ -28,5 +31,25 @@ export const uploadAvatar = (avatarImage) => async (dispatch) => {
   } catch (error) {
     console.error(error);
     dispatch({ type: AVATAR_ERROR });
+  }
+}
+
+export const updateProfile = (formData) => async (dispatch) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    withCredentials: true
+  };
+  try {
+    const reqBody = JSON.stringify(formData);
+    await axios.put(`${SERVER_URL}/api/user`, reqBody, config);
+    dispatch(loadUser());
+    dispatch({ type: UPDATE_USER });
+    return 0;
+  } catch (error) {
+    console.error(error);
+    dispatch({ type: FAIL_UPDATE_USER });
+    return -1;
   }
 }

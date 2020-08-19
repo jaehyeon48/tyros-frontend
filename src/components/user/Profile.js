@@ -7,27 +7,26 @@ import AvatarImage from '../avatar/AvatarImage';
 import Modal from '../modal/Modal';
 import UploadAvatar from '../avatar/UploadAvatar';
 import './profile.css';
+import { updateProfile } from '../../actions/userAction';
 
 const Profile = ({
   loading,
   isAuthenticated,
-  user
+  user,
+  updateProfile
 }) => {
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    currentPassword: '',
-    newPassword: ''
-  });
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
   const [isAvatarModalOpen, setIsAvatarModalOpen] = useState(false);
-
-  const { firstName, lastName, currentPassword, newPassword } = formData;
 
   useEffect(() => {
     if (user) {
-      setFormData({ firstName: user.firstName, lastName: user.lastName });
+      setFirstName(user.firstName);
+      setLastName(user.lastName);
     }
-  }, [user])
+  }, [user]);
 
   if (!isAuthenticated && !loading) {
     return <Redirect to="/login" />
@@ -41,8 +40,33 @@ const Profile = ({
     setIsAvatarModalOpen(false);
   }
 
-  const handleChange = (e) => {
-    setFormData({ [e.target.name]: e.target.value });
+  const handleFirstNameChange = (e) => {
+    setFirstName(e.target.value);
+  }
+
+  const handleLastNameChange = (e) => {
+    setLastName(e.target.value);
+  }
+
+  const handleCurrentPWChange = (e) => {
+    setCurrentPassword(e.target.value);
+  }
+
+  const handleNewPWChange = (e) => {
+    setNewPassword(e.target.value);
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const updateProfileResult = await updateProfile({ firstName, lastName, currentPassword, newPassword });
+
+    if (updateProfileResult === 0) {
+      window.location.reload();
+    }
+    else if (updateProfileResult === -1) {
+      alert('Update profile error');
+    }
   }
 
   return (
@@ -55,13 +79,13 @@ const Profile = ({
           <button className="btn btn-edit-avatar" onClick={openAvatarModal}>EDIT AVATAR</button>
         </div>
         <div className="profile-user-info">
-          <form className="profile-form">
+          <form className="profile-form" onSubmit={handleSubmit}>
             <input
               type="text"
               placeholder="First Name"
               name="firstName"
               value={firstName}
-              onChange={handleChange}
+              onChange={handleFirstNameChange}
               className="profile-form-field"
             />
             <input
@@ -69,7 +93,7 @@ const Profile = ({
               placeholder="Last Name"
               name="firstName"
               value={lastName}
-              onChange={handleChange}
+              onChange={handleLastNameChange}
               className="profile-form-field"
             />
             <input
@@ -77,7 +101,7 @@ const Profile = ({
               placeholder="Current Password (optional)"
               name="currentPassword"
               value={currentPassword}
-              onChange={handleChange}
+              onChange={handleCurrentPWChange}
               className="profile-form-field"
             />
             <input
@@ -85,7 +109,7 @@ const Profile = ({
               placeholder="New Password (optional)"
               name="newPassword"
               value={newPassword}
-              onChange={handleChange}
+              onChange={handleNewPWChange}
               className="profile-form-field"
             />
             <button type="submit" className="btn btn-edit-profile">EDIT PROFILE</button>
@@ -105,7 +129,8 @@ const Profile = ({
 Profile.propTypes = {
   loading: PropTypes.bool,
   isAuthenticated: PropTypes.bool,
-  user: PropTypes.object
+  user: PropTypes.object,
+  updateProfile: PropTypes.func
 }
 
 const mapStateToProps = (state) => ({
@@ -114,4 +139,4 @@ const mapStateToProps = (state) => ({
   user: state.auth.user
 })
 
-export default connect(mapStateToProps)(Profile);
+export default connect(mapStateToProps, { updateProfile })(Profile);

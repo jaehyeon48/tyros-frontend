@@ -7,7 +7,9 @@ import {
   USER_LOADED,
   LOGOUT,
   UPLOAD_AVATAR,
-  AVATAR_ERROR
+  AVATAR_ERROR,
+  UPDATE_USER,
+  FAIL_UPDATE_USER
 } from '../actions/actionTypes';
 
 const initialState = {
@@ -67,6 +69,8 @@ export default function authReducer(state = initialState, action) {
           avatar: payload
         }
       }
+    case UPDATE_USER:
+    case FAIL_UPDATE_USER:
     default:
       return state;
   }

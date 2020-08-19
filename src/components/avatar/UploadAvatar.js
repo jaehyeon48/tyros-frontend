@@ -1,9 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
+import { uploadAvatar } from '../../actions/userAction';
 import './uploadAvatar.css';
 
-const UploadAvatar = props => {
+const UploadAvatar = ({
+  uploadAvatar
+}) => {
   const [avatarImage, setAvatarImage] = useState();
   const [previewUrl, setPreviewUrl] = useState();
   const [isValid, setIsValid] = useState(false);
@@ -31,6 +35,12 @@ const UploadAvatar = props => {
     }
   }
 
+  const handleUploadAvatar = () => {
+    if (isValid) {
+      uploadAvatar(avatarImage);
+    }
+  }
+
   const handlePickingImage = () => {
     filePickerRef.current.click();
   }
@@ -48,14 +58,17 @@ const UploadAvatar = props => {
         <div className="image-upload-preview" onClick={handlePickingImage}>
           {previewUrl ? <img src={previewUrl} alt="avatar preview" /> : <p>Click here to choose an image.</p>}
         </div>
-        <button className="btn btn-upload-avatar" disabled={!isValid}>EDIT AVATAR</button>
+        <button
+          className="btn btn-upload-avatar"
+          onClick={handleUploadAvatar}
+          disabled={!isValid}>EDIT AVATAR</button>
       </div>
     </div>
   )
 }
 
 UploadAvatar.propTypes = {
-
+  uploadAvatar: PropTypes.func
 }
 
-export default UploadAvatar;
+export default connect(null, { uploadAvatar })(UploadAvatar);

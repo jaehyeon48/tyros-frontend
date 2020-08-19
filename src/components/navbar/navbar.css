@@ -55,7 +55,8 @@
   height: 100vh;
   z-index: 99;
   animation: showSidebar;
-  animation-duration: 500ms;
+  animation-duration: 400ms;
+  animation-timing-function: ease-out;
   font-size: 1.3rem;
   font-weight: 500;
 }

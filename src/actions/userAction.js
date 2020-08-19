@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import { UPLOAD_AVATAR } from './actionTypes';
+
 import SERVER_URL from './serverURL';
 
 export const uploadAvatar = (avatarImage) => async (dispatch) => {
@@ -14,6 +16,10 @@ export const uploadAvatar = (avatarImage) => async (dispatch) => {
     avatarFile.append('avatar', avatarImage);
 
     const uploadResponse = await axios.post(`${SERVER_URL}/api/user/avatar`, avatarFile, config);
+    dispatch({
+      type: UPLOAD_AVATAR,
+      payload: uploadResponse.data.avatar
+    });
   } catch (error) {
     console.error(error);
   }

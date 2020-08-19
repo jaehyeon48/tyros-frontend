@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 
 import defaultAvatar from '../../images/default_avatar.png';
 import './avatarImage.css';
-import SERVER_URL from '../../actions/serverURL';
 
 const AVATAR_URL = 'https://tyros.cf/avatars';
 

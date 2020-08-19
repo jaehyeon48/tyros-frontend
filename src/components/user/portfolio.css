@@ -111,7 +111,7 @@
   outline: none;
   border-radius: 0.4rem;
   transition: all 100ms ease;
-  background-color: var(--form-bg-color);
+  background-color: var(--white-color);
 }
 
 .portfolio-form-field:focus {

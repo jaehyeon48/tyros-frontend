@@ -88,7 +88,7 @@ const Profile = ({
       {isAvatarModalOpen && (
         <Modal closeModalFunc={closeAvatarModal}>
           <div className="title-edit-avatar-modal">EDIT YOUR AVATAR!</div>
-          <UploadAvatar />
+          <UploadAvatar closeModalFunc={closeAvatarModal} />
         </Modal>
       )}
     </React.Fragment>

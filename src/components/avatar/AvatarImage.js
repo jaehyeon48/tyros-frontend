@@ -6,13 +6,15 @@ import defaultAvatar from '../../images/default_avatar.png';
 import './avatarImage.css';
 import SERVER_URL from '../../actions/serverURL';
 
+const AVATAR_URL = 'https://tyros.cf/avatars';
+
 const AvatarImage = ({
   user
 }) => {
   return (
     <div className="avatar-container">
       <img
-        src={user && user.avatar ? `${SERVER_URL}/avatars/${user.avatar}` : defaultAvatar}
+        src={user && user.avatar ? `${AVATAR_URL}/${user.avatar}` : defaultAvatar}
         alt="user's avatar"
         className="avatar-image"
       />

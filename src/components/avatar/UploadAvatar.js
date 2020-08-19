@@ -40,10 +40,6 @@ const UploadAvatar = ({
     if (isValid) {
       uploadAvatar(avatarImage);
       closeModalFunc(false);
-      /* to retrieve avatar img, first wait 1s and then reload the page
-       cause it takes some time to retrieving. */
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      window.location.reload();
     }
   }
 

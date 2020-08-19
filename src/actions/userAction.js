@@ -19,6 +19,8 @@ export const uploadAvatar = (avatarImage) => async (dispatch) => {
     avatarFile.append('avatar', avatarImage);
 
     const uploadResponse = await axios.post(`${SERVER_URL}/api/user/avatar`, avatarFile, config);
+    /* wait for 1s to retrieve image */
+    await new Promise(resolve => setTimeout(resolve, 1000));
     dispatch({
       type: UPLOAD_AVATAR,
       payload: uploadResponse.data.avatar

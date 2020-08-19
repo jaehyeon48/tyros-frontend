@@ -6,7 +6,8 @@ import {
   AUTH_FAIL,
   USER_LOADED,
   LOGOUT,
-  UPLOAD_AVATAR
+  UPLOAD_AVATAR,
+  AVATAR_ERROR
 } from '../actions/actionTypes';
 
 const initialState = {
@@ -30,6 +31,7 @@ export default function authReducer(state = initialState, action) {
     case SIGNUP_FAIL:
     case LOGIN_FAIL:
     case AUTH_FAIL:
+    case AVATAR_ERROR:
       return {
         ...state,
         loading: false,

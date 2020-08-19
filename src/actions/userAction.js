@@ -1,6 +1,9 @@
 import axios from 'axios';
 
-import { UPLOAD_AVATAR } from './actionTypes';
+import {
+  UPLOAD_AVATAR,
+  AVATAR_ERROR
+} from './actionTypes';
 
 import SERVER_URL from './serverURL';
 
@@ -22,5 +25,6 @@ export const uploadAvatar = (avatarImage) => async (dispatch) => {
     });
   } catch (error) {
     console.error(error);
+    dispatch({ type: AVATAR_ERROR });
   }
 }

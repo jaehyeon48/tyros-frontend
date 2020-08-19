@@ -21,3 +21,4 @@ export const EMPTY_PORTFOLIO = 'EMPTY_PORTFOLIO';
 
 /* USER */
 export const UPLOAD_AVATAR = 'UPLOAD_AVATAR';
+export const AVATAR_ERROR = 'AVATAR_ERROR';

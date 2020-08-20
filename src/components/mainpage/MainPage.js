@@ -36,7 +36,6 @@ const MainPage = ({
 
   return (
     <div className="main-container">
-      Initial Main Page
       <div className="portfolio-list-container">
         <select onChange={handleSelectPfChange} value={currentPortfolio !== null && currentPortfolio} readOnly>
           {portfolioList && portfolioList.map(portfolio => (
@@ -46,6 +45,10 @@ const MainPage = ({
             >{portfolio.portfolioName}</option>
           ))}
         </select>
+      </div>
+      <div className="add-stock-cash-container">
+        <button type="button" className="btn btn-open-add-stock-modal">ADD STOCK</button>
+        <button type="button" className="btn btn-open-add-cash-modal">ADD CASH</button>
       </div>
     </div>
   );

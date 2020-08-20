@@ -11,6 +11,7 @@ import MainTheme from './components/maintheme/MainTheme';
 import MainPage from './components/mainpage/MainPage';
 import ManagePortfolio from './components/user/ManagePortfolio';
 import Profile from './components/user/Profile';
+import Alert from './components/alert/Alert';
 import './app.css';
 
 import { loadUser } from './actions/authAction';
@@ -24,6 +25,7 @@ export default function App() {
         <Navbar />
         <Switch>
           <MainTheme>
+            <Alert />
             <Route path="/" component={LandingPage} exact={true} />
             <Route path="/signup" component={SignUp} exact={true} />
             <Route path="/login" component={Login} exact={true} />

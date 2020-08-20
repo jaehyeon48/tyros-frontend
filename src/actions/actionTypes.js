@@ -24,3 +24,7 @@ export const UPLOAD_AVATAR = 'UPLOAD_AVATAR';
 export const AVATAR_ERROR = 'AVATAR_ERROR';
 export const UPDATE_USER = 'UPDATE_USER';
 export const FAIL_UPDATE_USER = 'FAIL_UPDATE_USER';
+
+/* ALERT */
+export const SHOW_ALERT = 'SHOW_ALERT';
+export const HIDE_ALERT = 'HIDE_ALERT';

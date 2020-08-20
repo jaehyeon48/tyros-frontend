@@ -25,9 +25,16 @@ const Navbar = ({
   const handleClickSidebar = async () => {
     if (isSidebarOpen) {
       sideBarRef.current.style = 'animation: closeSidebar 400ms';
-      sideBarRef.current.children[1].style = 'visibility: hidden';
-      sideBarRef.current.children[2].style = 'visibility: hidden';
-      sideBarRef.current.children[3].style = 'visibility: hidden';
+      if (isAuthenticated) {
+        sideBarRef.current.children[1].style = 'visibility: hidden';
+        sideBarRef.current.children[2].style = 'visibility: hidden';
+        sideBarRef.current.children[3].style = 'visibility: hidden';
+      }
+      else {
+        sideBarRef.current.children[1].style = 'visibility: hidden';
+        sideBarRef.current.children[2].style = 'visibility: hidden';
+      }
+
       await new Promise(resolve => setTimeout(resolve, 400)); // wait for animation
       setIsSidebarOpen(!isSidebarOpen);
     }

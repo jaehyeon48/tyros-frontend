@@ -5,6 +5,7 @@ import { Redirect } from 'react-router-dom';
 
 import {
   loadPortfolios,
+  selectPortfolio,
   getSelectedPortfolio
 } from '../../actions/portfolioAction';
 import './mainpage.css';
@@ -16,6 +17,7 @@ const MainPage = ({
   portfolioList,
   currentPortfolio,
   loadPortfolios,
+  selectPortfolio,
   getSelectedPortfolio
 }) => {
   useEffect(() => {
@@ -28,17 +30,20 @@ const MainPage = ({
     return <Redirect to="/login" />
   }
 
-  const handleSelectPfChange = () => {
-
+  const handleSelectPfChange = (e) => {
+    selectPortfolio(e.target.value);
   }
 
   return (
     <div className="main-container">
       Initial Main Page
       <div className="portfolio-list-container">
-        <select onChange={handleSelectPfChange}>
+        <select onChange={handleSelectPfChange} value={currentPortfolio !== null && currentPortfolio} readOnly>
           {portfolioList && portfolioList.map(portfolio => (
-            <option key={portfolio.portfolioId}>{portfolio.portfolioName}</option>
+            <option
+              key={portfolio.portfolioId}
+              value={portfolio.portfolioId}
+            >{portfolio.portfolioName}</option>
           ))}
         </select>
       </div>
@@ -53,6 +58,7 @@ MainPage.propTypes = {
   portfolioList: PropTypes.array,
   currentPortfolio: PropTypes.number,
   loadPortfolios: PropTypes.func,
+  selectPortfolio: PropTypes.func,
   getSelectedPortfolio: PropTypes.func
 };
 
@@ -66,5 +72,6 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   loadPortfolios,
+  selectPortfolio,
   getSelectedPortfolio
 })(MainPage);

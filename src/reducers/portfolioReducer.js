@@ -40,6 +40,7 @@ export default function portfolioReducer(state = initialState, action) {
         portfolioList: [],
         currentPortfolio: null
       };
+    case SELECT_PORTFOLIO:
     case PORTFOLIO_CREATE_ERROR:
     case PORTFOLIO_EDIT_ERROR:
     case PORTFOLIO_DELETE_ERROR:

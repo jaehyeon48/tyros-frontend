@@ -29,6 +29,24 @@ export const loadPortfolios = (userId) => async (dispatch) => {
   }
 }
 
+export const selectPortfolio = (portfolioId) => async (dispatch) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    withCredentials: true
+  };
+  try {
+    const reqBody = JSON.stringify({ portfolioId });
+    await axios.post(`${SERVER_URL}/api/portfolio/select`, reqBody, config);
+    dispatch({ type: SELECT_PORTFOLIO });
+    dispatch(getSelectedPortfolio());
+  } catch (error) {
+    console.error(error);
+    dispatch({ type: EMPTY_PORTFOLIO });
+  }
+}
+
 export const getSelectedPortfolio = () => async (dispatch) => {
   try {
     const selectResponse = await axios.get(`${SERVER_URL}/api/portfolio/select`, { withCredentials: true });

@@ -38,9 +38,11 @@ export const login = (formData) => async (dispatch) => {
 
     dispatch({ type: LOGIN_SUCCESS });
     dispatch(loadUser());
+    return 0;
   } catch (error) {
     dispatch({ type: LOGIN_FAIL });
-    console.error(error.response.data);
+    console.error(error);
+    return -1;
   }
 }
 
@@ -58,9 +60,11 @@ export const signUp = (formData) => async (dispatch) => {
 
     dispatch({ type: SIGNUP_SUCCESS });
     dispatch(loadUser());
+    return 0;
   } catch (error) {
     dispatch({ type: SIGNUP_FAIL });
-    console.error(error.response.data);
+    console.error(error);
+    return -1;
   }
 }
 

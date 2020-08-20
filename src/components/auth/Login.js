@@ -5,11 +5,13 @@ import PropTypes from 'prop-types';
 import validator from 'validator';
 
 import { login } from '../../actions/authAction';
+import { showAlert } from '../../actions/alertAction';
 
 const Login = ({
   loading,
   isAuthenticated,
-  login
+  login,
+  showAlert
 }) => {
   const [loginFormData, setLoginFormData] = useState({
     email: '',
@@ -53,7 +55,7 @@ const Login = ({
     }
   }, [isFirstSubmit, emailErr, passwordErr]);
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
 
     if (isFirstSubmit) {
@@ -66,11 +68,17 @@ const Login = ({
         setPasswordErr(true);
       }
       else {
-        login(loginFormData);
+        const loginResult = await login(loginFormData);
+        if (loginResult === -1) {
+          showAlert('Email or password is invalid. Please Try again!', 'fail');
+        }
       }
     }
     else {
-      login(loginFormData);
+      const loginResult = await login(loginFormData);
+      if (loginResult === -1) {
+        showAlert('Email or password is invalid. Please Try again!', 'fail');
+      }
     }
   }
 
@@ -137,13 +145,17 @@ const Login = ({
 
 Login.propTypes = {
   loading: PropTypes.bool,
-  isAuthenticated: PropTypes.bool.isRequired,
-  login: PropTypes.func.isRequired
+  isAuthenticated: PropTypes.bool,
+  login: PropTypes.func,
+  showAlert: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
   loading: state.auth.loading,
-  isAuthenticated: state.auth.isAuthenticated
+  isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps, { login })(Login);
+export default connect(mapStateToProps, {
+  login,
+  showAlert
+})(Login);

@@ -5,11 +5,13 @@ import PropTypes from 'prop-types';
 import validator from 'validator';
 
 import { signUp } from '../../actions/authAction';
+import { showAlert } from '../../actions/alertAction';
 
 const SignUp = ({
   loading,
   isAuthenticated,
-  signUp
+  signUp,
+  showAlert
 }) => {
   const [signupFormData, setSignupFormData] = useState({
     firstName: '',
@@ -77,7 +79,7 @@ const SignUp = ({
     }
   }, [isFirstSubmit, firstNameErr, lastNameErr, emailErr, passwordErr]);
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
 
     if (isFirstSubmit) {
@@ -96,11 +98,17 @@ const SignUp = ({
         setPasswordErr(true);
       }
       else {
-        signUp(signupFormData);
+        const signUpResult = await signUp(signupFormData);
+        if (signUpResult === -1) {
+          showAlert('User already exists. Please try other email!', 'fail');
+        }
       }
     }
     else {
-      signUp(signupFormData);
+      const signUpResult = await signUp(signupFormData);
+      if (signUpResult === -1) {
+        showAlert('User already exists. Please try other email!', 'fail');
+      }
     }
   }
 
@@ -190,7 +198,8 @@ const SignUp = ({
 SignUp.propTypes = {
   loading: PropTypes.bool,
   isAuthenticated: PropTypes.bool,
-  signUp: PropTypes.func
+  signUp: PropTypes.func,
+  showAlert: PropTypes.func
 };
 
 const mapStateToProps = state => ({
@@ -198,4 +207,7 @@ const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps, { signUp })(SignUp);
+export default connect(mapStateToProps, {
+  signUp,
+  showAlert
+})(SignUp);

@@ -12,6 +12,7 @@ import './portfolio.css';
 
 import Modal from '../modal/Modal';
 import { createPortfolio } from '../../actions/portfolioAction';
+import { showAlert } from '../../actions/alertAction';
 
 const ManagePortfolio = ({
   loading,
@@ -20,7 +21,8 @@ const ManagePortfolio = ({
   currentPortfolio,
   loadPortfolios,
   selectCurrentPortfolio,
-  createPortfolio
+  createPortfolio,
+  showAlert
 }) => {
   useEffect(() => { loadPortfolios() }, [loadPortfolios]);
   useEffect(() => { selectCurrentPortfolio() }, [selectCurrentPortfolio]);
@@ -56,6 +58,7 @@ const ManagePortfolio = ({
       const isNameDuplicate = await createPortfolio(newPortfolioName);
       if (!isNameDuplicate) {
         closeAddModal();
+        showAlert('Portfolio was successfully added!', 'success');
       }
       else {
         setIsAddFail(isNameDuplicate);
@@ -72,6 +75,7 @@ const ManagePortfolio = ({
     setIsPfNameEmpty(false);
     setIsAddFail(false);
     setIsAddModalOpen(false);
+    setNewPortfolioName('');
   }
 
   if (!isAuthenticated && !loading) {
@@ -126,7 +130,8 @@ ManagePortfolio.propTypes = {
   currentPortfolio: PropTypes.number,
   loadPortfolios: PropTypes.func,
   selectCurrentPortfolio: PropTypes.func,
-  createPortfolio: PropTypes.func
+  createPortfolio: PropTypes.func,
+  showAlert: PropTypes.func
 };
 
 const mapStateToProps = (state) => ({
@@ -139,5 +144,6 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   loadPortfolios,
   selectCurrentPortfolio,
-  createPortfolio
+  createPortfolio,
+  showAlert
 })(ManagePortfolio);

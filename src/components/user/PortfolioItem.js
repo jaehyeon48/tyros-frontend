@@ -8,11 +8,14 @@ import {
   deletePortfolio
 } from '../../actions/portfolioAction';
 
+import { showAlert } from '../../actions/alertAction';
+
 const PortfolioItem = ({
   portfolio,
   currentPortfolio,
   editPortfolio,
-  deletePortfolio
+  deletePortfolio,
+  showAlert
 }) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editPortfolioName, setEditPortfolioName] = useState(portfolio.portfolioName);
@@ -57,6 +60,7 @@ const PortfolioItem = ({
       const isNameDuplicate = await editPortfolio(portfolio.portfolioId, editPortfolioName);
       if (!isNameDuplicate) {
         closeEditModal();
+        showAlert('The portfolio was successfully edited!', 'success');
       }
       else {
         setIsEditFail(isNameDuplicate);
@@ -64,8 +68,9 @@ const PortfolioItem = ({
     }
   }
 
-  const handleDeletePortfolio = () => {
-    deletePortfolio(portfolio.portfolioId);
+  const handleDeletePortfolio = async () => {
+    await deletePortfolio(portfolio.portfolioId);
+    showAlert('The portfolio was successfully deleted!', 'success');
   }
 
   return (
@@ -102,10 +107,12 @@ const PortfolioItem = ({
 
 PortfolioItem.propTypes = {
   editPortfolio: PropTypes.func,
-  deletePortfolio: PropTypes.func
+  deletePortfolio: PropTypes.func,
+  showAlert: PropTypes.func
 };
 
 export default connect(null, {
   editPortfolio,
-  deletePortfolio
+  deletePortfolio,
+  showAlert
 })(PortfolioItem);

@@ -19,11 +19,13 @@ const Alert = ({ alert }) => {
   }
 
   return (
-    <div className="alert-container">
+    <React.Fragment>
       {alert && alert.isAlertOn && (
-        <div className={`alert ${alertTypeBgColor(alert.alertType)}`}>{alert.alertMessage}</div>
+        <div className="alert-container">
+          <div className={`alert ${alertTypeBgColor(alert.alertType)}`}>{alert.alertMessage}</div>
+        </div>
       )}
-    </div>
+    </React.Fragment>
   );
 }
 

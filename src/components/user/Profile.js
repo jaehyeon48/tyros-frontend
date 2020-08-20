@@ -6,14 +6,18 @@ import { Redirect } from 'react-router-dom';
 import AvatarImage from '../avatar/AvatarImage';
 import Modal from '../modal/Modal';
 import UploadAvatar from '../avatar/UploadAvatar';
-import './profile.css';
+import { loadUser } from '../../actions/authAction';
 import { updateProfile } from '../../actions/userAction';
+import './profile.css';
+import { showAlert } from '../../actions/alertAction';
 
 const Profile = ({
   loading,
   isAuthenticated,
   user,
-  updateProfile
+  updateProfile,
+  loadUser,
+  showAlert
 }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -62,10 +66,13 @@ const Profile = ({
     const updateProfileResult = await updateProfile({ firstName, lastName, currentPassword, newPassword });
 
     if (updateProfileResult === 0) {
-      window.location.reload();
+      loadUser();
+      showAlert('The profile was successfully edited!', 'success');
+      setCurrentPassword('');
+      setNewPassword('');
     }
     else if (updateProfileResult === -1) {
-      alert('Update profile error');
+      showAlert('Current password does not match. Please try again.', 'fail');
     }
   }
 
@@ -130,7 +137,8 @@ Profile.propTypes = {
   loading: PropTypes.bool,
   isAuthenticated: PropTypes.bool,
   user: PropTypes.object,
-  updateProfile: PropTypes.func
+  updateProfile: PropTypes.func,
+  loadUser: PropTypes.func
 }
 
 const mapStateToProps = (state) => ({
@@ -139,4 +147,8 @@ const mapStateToProps = (state) => ({
   user: state.auth.user
 })
 
-export default connect(mapStateToProps, { updateProfile })(Profile);
+export default connect(mapStateToProps, {
+  updateProfile,
+  loadUser,
+  showAlert
+})(Profile);

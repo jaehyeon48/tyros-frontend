@@ -1,5 +1,6 @@
 import {
   SELECT_PORTFOLIO,
+  GET_SELECTED_PORTFOLIO,
   LOAD_PORTFOLIO,
   CREATE_PORTFOLIO,
   EDIT_PORTFOLIO,
@@ -21,7 +22,7 @@ export default function portfolioReducer(state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
-    case SELECT_PORTFOLIO:
+    case GET_SELECTED_PORTFOLIO:
       return {
         ...state,
         currentPortfolio: payload

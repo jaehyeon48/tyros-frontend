@@ -1,5 +1,6 @@
 import {
   SELECT_PORTFOLIO,
+  GET_SELECTED_PORTFOLIO,
   LOAD_PORTFOLIO,
   CREATE_PORTFOLIO,
   EDIT_PORTFOLIO,
@@ -28,14 +29,14 @@ export const loadPortfolios = (userId) => async (dispatch) => {
   }
 }
 
-export const selectCurrentPortfolio = () => async (dispatch) => {
+export const getSelectedPortfolio = () => async (dispatch) => {
   try {
     const selectResponse = await axios.get(`${SERVER_URL}/api/portfolio/select`, { withCredentials: true });
 
     const selectedPortfolioId = selectResponse.data.selectedPortfolioId;
 
     dispatch({
-      type: SELECT_PORTFOLIO,
+      type: GET_SELECTED_PORTFOLIO,
       payload: selectedPortfolioId
     });
   } catch (error) {
@@ -63,7 +64,7 @@ export const createPortfolio = (portfolioName) => async (dispatch) => {
 
     dispatch({ type: CREATE_PORTFOLIO });
     dispatch(loadPortfolios());
-    dispatch(selectCurrentPortfolio());
+    dispatch(getSelectedPortfolio());
     return false;
   } catch (error) {
     console.error(error);
@@ -91,7 +92,7 @@ export const editPortfolio = (portfolioId, newPortfolioName) => async (dispatch)
 
     dispatch({ type: EDIT_PORTFOLIO });
     dispatch(loadPortfolios());
-    dispatch(selectCurrentPortfolio());
+    dispatch(getSelectedPortfolio());
     return false;
   } catch (error) {
     console.error(error);
@@ -109,7 +110,7 @@ export const deletePortfolio = (portfolioId) => async (dispatch) => {
 
     dispatch({ type: DELETE_PORTFOLIO });
     dispatch(loadPortfolios());
-    dispatch(selectCurrentPortfolio());
+    dispatch(getSelectedPortfolio());
   } catch (error) {
     dispatch({ type: PORTFOLIO_DELETE_ERROR });
     console.error(error.response);

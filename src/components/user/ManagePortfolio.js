@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import PortfolioItem from './PortfolioItem';
 import {
   loadPortfolios,
-  selectCurrentPortfolio
+  getSelectedPortfolio
 } from '../../actions/portfolioAction';
 import './portfolio.css';
 
@@ -20,12 +20,12 @@ const ManagePortfolio = ({
   portfolioList,
   currentPortfolio,
   loadPortfolios,
-  selectCurrentPortfolio,
+  getSelectedPortfolio,
   createPortfolio,
   showAlert
 }) => {
   useEffect(() => { loadPortfolios() }, [loadPortfolios]);
-  useEffect(() => { selectCurrentPortfolio() }, [selectCurrentPortfolio]);
+  useEffect(() => { getSelectedPortfolio() }, [getSelectedPortfolio]);
 
   const [newPortfolioName, setNewPortfolioName] = useState('');
   const [isNameEmptyErr, setIsNameEmptyErr] = useState(false);
@@ -129,7 +129,7 @@ ManagePortfolio.propTypes = {
   portfolioList: PropTypes.array,
   currentPortfolio: PropTypes.number,
   loadPortfolios: PropTypes.func,
-  selectCurrentPortfolio: PropTypes.func,
+  getSelectedPortfolio: PropTypes.func,
   createPortfolio: PropTypes.func,
   showAlert: PropTypes.func
 };
@@ -143,7 +143,7 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   loadPortfolios,
-  selectCurrentPortfolio,
+  getSelectedPortfolio,
   createPortfolio,
   showAlert
 })(ManagePortfolio);

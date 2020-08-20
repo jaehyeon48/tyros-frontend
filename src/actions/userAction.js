@@ -28,10 +28,12 @@ export const uploadAvatar = (avatarImage) => async (dispatch) => {
       type: UPLOAD_AVATAR,
       payload: uploadResponse.data.avatar
     });
+    return 0;
   } catch (error) {
     console.error(error);
     dispatch({ type: AVATAR_ERROR });
   }
+  return -1;
 }
 
 export const updateProfile = (formData) => async (dispatch) => {

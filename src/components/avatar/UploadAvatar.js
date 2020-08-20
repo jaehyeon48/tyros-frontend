@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { uploadAvatar } from '../../actions/userAction';
+import { showAlert } from '../../actions/alertAction';
 import './uploadAvatar.css';
 
 const UploadAvatar = ({
   closeModalFunc,
-  uploadAvatar
+  uploadAvatar,
+  showAlert
 }) => {
   const [avatarImage, setAvatarImage] = useState();
   const [previewUrl, setPreviewUrl] = useState();
@@ -38,8 +40,9 @@ const UploadAvatar = ({
 
   const handleUploadAvatar = async () => {
     if (isValid) {
-      uploadAvatar(avatarImage);
+      await uploadAvatar(avatarImage);
       closeModalFunc(false);
+      showAlert('Avatar was successfully edited!', 'success');
     }
   }
 
@@ -71,7 +74,11 @@ const UploadAvatar = ({
 
 UploadAvatar.propTypes = {
   closeModalFunc: PropTypes.func,
-  uploadAvatar: PropTypes.func
+  uploadAvatar: PropTypes.func,
+  showAlert: PropTypes.func
 }
 
-export default connect(null, { uploadAvatar })(UploadAvatar);
+export default connect(null, {
+  uploadAvatar,
+  showAlert
+})(UploadAvatar);

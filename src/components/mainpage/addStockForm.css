@@ -51,6 +51,7 @@
   margin: 0 10px 0 0;
   padding: 4px;
   font-size: 1.6rem;
+  cursor: pointer;
 }
 
 .btn-add-stock {

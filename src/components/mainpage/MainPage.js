@@ -55,27 +55,29 @@ const MainPage = ({
   return (
     <React.Fragment>
       <div className="main-container">
-        <div className="portfolio-list-container">
-          <select onChange={handleSelectPfChange} value={currentPortfolio !== null && currentPortfolio} readOnly>
-            {portfolioList && portfolioList.map(portfolio => (
-              <option
-                key={portfolio.portfolioId}
-                value={portfolio.portfolioId}
-              >{portfolio.portfolioName}</option>
-            ))}
-          </select>
-        </div>
-        <div className="add-stock-cash-container">
-          <button
-            type="button"
-            className="btn btn-open-add-stock-modal"
-            onClick={openAddStockModal}
-          >ADD STOCK</button>
-          <button
-            type="button"
-            className="btn btn-open-add-cash-modal"
-            onClick={openAddCashModal}
-          >ADD CASH</button>
+        <div className="portfolio-actions">
+          <div className="portfolio-list-container">
+            <select onChange={handleSelectPfChange} value={currentPortfolio !== null && currentPortfolio} readOnly>
+              {portfolioList && portfolioList.map(portfolio => (
+                <option
+                  key={portfolio.portfolioId}
+                  value={portfolio.portfolioId}
+                >{portfolio.portfolioName}</option>
+              ))}
+            </select>
+          </div>
+          <div className="add-buttons-container">
+            <button
+              type="button"
+              className="btn btn-open-add-stock-modal"
+              onClick={openAddStockModal}
+            >ADD STOCK</button>
+            <button
+              type="button"
+              className="btn btn-open-add-cash-modal"
+              onClick={openAddCashModal}
+            >ADD CASH</button>
+          </div>
         </div>
       </div>
       {isAddStockModalOpen && (

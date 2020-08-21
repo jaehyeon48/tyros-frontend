@@ -48,26 +48,28 @@ const AddStockForm = props => {
 
   return (
     <div className="add-stock-container">
-      <form autoComplete="off" onSubmit={handleSubmit}>
-        <label>BUY
+      <form autoComplete="off" onSubmit={handleSubmit} className="add-stock-form">
+        <div className="transaction-type-container">
+          <label>BUY
           <input
-            type="radio"
-            name="transactionType"
-            value="buy"
-            checked={transactionType === 'buy'}
-            onChange={handleChange}
-          />
-        </label>
-        <label>SELL
+              type="radio"
+              name="transactionType"
+              value="buy"
+              checked={transactionType === 'buy'}
+              onChange={handleChange}
+            />
+          </label>
+          <label>SELL
           <input
-            type="radio"
-            name="transactionType"
-            value="sell"
-            checked={transactionType === 'sell'}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
+              type="radio"
+              name="transactionType"
+              value="sell"
+              checked={transactionType === 'sell'}
+              onChange={handleChange}
+            />
+          </label>
+        </div>
+        <label className="add-stock-inputs">
           Ticker
           <input
             type="text"
@@ -75,6 +77,7 @@ const AddStockForm = props => {
             value={ticker}
             onChange={handleChange}
             onInput={handleTickerInput}
+            className="add-stock-field"
           />
         </label>
         {renderAutoComplete && <AutoCompleteResult
@@ -82,6 +85,39 @@ const AddStockForm = props => {
           userInput={tickerInput}
           handleClickItem={handleClickItem}
         />}
+        <label className="add-stock-inputs">
+          Price
+          <input
+            type="number"
+            name="pricePerShare"
+            value={pricePerShare}
+            onChange={handleChange}
+            min="0"
+            step="0.01"
+            className="add-stock-field"
+          />
+        </label>
+        <label className="add-stock-inputs">
+          Quantity
+          <input
+            type="number"
+            name="quantity"
+            value={quantity}
+            onChange={handleChange}
+            className="add-stock-field"
+          />
+        </label>
+        <label className="add-stock-inputs">
+          Date
+          <input
+            type="date"
+            name="transactionDate"
+            value={transactionDate}
+            onChange={handleChange}
+            className="add-stock-date-field"
+          />
+        </label>
+        <button type="submit" className="btn btn-add-stock">Add Position</button>
       </form>
     </div>
   );

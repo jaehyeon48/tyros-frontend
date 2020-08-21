@@ -3,9 +3,16 @@
   grid-template-columns: repeat(30, 1fr);
 }
 
-.portfolio-list-container {
+.portfolio-actions {
   grid-row: 1;
-  grid-column: 3 / span 5;
+  grid-column: 3 / span 26;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1700px;
+}
+
+.portfolio-list-container {
   margin: 40px 0 0 0;
 }
 
@@ -13,11 +20,9 @@
   width: 220px;
 }
 
-.add-stock-cash-container {
+.add-buttons-container {
   display: flex;
-  justify-content: flex-start;
-  grid-row: 1;
-  grid-column: 24 / span 7;
+  justify-content: center;
   margin: 40px 0 0;
 }
 
@@ -31,4 +36,20 @@
   background-color: var(--orange-color);
   color: var(--white-color);
   margin: 0 15px 0 0;
+}
+
+@media only screen and (min-width: 577px) and (max-width: 768px) {
+  .portfolio-actions {
+    grid-column: 2 / span 28;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .portfolio-actions {
+    flex-direction: column;
+  }
+
+  .add-buttons-container {
+    margin: 40px 0 0 16px;
+  }
 }

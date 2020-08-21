@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import tickerAutoComplete from '../../utils/tickerAutoComplete';
-import AutoCompleteResult from './autoCompleteResult';
+import AutoCompleteResult from './AutoCompleteResult';
 import './addStockForm.css';
 
 const AddStockForm = props => {

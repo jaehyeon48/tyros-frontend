@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
@@ -8,6 +8,8 @@ import {
   selectPortfolio,
   getSelectedPortfolio
 } from '../../actions/portfolioAction';
+import Modal from '../modal/Modal';
+import AddStockForm from '../mainpage/AddStockForm';
 import './mainpage.css';
 
 const MainPage = ({
@@ -20,6 +22,9 @@ const MainPage = ({
   selectPortfolio,
   getSelectedPortfolio
 }) => {
+  const [isAddStockModalOpen, setIsAddStockModalOpen] = useState(false);
+  const [isAddCashModalOpen, setIsAddCashModalOpen] = useState(false);
+
   useEffect(() => {
     loadPortfolios();
   }, [loadPortfolios]);
@@ -34,23 +39,54 @@ const MainPage = ({
     selectPortfolio(e.target.value);
   }
 
+  const openAddStockModal = () => {
+    setIsAddStockModalOpen(true);
+  }
+  const closeAddStockModal = () => {
+    setIsAddStockModalOpen(false);
+  }
+  const openAddCashModal = () => {
+    setIsAddCashModalOpen(true);
+  }
+  const closeAddCashModal = () => {
+    setIsAddCashModalOpen(false);
+  }
+
   return (
-    <div className="main-container">
-      <div className="portfolio-list-container">
-        <select onChange={handleSelectPfChange} value={currentPortfolio !== null && currentPortfolio} readOnly>
-          {portfolioList && portfolioList.map(portfolio => (
-            <option
-              key={portfolio.portfolioId}
-              value={portfolio.portfolioId}
-            >{portfolio.portfolioName}</option>
-          ))}
-        </select>
+    <React.Fragment>
+      <div className="main-container">
+        <div className="portfolio-list-container">
+          <select onChange={handleSelectPfChange} value={currentPortfolio !== null && currentPortfolio} readOnly>
+            {portfolioList && portfolioList.map(portfolio => (
+              <option
+                key={portfolio.portfolioId}
+                value={portfolio.portfolioId}
+              >{portfolio.portfolioName}</option>
+            ))}
+          </select>
+        </div>
+        <div className="add-stock-cash-container">
+          <button
+            type="button"
+            className="btn btn-open-add-stock-modal"
+            onClick={openAddStockModal}
+          >ADD STOCK</button>
+          <button
+            type="button"
+            className="btn btn-open-add-cash-modal"
+            onClick={openAddCashModal}
+          >ADD CASH</button>
+        </div>
       </div>
-      <div className="add-stock-cash-container">
-        <button type="button" className="btn btn-open-add-stock-modal">ADD STOCK</button>
-        <button type="button" className="btn btn-open-add-cash-modal">ADD CASH</button>
-      </div>
-    </div>
+      {isAddStockModalOpen && (
+        <Modal closeModalFunc={closeAddStockModal}>
+          <AddStockForm />
+        </Modal>
+      )}
+      {isAddCashModalOpen && (
+        <Modal closeModalFunc={closeAddCashModal}></Modal>
+      )}
+    </React.Fragment>
   );
 }
 

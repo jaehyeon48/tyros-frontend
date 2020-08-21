@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import './autoComplete.css';
 
 const AutoCompleteResult = ({
   results,
@@ -8,8 +9,8 @@ const AutoCompleteResult = ({
   handleClickItem
 }) => {
   return (
-    <React.Fragment>
-      {results.slice(0, 5).map(result => (
+    <div className="auto-complete-container">
+      {results.slice(0, 100).map(result => (
         <div
           key={result.ticker}
           className="auto-complete-item"
@@ -33,10 +34,10 @@ const AutoCompleteResult = ({
                 <span>{result.name}</span>
               )}
           </div>
-          <div className="auto-complete-item__exchange">{result.exchange}</div>
+          <div className="auto-complete-item-exchange">{result.exchange}</div>
         </div>
       ))}
-    </React.Fragment>
+    </div>
   )
 }
 

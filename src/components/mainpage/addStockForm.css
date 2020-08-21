@@ -5,6 +5,10 @@
   margin: 10px 0 0 0;
 }
 
+.ticker-container {
+  position: relative;
+}
+
 .transaction-type-container {
   margin: 5px 0 10px 0;
 }

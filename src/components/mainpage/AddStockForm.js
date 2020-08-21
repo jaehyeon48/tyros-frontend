@@ -69,22 +69,24 @@ const AddStockForm = props => {
             />
           </label>
         </div>
-        <label className="add-stock-inputs">
-          Ticker
+        <div className="ticker-container">
+          <label className="add-stock-inputs">
+            Ticker
           <input
-            type="text"
-            name="ticker"
-            value={ticker}
-            onChange={handleChange}
-            onInput={handleTickerInput}
-            className="add-stock-field"
-          />
-        </label>
-        {renderAutoComplete && <AutoCompleteResult
-          results={autoCompleteResults}
-          userInput={tickerInput}
-          handleClickItem={handleClickItem}
-        />}
+              type="text"
+              name="ticker"
+              value={ticker}
+              onChange={handleChange}
+              onInput={handleTickerInput}
+              className="add-stock-field"
+            />
+          </label>
+          {renderAutoComplete && <AutoCompleteResult
+            results={autoCompleteResults}
+            userInput={tickerInput}
+            handleClickItem={handleClickItem}
+          />}
+        </div>
         <label className="add-stock-inputs">
           Price
           <input

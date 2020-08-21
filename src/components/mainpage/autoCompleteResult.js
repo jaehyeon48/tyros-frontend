@@ -42,7 +42,9 @@ const AutoCompleteResult = ({
 }
 
 AutoCompleteResult.propTypes = {
-
+  results: PropTypes.array,
+  userInput: PropTypes.string,
+  handleClickItem: PropTypes.func
 }
 
 export default AutoCompleteResult;

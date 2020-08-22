@@ -5,7 +5,7 @@ import {
 } from '../actions/actionTypes';
 
 const initialState = {
-  stockList: {}
+  stockList: []
 };
 
 export default function stockReducer(state = initialState, action) {

@@ -1,6 +1,7 @@
 import {
   GET_STOCK_LIST,
   GET_STOCK_ERROR,
+  ADD_STOCK,
   LOGOUT
 } from '../actions/actionTypes';
 
@@ -26,6 +27,7 @@ export default function stockReducer(state = initialState, action) {
       return {
         stockList: []
       }
+    case ADD_STOCK:
     default:
       return state;
   }

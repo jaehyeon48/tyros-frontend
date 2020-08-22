@@ -1,15 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import tickerAutoComplete from '../../utils/tickerAutoComplete';
 import AutoCompleteResult from './AutoCompleteResult';
 import './addStockForm.css';
 
-const AddStockForm = props => {
+import { addStock } from '../../actions/stockAction';
+import { showAlert } from '../../actions/alertAction';
+
+const AddStockForm = ({
+  closeAddStockModal,
+  currentPortfolio,
+  addStock,
+  showAlert
+}) => {
   const [formData, setFormData] = useState({
     ticker: '',
-    pricePerShare: '',
+    price: '',
     quantity: '',
+    companyName: '',
     transactionDate: new Date().toJSON().slice(0, 10),
     transactionType: 'buy'
   });
@@ -17,7 +27,7 @@ const AddStockForm = props => {
   const [autoCompleteResults, setAutoCompleteResults] = useState([]);
   const [renderAutoComplete, setRenderAutoComplete] = useState(false);
 
-  const { ticker, pricePerShare, quantity, transactionDate, transactionType } = formData;
+  const { ticker, price, quantity, companyName, transactionDate, transactionType } = formData;
 
   useEffect(() => {
     if (autoCompleteResults.length > 0) setRenderAutoComplete(true);
@@ -32,13 +42,23 @@ const AddStockForm = props => {
     setAutoCompleteResults(tickerResult);
   }
 
-  const handleClickItem = (ticker) => {
-    setFormData({ ...formData, ticker });
+  const handleClickItem = (ticker, companyName) => {
+    setFormData({ ...formData, ticker, companyName });
     setRenderAutoComplete(false);
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const addStockResult = await addStock(currentPortfolio, formData);
+
+    if (addStockResult === 0) {
+      showAlert('The stock info was successfully added!', 'success');
+    }
+    else {
+      showAlert('Something went wrong. Please try again!', 'fail');
+    }
+    closeAddStockModal();
   }
 
   const handleChange = event => setFormData({
@@ -91,8 +111,8 @@ const AddStockForm = props => {
           Price
           <input
             type="number"
-            name="pricePerShare"
-            value={pricePerShare}
+            name="price"
+            value={price}
             onChange={handleChange}
             min="0"
             step="0.01"
@@ -126,7 +146,17 @@ const AddStockForm = props => {
 }
 
 AddStockForm.propTypes = {
-
+  closeAddStockModal: PropTypes.func,
+  currentPortfolio: PropTypes.number,
+  addStock: PropTypes.func,
+  showAlert: PropTypes.func
 }
 
-export default AddStockForm;
+const mapStateToProps = (state) => ({
+  currentPortfolio: state.portfolio.currentPortfolio
+});
+
+export default connect(mapStateToProps, {
+  addStock,
+  showAlert
+})(AddStockForm);

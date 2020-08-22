@@ -91,7 +91,7 @@ const MainPage = ({
       </div>
       {isAddStockModalOpen && (
         <Modal closeModalFunc={closeAddStockModal}>
-          <AddStockForm />
+          <AddStockForm closeAddStockModal={closeAddStockModal} />
         </Modal>
       )}
       {isAddCashModalOpen && (

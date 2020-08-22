@@ -33,5 +33,4 @@ export const HIDE_ALERT = 'HIDE_ALERT';
 /* STOCK */
 export const GET_STOCK_LIST = 'GET_STOCK_LIST';
 export const GET_STOCK_ERROR = 'GET_STOCK_ERROR';
-export const SORT_STOCK = 'SORT_STOCK';
 export const ADD_STOCK = 'ADD_STOCK';

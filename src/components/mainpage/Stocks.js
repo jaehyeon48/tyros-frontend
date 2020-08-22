@@ -8,8 +8,15 @@ const Stocks = ({
   stock
 }) => {
   return (
-    <div>
-
+    <div className="stocks-container">
+      {stock && stock.stockList.map(eachStock => (
+        <StockItem
+          key={eachStock.ticker}
+          ticker={eachStock.ticker}
+          avgPrice={eachStock.avgCost}
+          quantity={eachStock.quantity}
+        />
+      ))}
     </div>
   );
 }

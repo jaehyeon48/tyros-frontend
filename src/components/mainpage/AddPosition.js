@@ -34,6 +34,12 @@ const AddPosition = ({
     else setRenderAutoComplete(false);
   }, [autoCompleteResults]);
 
+  useEffect(() => {
+    if (ticker.trim() === '' && companyName !== '') {
+      setFormData({ ...formData, companyName: '' });
+    }
+  }, [ticker, companyName]);
+
 
   const handleTickerInput = (e) => {
     setTickerInput(e.target.value);
@@ -68,6 +74,7 @@ const AddPosition = ({
 
   return (
     <div className="add-stock-container">
+
       <form autoComplete="off" onSubmit={handleSubmit} className="add-stock-form">
         <div className="transaction-type-container">
           <label>BUY
@@ -107,6 +114,15 @@ const AddPosition = ({
             handleClickItem={handleClickItem}
           />}
         </div>
+        <label className="add-stock-inputs">
+          Company
+          <input
+            type="text"
+            value={companyName}
+            className="add-stock-field"
+            disabled={true}
+          />
+        </label>
         <label className="add-stock-inputs">
           Price
           <input

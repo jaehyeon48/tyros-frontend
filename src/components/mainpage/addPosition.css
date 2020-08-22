@@ -47,6 +47,12 @@
   box-shadow: 0 0 0 3px var(--highlight-color);
 }
 
+.add-stock-field:disabled {
+  background-color: var(--lightgray-color);
+  color: var(--dark-color);
+  font-size: 1.4rem;
+}
+
 .add-stock-date-field {
   margin: 0 10px 0 0;
   padding: 4px;
@@ -62,6 +68,13 @@
 
 .btn-add-position:hover {
   background-color: var(--dark-orange-color);
+}
+
+.company-name-info {
+  position: absolute;
+  left: 10%;
+  margin: 0 0 10px 0;
+  font-size: 1.1rem;
 }
 
 @media only screen and (max-width: 425px) {

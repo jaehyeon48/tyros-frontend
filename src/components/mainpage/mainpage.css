@@ -69,11 +69,20 @@
   border-radius: 0.7rem;
 }
 
-.stock-item-ticker {
+.stock-item-info {
+  display: flex;
+  flex-direction: column;
   grid-row: 1;
   grid-column: 1 / span 10;
+}
+
+.stock-item-ticker {
   font-size: 2.2rem;
   font-weight: bold;
+}
+
+.stock-item-name {
+  font-size: 1.3rem;
 }
 
 .stock-item-realtime {

@@ -11,6 +11,7 @@ import {
 import { getStocks } from '../../actions/stockAction';
 import Modal from '../modal/Modal';
 import AddStockForm from '../mainpage/AddStockForm';
+import Stocks from './Stocks';
 import './mainpage.css';
 
 
@@ -86,6 +87,7 @@ const MainPage = ({
             >ADD CASH</button>
           </div>
         </div>
+        <Stocks />
       </div>
       {isAddStockModalOpen && (
         <Modal closeModalFunc={closeAddStockModal}>

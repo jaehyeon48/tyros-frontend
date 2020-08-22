@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 
 import tickerAutoComplete from '../../utils/tickerAutoComplete';
 import AutoCompleteResult from './AutoCompleteResult';
-import './addStockForm.css';
+import './addPosition.css';
 
 import { addStock } from '../../actions/stockAction';
 import { showAlert } from '../../actions/alertAction';
 
-const AddStockForm = ({
-  closeAddStockModal,
+const AddPosition = ({
+  closeAddPositionModal,
   currentPortfolio,
   addStock,
   showAlert
@@ -53,12 +53,12 @@ const AddStockForm = ({
     const addStockResult = await addStock(currentPortfolio, formData);
 
     if (addStockResult === 0) {
-      showAlert('The stock info was successfully added!', 'success');
+      showAlert('The position was successfully added!', 'success');
     }
     else {
       showAlert('Something went wrong. Please try again!', 'fail');
     }
-    closeAddStockModal();
+    closeAddPositionModal();
   }
 
   const handleChange = event => setFormData({
@@ -139,14 +139,14 @@ const AddStockForm = ({
             className="add-stock-date-field"
           />
         </label>
-        <button type="submit" className="btn btn-add-stock">Add Position</button>
+        <button type="submit" className="btn btn-add-position">Add Position</button>
       </form>
     </div>
   );
 }
 
-AddStockForm.propTypes = {
-  closeAddStockModal: PropTypes.func,
+AddPosition.propTypes = {
+  closeAddPositionModal: PropTypes.func,
   currentPortfolio: PropTypes.number,
   addStock: PropTypes.func,
   showAlert: PropTypes.func
@@ -159,4 +159,4 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   addStock,
   showAlert
-})(AddStockForm);
+})(AddPosition);

@@ -10,7 +10,7 @@ import {
 } from '../../actions/portfolioAction';
 import { getStocks } from '../../actions/stockAction';
 import Modal from '../modal/Modal';
-import AddStockForm from '../mainpage/AddStockForm';
+import AddPosition from '../mainpage/AddPosition';
 import Stocks from './Stocks';
 import './mainpage.css';
 
@@ -26,7 +26,7 @@ const MainPage = ({
   getSelectedPortfolio,
   getStocks
 }) => {
-  const [isAddStockModalOpen, setIsAddStockModalOpen] = useState(false);
+  const [isAddPositionModalOpen, setIsAddPositionModalOpen] = useState(false);
   const [isAddCashModalOpen, setIsAddCashModalOpen] = useState(false);
 
   useEffect(() => {
@@ -47,11 +47,11 @@ const MainPage = ({
     selectPortfolio(e.target.value);
   }
 
-  const openAddStockModal = () => {
-    setIsAddStockModalOpen(true);
+  const openAddPositionModal = () => {
+    setIsAddPositionModalOpen(true);
   }
-  const closeAddStockModal = () => {
-    setIsAddStockModalOpen(false);
+  const closeAddPositionModal = () => {
+    setIsAddPositionModalOpen(false);
   }
   const openAddCashModal = () => {
     setIsAddCashModalOpen(true);
@@ -77,9 +77,9 @@ const MainPage = ({
           <div className="add-buttons-container">
             <button
               type="button"
-              className="btn btn-open-add-stock-modal"
-              onClick={openAddStockModal}
-            >ADD STOCK</button>
+              className="btn btn-open-add-position-modal"
+              onClick={openAddPositionModal}
+            >ADD POSITION</button>
             <button
               type="button"
               className="btn btn-open-add-cash-modal"
@@ -89,9 +89,9 @@ const MainPage = ({
         </div>
         <Stocks />
       </div>
-      {isAddStockModalOpen && (
-        <Modal closeModalFunc={closeAddStockModal}>
-          <AddStockForm closeAddStockModal={closeAddStockModal} />
+      {isAddPositionModalOpen && (
+        <Modal closeModalFunc={closeAddPositionModal}>
+          <AddPosition closeAddPositionModal={closeAddPositionModal} />
         </Modal>
       )}
       {isAddCashModalOpen && (

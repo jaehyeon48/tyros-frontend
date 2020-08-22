@@ -54,13 +54,13 @@
   cursor: pointer;
 }
 
-.btn-add-stock {
+.btn-add-position {
   margin: 15px 0 0 0;
   background-color: var(--orange-color);
   color: var(--white-color);
 }
 
-.btn-add-stock:hover {
+.btn-add-position:hover {
   background-color: var(--dark-orange-color);
 }
 

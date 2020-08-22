@@ -32,10 +32,18 @@
   margin: 0 15px 0 0;
 }
 
+.btn-open-add-position-modal:hover {
+  background-color: var(--dark-orange-color);
+}
+
 .btn-open-add-cash-modal {
   background-color: var(--orange-color);
   color: var(--white-color);
   margin: 0 15px 0 0;
+}
+
+.btn-open-add-cash-modal:hover {
+  background-color: var(--dark-orange-color);
 }
 
 .stocks-container {

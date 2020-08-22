@@ -1,6 +1,7 @@
 import {
   GET_STOCK_LIST,
-  GET_STOCK_ERROR
+  GET_STOCK_ERROR,
+  LOGOUT
 } from '../actions/actionTypes';
 
 const initialState = {
@@ -21,6 +22,10 @@ export default function stockReducer(state = initialState, action) {
         ...state,
         stockList: {}
       };
+    case LOGOUT:
+      return {
+        stockList: {}
+      }
     default:
       return state;
   }

@@ -14,7 +14,7 @@ const AutoCompleteResult = ({
         <div
           key={result.ticker}
           className="auto-complete-item"
-          onClick={() => handleClickItem(result.ticker)}
+          onClick={() => handleClickItem(result.ticker, result.name)}
         >
           <div>
             {result.ticker.slice(0, userInput.length).toUpperCase() === userInput.toUpperCase() ?

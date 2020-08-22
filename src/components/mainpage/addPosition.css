@@ -48,7 +48,7 @@
 }
 
 .add-stock-field:disabled {
-  background-color: var(--lightgray-color);
+  background-color: var(--darkgray-color);
   color: var(--dark-color);
   font-size: 1.4rem;
 }

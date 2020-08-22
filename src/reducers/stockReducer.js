@@ -20,11 +20,11 @@ export default function stockReducer(state = initialState, action) {
     case GET_STOCK_ERROR:
       return {
         ...state,
-        stockList: {}
+        stockList: []
       };
     case LOGOUT:
       return {
-        stockList: {}
+        stockList: []
       }
     default:
       return state;

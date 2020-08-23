@@ -1,4 +1,5 @@
 import {
+  CHECK_MARKET_STATUS,
   GET_STOCK_LIST,
   GET_STOCK_ERROR,
   ADD_STOCK,
@@ -6,13 +7,19 @@ import {
 } from '../actions/actionTypes';
 
 const initialState = {
-  stockList: []
+  stockList: [],
+  isMarketOpen: null
 };
 
 export default function stockReducer(state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
+    case CHECK_MARKET_STATUS:
+      return {
+        ...state,
+        isMarketOpen: payload
+      }
     case GET_STOCK_LIST:
       return {
         ...state,
@@ -25,7 +32,8 @@ export default function stockReducer(state = initialState, action) {
       };
     case LOGOUT:
       return {
-        stockList: []
+        stockList: [],
+        isMarketOpen: null
       }
     case ADD_STOCK:
     default:

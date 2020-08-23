@@ -1,4 +1,5 @@
 import {
+  CHECK_MARKET_STATUS,
   GET_STOCK_LIST,
   GET_STOCK_ERROR,
   ADD_STOCK
@@ -7,6 +8,19 @@ import {
 import axios from 'axios';
 import SERVER_URL from './serverURL';
 import { sortStocks } from '../utils/sortStocks';
+
+export const checkMarketStatus = () => async (dispatch) => {
+  const config = { withCredentials: true };
+  try {
+    const marketStatusResponse = await axios.get(`${SERVER_URL}/api/stock/marketStatus`, config);
+    dispatch({
+      type: CHECK_MARKET_STATUS,
+      payload: marketStatusResponse.data
+    });
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 export const getStocks = (portfolioId) => async (dispatch) => {
   const config = { withCredentials: true };

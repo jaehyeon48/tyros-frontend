@@ -36,6 +36,7 @@ export const GET_STOCK_ERROR = 'GET_STOCK_ERROR';
 export const ADD_STOCK = 'ADD_STOCK';
 
 /* STOCK */
+export const CHECK_MARKET_STATUS = 'CHECK_MARKET_STATUS';
 export const GET_CASH = 'GET_CASH';
 export const GET_CASH_ERROR = 'GET_CASH_ERROR';
 export const ADD_CASH = 'ADD_CASH';

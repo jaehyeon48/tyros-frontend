@@ -1,8 +1,10 @@
 import {
   CHECK_MARKET_STATUS,
+  CHECK_MARKET_STATUS_ERROR,
   GET_STOCK_LIST,
   GET_STOCK_ERROR,
-  ADD_STOCK
+  ADD_STOCK,
+  ADD_TOTAL_COST,
 } from './actionTypes';
 
 import axios from 'axios';
@@ -19,6 +21,7 @@ export const checkMarketStatus = () => async (dispatch) => {
     });
   } catch (error) {
     console.error(error);
+    dispatch({ type: CHECK_MARKET_STATUS_ERROR });
   }
 }
 
@@ -56,4 +59,11 @@ export const addStock = (portfolioId, formData) => async (dispatch) => {
     console.error(error);
     return -1;
   }
+}
+
+export const addTotalCost = (totalCost) => (dispatch) => {
+  dispatch({
+    type: ADD_TOTAL_COST,
+    payload: totalCost
+  });
 }

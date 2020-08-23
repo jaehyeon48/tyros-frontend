@@ -1,14 +1,17 @@
 import {
   CHECK_MARKET_STATUS,
+  CHECK_MARKET_STATUS_ERROR,
   GET_STOCK_LIST,
   GET_STOCK_ERROR,
   ADD_STOCK,
-  LOGOUT
+  ADD_TOTAL_COST,
+  LOGOUT,
 } from '../actions/actionTypes';
 
 const initialState = {
   stockList: [],
-  isMarketOpen: null
+  isMarketOpen: null,
+  totalCost: 0.0
 };
 
 export default function stockReducer(state = initialState, action) {
@@ -30,12 +33,18 @@ export default function stockReducer(state = initialState, action) {
         ...state,
         stockList: []
       };
+    case ADD_TOTAL_COST:
+      return {
+        ...state,
+        totalCost: Number((state.totalCost + payload).toFixed(2))
+      }
     case LOGOUT:
       return {
         stockList: [],
         isMarketOpen: null
       }
     case ADD_STOCK:
+    case CHECK_MARKET_STATUS_ERROR:
     default:
       return state;
   }

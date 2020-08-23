@@ -10,7 +10,7 @@
 .stock-item {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
-  width: 245px;
+  width: 280px;
   height: 350px;
   margin: 3rem;
   color: var(--light-color);
@@ -19,6 +19,7 @@
   text-align: center;
   align-items: center;
   border-radius: 0.7rem;
+  padding: 5px 10px;
 }
 
 .stock-item-info {

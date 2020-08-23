@@ -35,6 +35,8 @@ const MainPage = ({
 }) => {
   const [isAddPositionModalOpen, setIsAddPositionModalOpen] = useState(false);
   const [isAddCashModalOpen, setIsAddCashModalOpen] = useState(false);
+  const [sumOfTodayGain, setSumOfTodayGain] = useState(0);
+  const [sumOfTotalGain, setSumOfTotalGain] = useState(0);
 
   useEffect(() => {
     checkMarketStatus();
@@ -99,7 +101,12 @@ const MainPage = ({
             >ADD CASH</button>
           </div>
         </div>
-        <Stocks />
+        <Stocks
+          sumOfTodayGain={sumOfTodayGain}
+          sumOfTotalGain={sumOfTotalGain}
+          setSumOfTodayGain={setSumOfTodayGain}
+          setSumOfTotalGain={setSumOfTotalGain}
+        />
       </div>
       {isAddPositionModalOpen && (
         <Modal closeModalFunc={closeAddPositionModal}>
@@ -123,8 +130,8 @@ MainPage.propTypes = {
   currentPortfolio: PropTypes.number,
   loadPortfolios: PropTypes.func,
   selectPortfolio: PropTypes.func,
-  getSelectedPortfolio: PropTypes.func,
   checkMarketStatus: PropTypes.func,
+  getSelectedPortfolio: PropTypes.func,
   getStocks: PropTypes.func,
   getCash: PropTypes.func
 };

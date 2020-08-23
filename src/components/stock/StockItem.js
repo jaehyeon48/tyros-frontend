@@ -10,17 +10,21 @@ const StockItem = ({
   stock,
   ticker,
   avgCost,
-  quantity
+  quantity,
+  sumOfTodayGain,
+  sumOfTotalGain,
+  setSumOfTodayGain,
+  setSumOfTotalGain
 }) => {
   const [isFirstRender, setIsFirstRender] = useState(true);
   const [stockPriceData, setStockPriceData] = useState({
-    price: '',
-    change: '',
-    changePercent: ''
+    price: 0,
+    change: 0,
+    changePercent: 0.0
   });
-  const [todayGain, setTodayGain] = useState();
-  const [totalGain, setTotalGain] = useState();
-  const [totalGainPercent, setTotalGainPercent] = useState();
+  const [todayGain, setTodayGain] = useState(0);
+  const [totalGain, setTotalGain] = useState(0);
+  const [totalGainPercent, setTotalGainPercent] = useState(0.0);
   useEffect(() => {
     (async () => {
       if (stock.isMarketOpen) {
@@ -57,11 +61,15 @@ const StockItem = ({
   }, [stock.isMarketOpen]);
 
   useEffect(() => {
-    setTodayGain(Number((stockPriceData.change * quantity.toFixed(2))));
+    if (stockPriceData.change) {
+      setTodayGain(Number((stockPriceData.change * quantity.toFixed(2))));
+    }
   }, [quantity, stockPriceData.change]);
 
   useEffect(() => {
-    setTotalGain(Number(((stockPriceData.price - avgCost) * quantity).toFixed(2)));
+    if (stockPriceData.price) {
+      setTotalGain(Number(((stockPriceData.price - avgCost) * quantity).toFixed(2)));
+    }
   }, [stockPriceData.price, avgCost, quantity]);
 
   useEffect(() => {
@@ -69,6 +77,18 @@ const StockItem = ({
       setTotalGainPercent(Number((totalGain / (avgCost * quantity) * 100).toFixed(2)));
     }
   }, [totalGain, avgCost, quantity]);
+
+  useEffect(() => {
+    if (todayGain) {
+      setSumOfTodayGain(sumOfTodayGain += todayGain);
+    }
+  }, [todayGain]);
+
+  useEffect(() => {
+    if (totalGain) {
+      setSumOfTotalGain(sumOfTotalGain += totalGain);
+    }
+  }, [totalGain]);
 
   return (
     <div className="stock-item gain-positive">
@@ -89,7 +109,11 @@ StockItem.propTypes = {
   stock: PropTypes.object,
   ticker: PropTypes.string,
   avgCost: PropTypes.number,
-  quantity: PropTypes.number
+  quantity: PropTypes.number,
+  sumOfTodayGain: PropTypes.number,
+  sumOfTotalGain: PropTypes.number,
+  setSumOfTodayGain: PropTypes.func,
+  setSumOfTotalGain: PropTypes.func
 };
 
 const mapStateToProps = (state) => ({

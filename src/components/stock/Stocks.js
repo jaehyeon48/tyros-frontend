@@ -6,7 +6,11 @@ import StockItem from './StockItem';
 import './stocks.css';
 
 const Stocks = ({
-  stock
+  stock,
+  sumOfTodayGain,
+  sumOfTotalGain,
+  setSumOfTodayGain,
+  setSumOfTotalGain
 }) => {
   return (
     <div className="stocks-container">
@@ -16,6 +20,10 @@ const Stocks = ({
           ticker={eachStock.ticker}
           avgCost={eachStock.avgCost}
           quantity={eachStock.quantity}
+          sumOfTodayGain={sumOfTodayGain}
+          sumOfTotalGain={sumOfTotalGain}
+          setSumOfTodayGain={setSumOfTodayGain}
+          setSumOfTotalGain={setSumOfTotalGain}
         />
       ))}
     </div>
@@ -23,7 +31,11 @@ const Stocks = ({
 }
 
 Stocks.propTypes = {
-  stock: PropTypes.object
+  stock: PropTypes.object,
+  sumOfTodayGain: PropTypes.number,
+  sumOfTotalGain: PropTypes.number,
+  setSumOfTodayGain: PropTypes.func,
+  setSumOfTotalGain: PropTypes.func
 };
 
 const mapStateToProps = (state) => ({

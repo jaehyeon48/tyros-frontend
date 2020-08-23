@@ -10,8 +10,9 @@ import {
 } from '../../actions/portfolioAction';
 import { getStocks } from '../../actions/stockAction';
 import Modal from '../modal/Modal';
-import AddPosition from '../mainpage/AddPosition';
-import Stocks from './Stocks';
+import AddPosition from './AddPosition';
+import AddCash from './AddCash';
+import Stocks from '../stock/Stocks';
 import './mainpage.css';
 
 
@@ -95,7 +96,9 @@ const MainPage = ({
         </Modal>
       )}
       {isAddCashModalOpen && (
-        <Modal closeModalFunc={closeAddCashModal}></Modal>
+        <Modal closeModalFunc={closeAddCashModal}>
+          <AddCash closeAddCashModal={closeAddCashModal} />
+        </Modal>
       )}
     </React.Fragment>
   );

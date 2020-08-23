@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 
 import tickerAutoComplete from '../../utils/tickerAutoComplete';
 import AutoCompleteResult from './AutoCompleteResult';
-import './addPosition.css';
 
 import { addStock } from '../../actions/stockAction';
 import { showAlert } from '../../actions/alertAction';
@@ -67,15 +66,16 @@ const AddPosition = ({
     closeAddPositionModal();
   }
 
-  const handleChange = event => setFormData({
-    ...formData,
-    [event.target.name]: event.target.value
-  })
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  }
 
   return (
-    <div className="add-stock-container">
-
-      <form autoComplete="off" onSubmit={handleSubmit} className="add-stock-form">
+    <div className="add-position-container">
+      <form autoComplete="off" onSubmit={handleSubmit} className="add-position-form">
         <div className="transaction-type-container">
           <label>BUY
           <input
@@ -97,7 +97,7 @@ const AddPosition = ({
           </label>
         </div>
         <div className="ticker-container">
-          <label className="add-stock-inputs">
+          <label className="add-position-inputs">
             Ticker
           <input
               type="text"
@@ -105,7 +105,7 @@ const AddPosition = ({
               value={ticker}
               onChange={handleChange}
               onInput={handleTickerInput}
-              className="add-stock-field"
+              className="add-position-field"
             />
           </label>
           {renderAutoComplete && <AutoCompleteResult
@@ -114,16 +114,16 @@ const AddPosition = ({
             handleClickItem={handleClickItem}
           />}
         </div>
-        <label className="add-stock-inputs">
+        <label className="add-position-inputs">
           Company
           <input
             type="text"
             value={companyName}
-            className="add-stock-field"
+            className="add-position-field"
             disabled={true}
           />
         </label>
-        <label className="add-stock-inputs">
+        <label className="add-position-inputs">
           Price
           <input
             type="number"
@@ -132,27 +132,27 @@ const AddPosition = ({
             onChange={handleChange}
             min="0"
             step="0.01"
-            className="add-stock-field"
+            className="add-position-field"
           />
         </label>
-        <label className="add-stock-inputs">
+        <label className="add-position-inputs">
           Quantity
           <input
             type="number"
             name="quantity"
             value={quantity}
             onChange={handleChange}
-            className="add-stock-field"
+            className="add-position-field"
           />
         </label>
-        <label className="add-stock-inputs">
+        <label className="add-position-inputs">
           Date
           <input
             type="date"
             name="transactionDate"
             value={transactionDate}
             onChange={handleChange}
-            className="add-stock-date-field"
+            className="add-position-date-field"
           />
         </label>
         <button type="submit" className="btn btn-add-position">Add Position</button>

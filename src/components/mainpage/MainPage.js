@@ -24,6 +24,8 @@ const MainPage = ({
   user,
   loading,
   isAuthenticated,
+  totalCost,
+  totalCash,
   portfolioList,
   currentPortfolio,
   loadPortfolios,
@@ -35,8 +37,10 @@ const MainPage = ({
 }) => {
   const [isAddPositionModalOpen, setIsAddPositionModalOpen] = useState(false);
   const [isAddCashModalOpen, setIsAddCashModalOpen] = useState(false);
-  const [sumOfTodayGain, setSumOfTodayGain] = useState(0);
-  const [sumOfTotalGain, setSumOfTotalGain] = useState(0);
+  const [totalTodayPL, setTotalTodayPL] = useState(0);
+  const [totalOverallPL, setTotalOverallPL] = useState(0);
+  const [dailyPLPercent, setDailyPLPercent] = useState(0.0);
+  const [overallPLPercent, setOverallPLPercent] = useState(0.0);
 
   useEffect(() => {
     checkMarketStatus();
@@ -102,10 +106,10 @@ const MainPage = ({
           </div>
         </div>
         <Stocks
-          sumOfTodayGain={sumOfTodayGain}
-          sumOfTotalGain={sumOfTotalGain}
-          setSumOfTodayGain={setSumOfTodayGain}
-          setSumOfTotalGain={setSumOfTotalGain}
+          totalTodayPL={totalTodayPL}
+          totalOverallPL={totalOverallPL}
+          setTotalTodayPL={setTotalTodayPL}
+          setTotalOverallPL={setTotalOverallPL}
         />
       </div>
       {isAddPositionModalOpen && (
@@ -126,6 +130,8 @@ MainPage.propTypes = {
   user: PropTypes.object,
   loading: PropTypes.bool,
   isAuthenticated: PropTypes.bool,
+  totalCost: PropTypes.number,
+  totalCash: PropTypes.number,
   portfolioList: PropTypes.array,
   currentPortfolio: PropTypes.number,
   loadPortfolios: PropTypes.func,
@@ -140,6 +146,8 @@ const mapStateToProps = (state) => ({
   user: state.auth.user,
   loading: state.auth.loading,
   isAuthenticated: state.auth.isAuthenticated,
+  totalCost: state.stock.totalCost,
+  totalCash: state.cash.totalCash,
   portfolioList: state.portfolio.portfolioList,
   currentPortfolio: state.portfolio.currentPortfolio
 });

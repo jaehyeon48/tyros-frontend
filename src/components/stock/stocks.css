@@ -53,24 +53,24 @@
   grid-column: 1 / span 10;
 }
 
-.stock-item-todayGain {
+.stock-item-today-pl {
   grid-row: 5;
   grid-column: 1 / span 10;
 }
 
-.stock-item-totalGain {
+.stock-item-overall-pl {
   grid-row: 6;
   grid-column: 1 / span 10;
 }
 
-.gain-positive {
+.pl-positive {
   background-color: #429672;
 }
 
-.gain-negative {
+.pl-negative {
   background-color: #cc2435;
 }
 
-.gain-zero {
+.pl-zero {
   background-color: #63676b;
 }

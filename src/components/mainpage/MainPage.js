@@ -36,7 +36,7 @@ const MainPage = ({
   const [isAddPositionModalOpen, setIsAddPositionModalOpen] = useState(false);
   const [isAddCashModalOpen, setIsAddCashModalOpen] = useState(false);
 
-  useState(() => {
+  useEffect(() => {
     checkMarketStatus();
   }, []);
 

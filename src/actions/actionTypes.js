@@ -39,3 +39,4 @@ export const ADD_STOCK = 'ADD_STOCK';
 export const GET_CASH = 'GET_CASH';
 export const GET_CASH_ERROR = 'GET_CASH_ERROR';
 export const ADD_CASH = 'ADD_CASH';
+export const ADD_CASH_ERROR = 'ADD_CASH_ERROR';

@@ -1,6 +1,7 @@
 import {
   GET_CASH,
-  GET_CASH_ERROR
+  GET_CASH_ERROR,
+  ADD_CASH_ERROR
 } from './actionTypes';
 
 import axios from 'axios';
@@ -26,5 +27,21 @@ export const getCash = (portfolioId) => async (dispatch) => {
 }
 
 export const addCash = (portfolioId, formData) => async (dispatch) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    withCredentials: true
+  };
 
+  try {
+    const reqBody = JSON.stringify({ portfolioId, ...formData });
+    await axios.post(`${SERVER_URL}/api/cash`, reqBody, config);
+    dispatch(getCash(portfolioId));
+    return 0;
+  } catch (error) {
+    console.error(error);
+    dispatch({ type: ADD_CASH_ERROR });
+    return -1;
+  }
 }

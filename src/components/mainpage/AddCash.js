@@ -2,9 +2,14 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import { addCash } from '../../actions/cashAction';
+import { showAlert } from '../../actions/alertAction';
+
 const AddCash = ({
   currentPortfolio,
-  closeAddCashModal
+  closeAddCashModal,
+  addCash,
+  showAlert
 }) => {
   const [formData, setFormData] = useState({
     amount: '',
@@ -21,8 +26,18 @@ const AddCash = ({
     });
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const addCashResult = await addCash(currentPortfolio, formData);
+    if (addCashResult === 0) {
+      showAlert('The cash info was successfully added!', 'success');
+      closeAddCashModal();
+    }
+    else {
+      showAlert('Something went wrong. Please try again!', 'fail');
+      closeAddCashModal();
+    }
+
   }
 
   return (
@@ -80,11 +95,15 @@ const AddCash = ({
 
 AddCash.propTypes = {
   currentPortfolio: PropTypes.number,
-  closeAddCashModal: PropTypes.func
+  closeAddCashModal: PropTypes.func,
+  addCash: PropTypes.func
 };
 
 const mapStateToProps = (state) => ({
   currentPortfolio: state.portfolio.currentPortfolio
 });
 
-export default connect(mapStateToProps)(AddCash);
+export default connect(mapStateToProps, {
+  addCash,
+  showAlert
+})(AddCash);

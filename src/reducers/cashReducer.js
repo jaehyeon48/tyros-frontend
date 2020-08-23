@@ -1,6 +1,8 @@
 import {
   GET_CASH,
-  GET_CASH_ERROR
+  GET_CASH_ERROR,
+  ADD_CASH,
+  ADD_CASH_ERROR
 } from '../actions/actionTypes';
 
 const initialState = {
@@ -16,6 +18,8 @@ export default function cashReducer(state = initialState, action) {
         ...state,
         totalCash: payload
       }
+    case ADD_CASH:
+    case ADD_CASH_ERROR:
     case GET_CASH_ERROR:
     default:
       return state;

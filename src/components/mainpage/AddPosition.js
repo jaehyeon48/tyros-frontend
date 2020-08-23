@@ -59,11 +59,12 @@ const AddPosition = ({
 
     if (addStockResult === 0) {
       showAlert('The position was successfully added!', 'success');
+      closeAddPositionModal();
     }
     else {
       showAlert('Something went wrong. Please try again!', 'fail');
+      closeAddPositionModal();
     }
-    closeAddPositionModal();
   }
 
   const handleChange = (e) => {

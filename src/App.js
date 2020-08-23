@@ -15,12 +15,10 @@ import Alert from './components/alert/Alert';
 import './app.css';
 
 import { loadUser } from './actions/authAction';
-import { checkMarketStatus } from './actions/stockAction';
 
 export default function App() {
   useEffect(() => {
     store.dispatch(loadUser());
-    store.dispatch(checkMarketStatus());
   }, []);
 
   return (

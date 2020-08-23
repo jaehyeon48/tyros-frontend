@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import StockItem from './StockItem';
+import './stocks.css';
 
 const Stocks = ({
   stock
@@ -13,7 +14,7 @@ const Stocks = ({
         <StockItem
           key={eachStock.ticker}
           ticker={eachStock.ticker}
-          avgPrice={eachStock.avgCost}
+          avgCost={eachStock.avgCost}
           quantity={eachStock.quantity}
         />
       ))}

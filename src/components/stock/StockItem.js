@@ -5,10 +5,9 @@ import { findCompanyNameByTicker } from '../../utils/findNameByTicker';
 
 const StockItem = ({
   ticker,
-  avgPrice,
+  avgCost,
   quantity
 }) => {
-  console.log(findCompanyNameByTicker(ticker));
   return (
     <div className="stock-item gain-positive">
       <div className="stock-item-info">
@@ -16,7 +15,7 @@ const StockItem = ({
         <span className="stock-item-name">{findCompanyNameByTicker(ticker)}</span>
       </div>
       <span className="stock-item-realtime"></span>
-      <span className="stock-item-avgPrice">price: {avgPrice}</span>
+      <span className="stock-item-avgPrice">cost: {avgCost}</span>
       <span className="stock-item-quantity">quantity: {quantity}</span>
       <span className="stock-item-todayGain"></span>
       <span className="stock-item-totalGain"></span>
@@ -26,7 +25,7 @@ const StockItem = ({
 
 StockItem.propTypes = {
   ticker: PropTypes.string,
-  avgPrice: PropTypes.number,
+  avgCost: PropTypes.number,
   quantity: PropTypes.number
 };
 

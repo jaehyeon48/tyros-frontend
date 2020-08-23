@@ -18,6 +18,9 @@ const StockItem = ({
     change: '',
     changePercent: ''
   });
+  const [todayGain, setTodayGain] = useState();
+  const [totalGain, setTotalGain] = useState();
+  const [totalGainPercent, setTotalGainPercent] = useState();
   useEffect(() => {
     (async () => {
       if (stock.isMarketOpen) {
@@ -50,20 +53,34 @@ const StockItem = ({
           changePercent: closeData.changePercent
         });
       }
-
     })();
   }, [stock.isMarketOpen]);
+
+  useEffect(() => {
+    setTodayGain(Number((stockPriceData.change * quantity.toFixed(2))));
+  }, [quantity, stockPriceData.change]);
+
+  useEffect(() => {
+    setTotalGain(Number(((stockPriceData.price - avgCost) * quantity).toFixed(2)));
+  }, [stockPriceData.price, avgCost, quantity]);
+
+  useEffect(() => {
+    if (totalGain) {
+      setTotalGainPercent(Number((totalGain / (avgCost * quantity) * 100).toFixed(2)));
+    }
+  }, [totalGain, avgCost, quantity]);
+
   return (
     <div className="stock-item gain-positive">
       <div className="stock-item-info">
         <span className="stock-item-ticker">{ticker.toUpperCase()}</span>
         <span className="stock-item-name">{findCompanyNameByTicker(ticker)}</span>
       </div>
-      <span className="stock-item-realtime">{stockPriceData.price}({stockPriceData.changePercent}%)</span>
-      <span className="stock-item-avgPrice">cost: {avgCost}</span>
-      <span className="stock-item-quantity">quantity: {quantity}</span>
-      <span className="stock-item-todayGain"></span>
-      <span className="stock-item-totalGain"></span>
+      <span className="stock-item-realtime">{stockPriceData.price}</span>
+      <span className="stock-item-avgPrice">Cost: {avgCost}</span>
+      <span className="stock-item-quantity">Quantity: {quantity}</span>
+      <span className="stock-item-todayGain">Today: {todayGain}({stockPriceData.changePercent}%)</span>
+      <span className="stock-item-totalGain">Total: {totalGain}({totalGainPercent}%)</span>
     </div>
   )
 }

@@ -34,3 +34,8 @@ export const HIDE_ALERT = 'HIDE_ALERT';
 export const GET_STOCK_LIST = 'GET_STOCK_LIST';
 export const GET_STOCK_ERROR = 'GET_STOCK_ERROR';
 export const ADD_STOCK = 'ADD_STOCK';
+
+/* STOCK */
+export const GET_CASH = 'GET_CASH';
+export const GET_CASH_ERROR = 'GET_CASH_ERROR';
+export const ADD_CASH = 'ADD_CASH';

@@ -9,6 +9,7 @@ import {
   getSelectedPortfolio
 } from '../../actions/portfolioAction';
 import { getStocks } from '../../actions/stockAction';
+import { getCash } from '../../actions/cashAction';
 import Modal from '../modal/Modal';
 import AddPosition from './AddPosition';
 import AddCash from './AddCash';
@@ -25,13 +26,15 @@ const MainPage = ({
   loadPortfolios,
   selectPortfolio,
   getSelectedPortfolio,
-  getStocks
+  getStocks,
+  getCash
 }) => {
   const [isAddPositionModalOpen, setIsAddPositionModalOpen] = useState(false);
   const [isAddCashModalOpen, setIsAddCashModalOpen] = useState(false);
 
   useEffect(() => {
     getStocks(currentPortfolio);
+    getCash(currentPortfolio);
   }, [currentPortfolio]);
 
   useEffect(() => {
@@ -114,6 +117,7 @@ MainPage.propTypes = {
   selectPortfolio: PropTypes.func,
   getSelectedPortfolio: PropTypes.func,
   getStocks: PropTypes.func,
+  getCash: PropTypes.func
 };
 
 const mapStateToProps = (state) => ({
@@ -128,5 +132,6 @@ export default connect(mapStateToProps, {
   loadPortfolios,
   selectPortfolio,
   getSelectedPortfolio,
-  getStocks
+  getStocks,
+  getCash
 })(MainPage);

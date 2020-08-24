@@ -34,9 +34,10 @@ export default function stockReducer(state = initialState, action) {
         stockList: []
       };
     case ADD_TOTAL_COST:
+      const prevCost = state.totalCost === undefined ? 0 : state.totalCost;
       return {
         ...state,
-        totalCost: Number((state.totalCost + payload).toFixed(2))
+        totalCost: Number((prevCost + payload).toFixed(2))
       }
     case LOGOUT:
       return {

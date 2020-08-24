@@ -21,6 +21,12 @@
   align-items: center;
   border-radius: 0.7rem;
   padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color ease 200ms;
+}
+
+.stock-item:hover {
+  background-color: #2d618f;
 }
 
 .stock-item-info {

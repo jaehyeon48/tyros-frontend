@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import { addTotalCost } from '../../actions/stockAction';
 import { findCompanyNameByTicker } from '../../utils/findNameByTicker';
@@ -12,12 +13,14 @@ const StockItem = ({
   ticker,
   avgCost,
   quantity,
+  currentPortfolio,
   totalTodayPL,
   totalOverallPL,
   setTotalTodayPL,
   setTotalOverallPL,
   addTotalCost
 }) => {
+  let history = useHistory();
   const [isFirstRender, setIsFirstRender] = useState(true);
   const [stockPriceData, setStockPriceData] = useState({
     price: 0,
@@ -110,8 +113,12 @@ const StockItem = ({
     else return 'pl-zero';
   }
 
+  const directToPositionDetailPage = () => {
+    history.push(`/position/${currentPortfolio}/${ticker}`);
+  }
+
   return (
-    <div className="stock-item">
+    <div className="stock-item" onClick={directToPositionDetailPage}>
       <div className="stock-item-info">
         <span className="stock-item-ticker">{ticker.toUpperCase()}</span>
         <span className="stock-item-name">{findCompanyNameByTicker(ticker)}</span>
@@ -134,6 +141,7 @@ StockItem.propTypes = {
   ticker: PropTypes.string,
   avgCost: PropTypes.number,
   quantity: PropTypes.number,
+  currentPortfolio: PropTypes.number,
   totalTodayPL: PropTypes.number,
   totalOverallPL: PropTypes.number,
   setTotalTodayPL: PropTypes.func,
@@ -141,7 +149,8 @@ StockItem.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  stock: state.stock
+  stock: state.stock,
+  currentPortfolio: state.portfolio.currentPortfolio
 });
 
 export default connect(mapStateToProps, { addTotalCost })(StockItem);

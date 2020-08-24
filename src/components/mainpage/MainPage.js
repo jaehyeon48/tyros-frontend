@@ -98,6 +98,13 @@ const MainPage = ({
     else return 'pl-zero';
   }
 
+  const colorOverallValue = () => {
+    let overallValue = totalOverallPL + totalCost + totalCash;
+    if (overallValue > 0) return 'pl-positive';
+    else if (overallValue < 0) return 'pl-negative';
+    else return 'pl-zero';
+  }
+
   return (
     <React.Fragment>
       <div className="main-container">
@@ -106,7 +113,11 @@ const MainPage = ({
         >DAILY P&L:&nbsp;&nbsp;{totalTodayPL}({dailyPLPercent.toFixed(2)}%)</div>
         <div
           className={`overall-pl-container ${colorOverallPL()}`}
-        >OVERALL P&L:&nbsp;&nbsp;{totalOverallPL + totalCost + totalCash}({overallPLPercent.toFixed(2)}%)</div>
+        >OVERALL P&L:&nbsp;&nbsp;{totalOverallPL}({overallPLPercent.toFixed(2)}%)</div>
+        <div
+          className={`overall-value-container ${colorOverallValue()}`}>
+          TOTAL VALUE: ${totalOverallPL + totalCost + totalCash}
+        </div>
         <div className="portfolio-actions">
           <div className="portfolio-list-container">
             <select onChange={handleSelectPfChange} value={currentPortfolio !== null && currentPortfolio} readOnly>

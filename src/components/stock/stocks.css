@@ -1,5 +1,5 @@
 .stocks-container {
-  grid-row: 4;
+  grid-row: 5;
   grid-column: 1 / span 30;
   margin: 40px 0 0 0;
   display: flex;

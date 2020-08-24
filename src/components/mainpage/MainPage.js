@@ -114,13 +114,14 @@ const MainPage = ({
           <React.Fragment>
             <div
               className={`daily-pl-container ${colorDailyPL()}`}
-            >DAILY P&L:&nbsp;&nbsp;{totalTodayPL}({dailyPLPercent.toFixed(2)}%)</div>
+            >DAILY P&L:&nbsp;&nbsp;{totalTodayPL} ({totalTodayPL > 0 ? '+' : null}
+              {dailyPLPercent.toFixed(2)}%)</div>
             <div
               className={`overall-pl-container ${colorOverallPL()}`}
-            >OVERALL P&L:&nbsp;&nbsp;{totalOverallPL}({overallPLPercent.toFixed(2)}%)</div>
+            >OVERALL P&L:&nbsp;&nbsp;{totalOverallPL} ({totalOverallPL > 0 ? '+' : null}{overallPLPercent.toFixed(2)}%)</div>
             <div
               className={`overall-value-container ${colorOverallValue()}`}>
-              TOTAL VALUE: ${totalOverallPL + totalCost + totalCash}
+              TOTAL VALUE: ${(totalOverallPL + totalCost + totalCash).toFixed(2)}
             </div>
           </React.Fragment>
         ) : <img

@@ -26,6 +26,7 @@ const MainPage = ({
   theme,
   loading,
   isAuthenticated,
+  stockList,
   totalCost,
   totalCash,
   portfolioList,
@@ -110,25 +111,29 @@ const MainPage = ({
   return (
     <React.Fragment>
       <div className="main-container">
-        {totalTodayPL && totalOverallPL && totalCost && totalCash ? (
+        {stockList.length > 0 ? (
           <React.Fragment>
-            <div
-              className={`daily-pl-container ${colorDailyPL()}`}
-            >DAILY P&L:&nbsp;&nbsp;{totalTodayPL} ({totalTodayPL > 0 ? '+' : null}
-              {dailyPLPercent.toFixed(2)}%)</div>
-            <div
-              className={`overall-pl-container ${colorOverallPL()}`}
-            >OVERALL P&L:&nbsp;&nbsp;{totalOverallPL} ({totalOverallPL > 0 ? '+' : null}{overallPLPercent.toFixed(2)}%)</div>
-            <div
-              className={`overall-value-container ${colorOverallValue()}`}>
-              TOTAL VALUE: ${(totalOverallPL + totalCost + totalCash).toFixed(2)}
-            </div>
+            {totalTodayPL && totalOverallPL && totalCost && totalCash ? (
+              <React.Fragment>
+                <div
+                  className={`daily-pl-container ${colorDailyPL()}`}
+                >DAILY P&L:&nbsp;&nbsp;{totalTodayPL} ({totalTodayPL > 0 ? '+' : null}
+                  {dailyPLPercent.toFixed(2)}%)</div>
+                <div
+                  className={`overall-pl-container ${colorOverallPL()}`}
+                >OVERALL P&L:&nbsp;&nbsp;{totalOverallPL} ({totalOverallPL > 0 ? '+' : null}{overallPLPercent.toFixed(2)}%)</div>
+                <div
+                  className={`overall-value-container ${colorOverallValue()}`}>
+                  TOTAL VALUE: ${(totalOverallPL + totalCost + totalCash).toFixed(2)}
+                </div>
+              </React.Fragment>
+            ) : <img
+                src={theme === 'dark' ? SpinnerDark : SpinnerLight}
+                alt="loading spinner"
+                className="mainpage-pl-spinner"
+              />}
           </React.Fragment>
-        ) : <img
-            src={theme === 'dark' ? SpinnerDark : SpinnerLight}
-            alt="loading spinner"
-            className="mainpage-pl-spinner"
-          />}
+        ) : <div className="notice-empty-stocklist">Please Add Your Stock First!</div>}
         <div className="portfolio-actions">
           <div className="portfolio-list-container">
             <select onChange={handleSelectPfChange} value={currentPortfolio !== null && currentPortfolio} readOnly>
@@ -178,6 +183,7 @@ MainPage.propTypes = {
   theme: PropTypes.string,
   loading: PropTypes.bool,
   isAuthenticated: PropTypes.bool,
+  stockList: PropTypes.array,
   totalCost: PropTypes.number,
   totalCash: PropTypes.number,
   portfolioList: PropTypes.array,
@@ -194,6 +200,7 @@ const mapStateToProps = (state) => ({
   theme: state.auth.theme,
   loading: state.auth.loading,
   isAuthenticated: state.auth.isAuthenticated,
+  stockList: state.stock.stockList,
   totalCost: state.stock.totalCost,
   totalCash: state.cash.totalCash,
   portfolioList: state.portfolio.portfolioList,

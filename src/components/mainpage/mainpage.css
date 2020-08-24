@@ -119,11 +119,11 @@
   background-color: var(--dark-orange-color);
 }
 
-.company-name-info {
-  position: absolute;
-  left: 10%;
-  margin: 0 0 10px 0;
-  font-size: 1.1rem;
+.notice-empty-stocklist {
+  grid-row: 2;
+  grid-column: 1 / span 30;
+  font-size: 3rem;
+  text-align: center;
 }
 
 .daily-pl-container {

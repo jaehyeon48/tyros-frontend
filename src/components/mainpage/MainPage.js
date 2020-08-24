@@ -18,6 +18,8 @@ import AddPosition from './AddPosition';
 import AddCash from './AddCash';
 import Stocks from '../stock/Stocks';
 import './mainpage.css';
+import SpinnerDark from '../../images/spinner-dark.gif';
+import SpinnerLight from '../../images/spinner-light.gif';
 
 
 const MainPage = ({
@@ -108,16 +110,24 @@ const MainPage = ({
   return (
     <React.Fragment>
       <div className="main-container">
-        <div
-          className={`daily-pl-container ${colorDailyPL()}`}
-        >DAILY P&L:&nbsp;&nbsp;{totalTodayPL}({dailyPLPercent.toFixed(2)}%)</div>
-        <div
-          className={`overall-pl-container ${colorOverallPL()}`}
-        >OVERALL P&L:&nbsp;&nbsp;{totalOverallPL}({overallPLPercent.toFixed(2)}%)</div>
-        <div
-          className={`overall-value-container ${colorOverallValue()}`}>
-          TOTAL VALUE: ${totalOverallPL + totalCost + totalCash}
-        </div>
+        {totalTodayPL && totalOverallPL && totalCost && totalCash ? (
+          <React.Fragment>
+            <div
+              className={`daily-pl-container ${colorDailyPL()}`}
+            >DAILY P&L:&nbsp;&nbsp;{totalTodayPL}({dailyPLPercent.toFixed(2)}%)</div>
+            <div
+              className={`overall-pl-container ${colorOverallPL()}`}
+            >OVERALL P&L:&nbsp;&nbsp;{totalOverallPL}({overallPLPercent.toFixed(2)}%)</div>
+            <div
+              className={`overall-value-container ${colorOverallValue()}`}>
+              TOTAL VALUE: ${totalOverallPL + totalCost + totalCash}
+            </div>
+          </React.Fragment>
+        ) : <img
+            src={user && user.theme === 'dark' ? SpinnerDark : SpinnerLight}
+            alt="loading spinner"
+            className="mainpage-pl-spinner"
+          />}
         <div className="portfolio-actions">
           <div className="portfolio-list-container">
             <select onChange={handleSelectPfChange} value={currentPortfolio !== null && currentPortfolio} readOnly>

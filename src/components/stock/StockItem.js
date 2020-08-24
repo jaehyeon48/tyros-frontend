@@ -81,7 +81,9 @@ const StockItem = ({
   }, [overallPL, avgCost, quantity]);
 
   useEffect(() => {
-    addTotalCost(avgCost * quantity);
+    if (avgCost && quantity) {
+      addTotalCost(avgCost * quantity);
+    }
   }, [avgCost, quantity]);
 
   useEffect(() => {

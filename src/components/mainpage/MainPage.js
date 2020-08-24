@@ -23,7 +23,7 @@ import SpinnerLight from '../../images/spinner-light.gif';
 
 
 const MainPage = ({
-  user,
+  theme,
   loading,
   isAuthenticated,
   totalCost,
@@ -124,7 +124,7 @@ const MainPage = ({
             </div>
           </React.Fragment>
         ) : <img
-            src={user && user.theme === 'dark' ? SpinnerDark : SpinnerLight}
+            src={theme === 'dark' ? SpinnerDark : SpinnerLight}
             alt="loading spinner"
             className="mainpage-pl-spinner"
           />}
@@ -174,7 +174,7 @@ const MainPage = ({
 }
 
 MainPage.propTypes = {
-  user: PropTypes.object,
+  theme: PropTypes.string,
   loading: PropTypes.bool,
   isAuthenticated: PropTypes.bool,
   totalCost: PropTypes.number,
@@ -190,7 +190,7 @@ MainPage.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  user: state.auth.user,
+  theme: state.auth.theme,
   loading: state.auth.loading,
   isAuthenticated: state.auth.isAuthenticated,
   totalCost: state.stock.totalCost,

@@ -57,6 +57,14 @@ const MainPage = ({
 
   useEffect(() => { getSelectedPortfolio() }, [getSelectedPortfolio]);
 
+  useEffect(() => {
+    setDailyPLPercent((totalTodayPL / (totalOverallPL + totalCost - totalTodayPL) * 100));
+  }, [totalTodayPL, totalOverallPL, totalCost]);
+
+  useEffect(() => {
+    setOverallPLPercent(totalOverallPL / totalCost * 100);
+  }, [totalOverallPL, totalCost]);
+
   if (!isAuthenticated && !loading) {
     return <Redirect to="/login" />
   }
@@ -78,9 +86,27 @@ const MainPage = ({
     setIsAddCashModalOpen(false);
   }
 
+  const colorDailyPL = () => {
+    if (totalTodayPL > 0) return 'pl-positive';
+    else if (totalTodayPL < 0) return 'pl-negative';
+    else return 'pl-zero';
+  }
+
+  const colorOverallPL = () => {
+    if (totalOverallPL > 0) return 'pl-positive';
+    else if (totalOverallPL < 0) return 'pl-negative';
+    else return 'pl-zero';
+  }
+
   return (
     <React.Fragment>
       <div className="main-container">
+        <div
+          className={`daily-pl-container ${colorDailyPL()}`}
+        >DAILY P&L:&nbsp;&nbsp;{totalTodayPL}({dailyPLPercent.toFixed(2)}%)</div>
+        <div
+          className={`overall-pl-container ${colorOverallPL()}`}
+        >OVERALL P&L:&nbsp;&nbsp;{totalOverallPL + totalCost + totalCash}({overallPLPercent.toFixed(2)}%)</div>
         <div className="portfolio-actions">
           <div className="portfolio-list-container">
             <select onChange={handleSelectPfChange} value={currentPortfolio !== null && currentPortfolio} readOnly>

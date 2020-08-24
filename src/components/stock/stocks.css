@@ -1,5 +1,5 @@
 .stocks-container {
-  grid-row: 2;
+  grid-row: 4;
   grid-column: 1 / span 30;
   margin: 40px 0 0 0;
   display: flex;
@@ -14,6 +14,7 @@
   height: 350px;
   margin: 3rem;
   color: var(--light-color);
+  background-color: #1c3b57;
   font-size: 24px;
   font-weight: 400;
   text-align: center;
@@ -61,16 +62,4 @@
 .stock-item-overall-pl {
   grid-row: 6;
   grid-column: 1 / span 10;
-}
-
-.pl-positive {
-  background-color: #429672;
-}
-
-.pl-negative {
-  background-color: #cc2435;
-}
-
-.pl-zero {
-  background-color: #63676b;
 }

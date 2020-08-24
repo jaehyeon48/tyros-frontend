@@ -96,8 +96,20 @@ const StockItem = ({
     }
   }, [overallPL]);
 
+  const colorTodayPL = () => {
+    if (todayPL > 0) return 'pl-positive';
+    else if (todayPL < 0) return 'pl-negative';
+    else return 'pl-zero';
+  }
+
+  const colorOverallPL = () => {
+    if (overallPL > 0) return 'pl-positive';
+    else if (overallPL < 0) return 'pl-negative';
+    else return 'pl-zero';
+  }
+
   return (
-    <div className="stock-item pl-positive">
+    <div className="stock-item">
       <div className="stock-item-info">
         <span className="stock-item-ticker">{ticker.toUpperCase()}</span>
         <span className="stock-item-name">{findCompanyNameByTicker(ticker)}</span>
@@ -105,8 +117,12 @@ const StockItem = ({
       <span className="stock-item-realtime">{stockPriceData.price}</span>
       <span className="stock-item-avgPrice">Cost: {avgCost}</span>
       <span className="stock-item-quantity">Quantity: {quantity}</span>
-      <span className="stock-item-today-pl">Today: {todayPL}({stockPriceData.changePercent}%)</span>
-      <span className="stock-item-overall-pl">Overall: {overallPL}({overallPLPercent}%)</span>
+      <span
+        className={`stock-item-today-pl ${colorTodayPL()}`}
+      >Today: {todayPL}({stockPriceData.changePercent}%)</span>
+      <span
+        className={`stock-item-overall-pl ${colorOverallPL()}`}
+      >Overall: {overallPL}({overallPLPercent}%)</span>
     </div>
   )
 }

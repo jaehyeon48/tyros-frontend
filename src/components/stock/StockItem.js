@@ -118,21 +118,25 @@ const StockItem = ({
   }
 
   return (
-    <div className="stock-item" onClick={directToPositionDetailPage}>
-      <div className="stock-item-info">
-        <span className="stock-item-ticker">{ticker.toUpperCase()}</span>
-        <span className="stock-item-name">{findCompanyNameByTicker(ticker)}</span>
-      </div>
-      <span className="stock-item-realtime">{stockPriceData.price}</span>
-      <span className="stock-item-avgPrice">Cost: {avgCost}</span>
-      <span className="stock-item-quantity">Quantity: {quantity}</span>
-      <span
-        className={`stock-item-today-pl ${colorTodayPL()}`}
-      >Today: {todayPL}({stockPriceData.changePercent}%)</span>
-      <span
-        className={`stock-item-overall-pl ${colorOverallPL()}`}
-      >Overall: {overallPL}({overallPLPercent}%)</span>
-    </div>
+    <React.Fragment>
+      {quantity > 0 ? (
+        <div className="stock-item" onClick={directToPositionDetailPage}>
+          <div className="stock-item-info">
+            <span className="stock-item-ticker">{ticker.toUpperCase()}</span>
+            <span className="stock-item-name">{findCompanyNameByTicker(ticker)}</span>
+          </div>
+          <span className="stock-item-realtime">{stockPriceData.price}</span>
+          <span className="stock-item-avgPrice">Cost: {avgCost}</span>
+          <span className="stock-item-quantity">Quantity: {quantity}</span>
+          <span
+            className={`stock-item-today-pl ${colorTodayPL()}`}
+          >Today: {todayPL}({stockPriceData.changePercent}%)</span>
+          <span
+            className={`stock-item-overall-pl ${colorOverallPL()}`}
+          >Overall: {overallPL}({overallPLPercent}%)</span>
+        </div>
+      ) : null}
+    </React.Fragment>
   )
 }
 

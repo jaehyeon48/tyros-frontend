@@ -113,7 +113,7 @@ const MainPage = ({
       <div className="main-container">
         {stockList.length > 0 ? (
           <React.Fragment>
-            {totalTodayPL && totalOverallPL && totalCost && totalCash ? (
+            {totalCost !== null || totalCost !== undefined ? (
               <React.Fragment>
                 <div
                   className={`daily-pl-container ${colorDailyPL()}`}

@@ -34,18 +34,6 @@
   src: url('../src/fonts/Lato-Regular.ttf');
 }
 
-/* @font-face {
-  font-family: 'Lato';
-  font-weight: 500;
-  src: url('../src/fonts/SourceSansPro-SemiBold.ttf');
-}
-
-@font-face {
-  font-family: 'Lato';
-  font-weight: 600;
-  src: url('../src/fonts/SourceSansPro-SemiBold.ttf');
-} */
-
 @font-face {
   font-family: 'Lato';
   font-weight: 700;

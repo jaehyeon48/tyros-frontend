@@ -14,6 +14,16 @@ const initialState = {
   isMarketOpen: null
 };
 
+const compare = (a, b) => {
+  if (a.ticker > b.ticker) {
+    return 1;
+  }
+  if (a.ticker < b.ticker) {
+    return -1;
+  }
+  return 0;
+}
+
 export default function stockReducer(state = initialState, action) {
   const { type, payload } = action;
 
@@ -37,17 +47,19 @@ export default function stockReducer(state = initialState, action) {
       const tickerObjDaily = state.stockList.filter(stock => stock.ticker === payload.ticker);
       const otherStocksDaily = state.stockList.filter(stock => stock.ticker !== payload.ticker);
       tickerObjDaily[0].dailyPL = payload.dailyPL;
+      const newStockListDaily = [...tickerObjDaily, ...otherStocksDaily].sort(compare);
       return {
         ...state,
-        stockList: [...tickerObjDaily, ...otherStocksDaily]
+        stockList: newStockListDaily
       };
     case EDIT_OVERALL_PL:
       const tickerObjOverall = state.stockList.filter(stock => stock.ticker === payload.ticker);
       const otherStocksOverall = state.stockList.filter(stock => stock.ticker !== payload.ticker);
       tickerObjOverall[0].overallPL = payload.overallPL;
+      const newStockListOverall = [...tickerObjOverall, ...otherStocksOverall].sort(compare);
       return {
         ...state,
-        stockList: [...tickerObjOverall, ...otherStocksOverall]
+        stockList: newStockListOverall
       };
     case LOGOUT:
       return {

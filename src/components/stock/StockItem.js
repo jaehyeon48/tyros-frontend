@@ -32,6 +32,7 @@ const StockItem = ({
   const [overallPLPercent, setOverallPLPercent] = useState(0);
 
   useEffect(() => {
+    let intervalId;
     (async () => {
       if (stock.isMarketOpen) {
         if (isFirstRender) {
@@ -45,7 +46,7 @@ const StockItem = ({
             });
           })();
         }
-        const intervalId = setInterval(async () => {
+        intervalId = setInterval(async () => {
           const realTimeData = await getRealTimePrice(ticker);
           setStockPriceData({
             price: realTimeData.price,
@@ -53,7 +54,6 @@ const StockItem = ({
             changePercent: realTimeData.changePercent
           });
         }, 5000);
-        return () => clearInterval(intervalId);
       }
       else {
         const closeData = await getClosePrice(ticker);
@@ -64,6 +64,7 @@ const StockItem = ({
         });
       }
     })();
+    return () => clearInterval(intervalId);
   }, [stock.isMarketOpen, ticker]);
 
   useEffect(() => {

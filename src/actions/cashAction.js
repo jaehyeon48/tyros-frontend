@@ -1,6 +1,7 @@
 import {
   GET_CASH,
   GET_CASH_ERROR,
+  ADD_CASH,
   ADD_CASH_ERROR
 } from './actionTypes';
 
@@ -15,11 +16,13 @@ export const getCash = (portfolioId) => async (dispatch) => {
 
   try {
     const cashResponse = await axios.get(`${SERVER_URL}/api/portfolio/${portfolioId}/cash`, config);
-    const totalCash = calculateTotalCashAmount(cashResponse.data);
-    dispatch({
-      type: GET_CASH,
-      payload: totalCash
-    });
+    if (cashResponse.data.length > 0) {
+      const totalCash = calculateTotalCashAmount(cashResponse.data);
+      dispatch({
+        type: GET_CASH,
+        payload: totalCash
+      });
+    }
   } catch (error) {
     console.error(error);
     dispatch({ type: GET_CASH_ERROR });
@@ -37,6 +40,7 @@ export const addCash = (portfolioId, formData) => async (dispatch) => {
   try {
     const reqBody = JSON.stringify({ portfolioId, ...formData });
     await axios.post(`${SERVER_URL}/api/cash`, reqBody, config);
+    dispatch({ type: ADD_CASH });
     dispatch(getCash(portfolioId));
     return 0;
   } catch (error) {

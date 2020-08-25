@@ -11,6 +11,7 @@ import { showAlert } from '../../actions/alertAction';
 const AddPosition = ({
   closeAddPositionModal,
   currentPortfolio,
+  totalCash,
   addStock,
   showAlert
 }) => {
@@ -55,16 +56,21 @@ const AddPosition = ({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const addStockResult = await addStock(currentPortfolio, formData);
-
-    if (addStockResult === 0) {
-      showAlert('The position was successfully added!', 'success');
-      closeAddPositionModal();
+    if (referCash && transactionType === 'buy' && totalCash < (price * quantity)) {
+      window.alert(`Not enough cash to make this purchase. You have ${totalCash} USD in this portfolio but need ${price * quantity} USD`);
+      return;
     }
     else {
-      showAlert('Something went wrong. Please try again!', 'fail');
-      closeAddPositionModal();
+      const addStockResult = await addStock(currentPortfolio, formData);
+
+      if (addStockResult === 0) {
+        showAlert('The position was successfully added!', 'success');
+        closeAddPositionModal();
+      }
+      else {
+        showAlert('Something went wrong. Please try again!', 'fail');
+        closeAddPositionModal();
+      }
     }
   }
 
@@ -195,12 +201,14 @@ const AddPosition = ({
 AddPosition.propTypes = {
   closeAddPositionModal: PropTypes.func,
   currentPortfolio: PropTypes.number,
+  totalCash: PropTypes.number,
   addStock: PropTypes.func,
   showAlert: PropTypes.func
 }
 
 const mapStateToProps = (state) => ({
   currentPortfolio: state.portfolio.currentPortfolio,
+  totalCash: state.cash.totalCash
 });
 
 export default connect(mapStateToProps, {

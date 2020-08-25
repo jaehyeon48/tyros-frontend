@@ -44,6 +44,7 @@ const MainPage = ({
   const [dailyPLPercent, setDailyPLPercent] = useState(0);
   const [overallPLPercent, setOverallPLPercent] = useState(0);
   const [totalCost, setTotalCost] = useState(0);
+  const [cashToDisplay, setCashToDisplay] = useState(totalCash);
 
 
   useEffect(() => { checkMarketStatus(); }, []);
@@ -97,6 +98,15 @@ const MainPage = ({
     setOverallPLPercent(totalOverallPL / totalCost * 100);
   }, [totalOverallPL, totalCost]);
 
+  useEffect(() => {
+    if (totalCash < 0) {
+      setCashToDisplay(0);
+    }
+    else {
+      setCashToDisplay(totalCash);
+    }
+  }, [totalCash]);
+
   if (!isAuthenticated && !loading) {
     return <Redirect to="/login" />
   }
@@ -135,7 +145,7 @@ const MainPage = ({
   }
 
   const colorOverallValue = () => {
-    let overallValue = totalOverallPL + totalCost + totalCash;
+    let overallValue = totalOverallPL + totalCost + cashToDisplay;
     if (overallValue > 0) return 'pl-positive';
     else if (overallValue < 0) return 'pl-negative';
     else return 'pl-zero';
@@ -157,7 +167,7 @@ const MainPage = ({
                 >OVERALL P&L:&nbsp;&nbsp;{totalOverallPL} ({totalOverallPL > 0 ? '+' : null}{overallPLPercent.toFixed(2)}%)</div>
                 <div
                   className={`overall-value-container ${colorOverallValue()}`}>
-                  TOTAL VALUE: ${(totalOverallPL + totalCost + totalCash).toFixed(2)}
+                  TOTAL VALUE: ${(totalOverallPL + totalCost + cashToDisplay).toFixed(2)}
                 </div>
               </React.Fragment>
             ) : <img

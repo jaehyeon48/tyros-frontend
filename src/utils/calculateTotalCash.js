@@ -1,7 +1,6 @@
 export const calculateTotalCashAmount = (cashList) => {
   let totalCashAmount = 0;
-
-  cashList.map(cash => {
+  cashList.forEach(cash => {
     if (cash.transactionType === 'deposit') {
       totalCashAmount += cash.amount;
     }
@@ -9,7 +8,5 @@ export const calculateTotalCashAmount = (cashList) => {
       totalCashAmount -= cash.amount;
     }
   });
-
-  if (totalCashAmount < 0) return 0;
-  return Number(totalCashAmount.toFixed(2));
+  return parseFloat(totalCashAmount.toFixed(2));
 }

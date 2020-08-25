@@ -42,4 +42,5 @@ export const GET_CASH = 'GET_CASH';
 export const GET_CASH_ERROR = 'GET_CASH_ERROR';
 export const ADD_CASH = 'ADD_CASH';
 export const ADD_CASH_ERROR = 'ADD_CASH_ERROR';
-export const ADD_TOTAL_COST = 'ADD_TOTAL_COST';
+export const EDIT_DAILY_PL = 'EDIT_DAILY_PL';
+export const EDIT_OVERALL_PL = 'EDIT_OVERALL_PL';

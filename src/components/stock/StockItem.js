@@ -3,10 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import { addTotalCost } from '../../actions/stockAction';
 import { findCompanyNameByTicker } from '../../utils/findNameByTicker';
 import { getRealTimePrice } from '../../utils/getRealTimePrice';
 import { getClosePrice } from '../../utils/getClosePrice';
+import {
+  editDailyPL,
+  editOverallPL
+} from '../../actions/stockAction';
 
 const StockItem = ({
   stock,
@@ -14,22 +17,20 @@ const StockItem = ({
   avgCost,
   quantity,
   currentPortfolio,
-  totalTodayPL,
-  totalOverallPL,
-  setTotalTodayPL,
-  setTotalOverallPL,
-  addTotalCost
+  editDailyPL,
+  editOverallPL
 }) => {
   let history = useHistory();
   const [isFirstRender, setIsFirstRender] = useState(true);
   const [stockPriceData, setStockPriceData] = useState({
     price: 0,
     change: 0,
-    changePercent: 0.0
+    changePercent: 0
   });
-  const [todayPL, setTodayPL] = useState(0);
+  const [dailyPL, setDailyPL] = useState(0);
   const [overallPL, setOverallPL] = useState(0);
-  const [overallPLPercent, setOverallPLPercent] = useState(0.0);
+  const [overallPLPercent, setOverallPLPercent] = useState(0);
+
   useEffect(() => {
     (async () => {
       if (stock.isMarketOpen) {
@@ -63,47 +64,38 @@ const StockItem = ({
         });
       }
     })();
-  }, [stock.isMarketOpen]);
+  }, [stock.isMarketOpen, ticker]);
 
   useEffect(() => {
-    if (stockPriceData.change) {
-      setTodayPL(Number((stockPriceData.change * quantity.toFixed(2))));
+    if (stockPriceData.change !== null) {
+      setDailyPL((stockPriceData.change * quantity));
     }
   }, [quantity, stockPriceData.change]);
 
   useEffect(() => {
-    if (stockPriceData.price) {
-      setOverallPL(Number(((stockPriceData.price - avgCost) * quantity).toFixed(2)));
+    if (stockPriceData.price !== null) {
+      setOverallPL(((stockPriceData.price - avgCost) * quantity));
     }
   }, [stockPriceData.price, avgCost, quantity]);
 
   useEffect(() => {
     if (overallPL) {
-      setOverallPLPercent(Number((overallPL / (avgCost * quantity) * 100).toFixed(2)));
+      setOverallPLPercent((overallPL / (avgCost * quantity) * 100));
     }
   }, [overallPL, avgCost, quantity]);
 
   useEffect(() => {
-    if (avgCost && quantity) {
-      addTotalCost(avgCost * quantity);
-    }
-  }, [avgCost, quantity]);
+    editDailyPL(ticker, dailyPL);
+  }, [dailyPL]);
 
   useEffect(() => {
-    if (todayPL) {
-      setTotalTodayPL(totalTodayPL + todayPL);
-    }
-  }, [todayPL]);
-
-  useEffect(() => {
-    if (overallPL) {
-      setTotalOverallPL(totalOverallPL + overallPL);
-    }
+    editOverallPL(ticker, overallPL);
   }, [overallPL]);
 
-  const colorTodayPL = () => {
-    if (todayPL > 0) return 'pl-positive';
-    else if (todayPL < 0) return 'pl-negative';
+
+  const colorDailyPL = () => {
+    if (dailyPL > 0) return 'pl-positive';
+    else if (dailyPL < 0) return 'pl-negative';
     else return 'pl-zero';
   }
 
@@ -128,12 +120,14 @@ const StockItem = ({
           <span className="stock-item-realtime">{stockPriceData.price}</span>
           <span className="stock-item-avgPrice">Cost: {avgCost}</span>
           <span className="stock-item-quantity">Quantity: {quantity}</span>
-          <span
-            className={`stock-item-today-pl ${colorTodayPL()}`}
-          >Today: {todayPL}({stockPriceData.changePercent}%)</span>
-          <span
-            className={`stock-item-overall-pl ${colorOverallPL()}`}
-          >Overall: {overallPL}({overallPLPercent}%)</span>
+          <span className="stock-item-daily-pl">
+            Daily: <span className={`stock-item-daily-pl ${colorDailyPL()}`}>
+              {dailyPL.toFixed(2)}({stockPriceData.changePercent.toFixed(2)}%)</span>
+          </span>
+          <span className="stock-item-overall-pl">
+            Overall: <span className={`stock-item-overall-pl ${colorOverallPL()}`}>
+              {overallPL.toFixed(2)}({overallPLPercent.toFixed(2)}%)</span>
+          </span>
         </div>
       ) : null}
     </React.Fragment>
@@ -146,10 +140,12 @@ StockItem.propTypes = {
   avgCost: PropTypes.number,
   quantity: PropTypes.number,
   currentPortfolio: PropTypes.number,
-  totalTodayPL: PropTypes.number,
+  totalDailyPL: PropTypes.number,
   totalOverallPL: PropTypes.number,
-  setTotalTodayPL: PropTypes.func,
-  setTotalOverallPL: PropTypes.func
+  setTotalDailyPL: PropTypes.func,
+  setTotalOverallPL: PropTypes.func,
+  editDailyPL: PropTypes.func,
+  editOverallPL: PropTypes.func
 };
 
 const mapStateToProps = (state) => ({
@@ -157,4 +153,7 @@ const mapStateToProps = (state) => ({
   currentPortfolio: state.portfolio.currentPortfolio
 });
 
-export default connect(mapStateToProps, { addTotalCost })(StockItem);
+export default connect(mapStateToProps, {
+  editDailyPL,
+  editOverallPL
+})(StockItem);

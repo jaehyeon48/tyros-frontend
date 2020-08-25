@@ -4,7 +4,8 @@ import {
   GET_STOCK_LIST,
   GET_STOCK_ERROR,
   ADD_STOCK,
-  ADD_TOTAL_COST,
+  EDIT_DAILY_PL,
+  EDIT_OVERALL_PL
 } from './actionTypes';
 
 import axios from 'axios';
@@ -61,9 +62,16 @@ export const addStock = (portfolioId, formData) => async (dispatch) => {
   }
 }
 
-export const addTotalCost = (totalCost) => (dispatch) => {
+export const editDailyPL = (ticker, dailyPL) => (dispatch) => {
   dispatch({
-    type: ADD_TOTAL_COST,
-    payload: totalCost
+    type: EDIT_DAILY_PL,
+    payload: { ticker, dailyPL }
+  });
+}
+
+export const editOverallPL = (ticker, overallPL) => (dispatch) => {
+  dispatch({
+    type: EDIT_OVERALL_PL,
+    payload: { ticker, overallPL }
   });
 }

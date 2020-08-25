@@ -10,7 +10,7 @@ import {
 } from '../../actions/portfolioAction';
 import {
   checkMarketStatus,
-  getStocks
+  getStocks,
 } from '../../actions/stockAction';
 import { getCash } from '../../actions/cashAction';
 import Modal from '../modal/Modal';
@@ -26,8 +26,7 @@ const MainPage = ({
   theme,
   loading,
   isAuthenticated,
-  stockList,
-  totalCost,
+  stock,
   totalCash,
   portfolioList,
   currentPortfolio,
@@ -40,14 +39,14 @@ const MainPage = ({
 }) => {
   const [isAddPositionModalOpen, setIsAddPositionModalOpen] = useState(false);
   const [isAddCashModalOpen, setIsAddCashModalOpen] = useState(false);
-  const [totalTodayPL, setTotalTodayPL] = useState(0);
+  const [totalDailyPL, setTotalDailyPL] = useState(0);
   const [totalOverallPL, setTotalOverallPL] = useState(0);
-  const [dailyPLPercent, setDailyPLPercent] = useState(0.0);
-  const [overallPLPercent, setOverallPLPercent] = useState(0.0);
+  const [dailyPLPercent, setDailyPLPercent] = useState(0);
+  const [overallPLPercent, setOverallPLPercent] = useState(0);
+  const [totalCost, setTotalCost] = useState(0);
 
-  useEffect(() => {
-    checkMarketStatus();
-  }, []);
+
+  useEffect(() => { checkMarketStatus(); }, []);
 
   useEffect(() => {
     getStocks(currentPortfolio);
@@ -58,11 +57,41 @@ const MainPage = ({
     loadPortfolios();
   }, [loadPortfolios]);
 
-  useEffect(() => { getSelectedPortfolio() }, [getSelectedPortfolio]);
+  useEffect(() => { getSelectedPortfolio(); }, [getSelectedPortfolio]);
 
   useEffect(() => {
-    setDailyPLPercent((totalTodayPL / (totalOverallPL + totalCost - totalTodayPL) * 100));
-  }, [totalTodayPL, totalOverallPL, totalCost]);
+    if (stock.stockList.length > 0) {
+      let sumOfCost = 0;
+      stock.stockList.forEach(stock => {
+        sumOfCost += (stock.avgCost * stock.quantity);
+      });
+      setTotalCost(parseFloat(sumOfCost.toFixed(2)));
+    }
+  }, [stock.stockList]);
+
+  useEffect(() => {
+    if (stock.stockList.length > 0) {
+      let sumOfDailyPL = 0;
+      stock.stockList.forEach(stock => {
+        sumOfDailyPL += stock.dailyPL;
+      });
+      setTotalDailyPL(parseFloat(sumOfDailyPL.toFixed(2)));
+    }
+  }, [stock.stockList]);
+
+  useEffect(() => {
+    if (stock.stockList.length > 0) {
+      let sumOfOverallPL = 0;
+      stock.stockList.forEach(stock => {
+        sumOfOverallPL += stock.overallPL;
+      });
+      setTotalOverallPL(parseFloat(sumOfOverallPL.toFixed(2)));
+    }
+  }, [stock.stockList]);
+
+  useEffect(() => {
+    setDailyPLPercent((totalDailyPL / (totalOverallPL + totalCost - totalDailyPL) * 100));
+  }, [totalDailyPL, totalOverallPL, totalCost]);
 
   useEffect(() => {
     setOverallPLPercent(totalOverallPL / totalCost * 100);
@@ -73,6 +102,10 @@ const MainPage = ({
   }
 
   const handleSelectPfChange = (e) => {
+    setTotalDailyPL(0);
+    setTotalOverallPL(0);
+    setDailyPLPercent(0);
+    setOverallPLPercent(0);
     selectPortfolio(e.target.value);
   }
 
@@ -90,8 +123,8 @@ const MainPage = ({
   }
 
   const colorDailyPL = () => {
-    if (totalTodayPL > 0) return 'pl-positive';
-    else if (totalTodayPL < 0) return 'pl-negative';
+    if (totalDailyPL > 0) return 'pl-positive';
+    else if (totalDailyPL < 0) return 'pl-negative';
     else return 'pl-zero';
   }
 
@@ -111,13 +144,13 @@ const MainPage = ({
   return (
     <React.Fragment>
       <div className="main-container">
-        {stockList.length > 0 ? (
+        {stock.stockList.length > 0 ? (
           <React.Fragment>
             {totalCost !== null || totalCost !== undefined ? (
               <React.Fragment>
                 <div
                   className={`daily-pl-container ${colorDailyPL()}`}
-                >DAILY P&L:&nbsp;&nbsp;{totalTodayPL} ({totalTodayPL > 0 ? '+' : null}
+                >DAILY P&L:&nbsp;&nbsp;{totalDailyPL} ({totalDailyPL > 0 ? '+' : null}
                   {dailyPLPercent.toFixed(2)}%)</div>
                 <div
                   className={`overall-pl-container ${colorOverallPL()}`}
@@ -159,9 +192,9 @@ const MainPage = ({
           </div>
         </div>
         <Stocks
-          totalTodayPL={totalTodayPL}
+          totalDailyPL={totalDailyPL}
           totalOverallPL={totalOverallPL}
-          setTotalTodayPL={setTotalTodayPL}
+          setTotalDailyPL={setTotalDailyPL}
           setTotalOverallPL={setTotalOverallPL}
         />
       </div>
@@ -183,7 +216,6 @@ MainPage.propTypes = {
   theme: PropTypes.string,
   loading: PropTypes.bool,
   isAuthenticated: PropTypes.bool,
-  stockList: PropTypes.array,
   totalCost: PropTypes.number,
   totalCash: PropTypes.number,
   portfolioList: PropTypes.array,
@@ -193,6 +225,7 @@ MainPage.propTypes = {
   checkMarketStatus: PropTypes.func,
   getSelectedPortfolio: PropTypes.func,
   getStocks: PropTypes.func,
+  addTotalCost: PropTypes.func,
   getCash: PropTypes.func
 };
 
@@ -200,8 +233,7 @@ const mapStateToProps = (state) => ({
   theme: state.auth.theme,
   loading: state.auth.loading,
   isAuthenticated: state.auth.isAuthenticated,
-  stockList: state.stock.stockList,
-  totalCost: state.stock.totalCost,
+  stock: state.stock,
   totalCash: state.cash.totalCash,
   portfolioList: state.portfolio.portfolioList,
   currentPortfolio: state.portfolio.currentPortfolio

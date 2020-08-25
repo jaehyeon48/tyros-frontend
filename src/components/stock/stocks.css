@@ -48,6 +48,8 @@
 .stock-item-realtime {
   grid-row: 2;
   grid-column: 1 / span 10;
+  font-weight: 900;
+  font-size: 2rem;
 }
 
 .stock-item-avgPrice {
@@ -60,7 +62,7 @@
   grid-column: 1 / span 10;
 }
 
-.stock-item-today-pl {
+.stock-item-daily-pl {
   grid-row: 5;
   grid-column: 1 / span 10;
 }

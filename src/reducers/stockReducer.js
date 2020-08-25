@@ -4,14 +4,14 @@ import {
   GET_STOCK_LIST,
   GET_STOCK_ERROR,
   ADD_STOCK,
-  ADD_TOTAL_COST,
+  EDIT_DAILY_PL,
+  EDIT_OVERALL_PL,
   LOGOUT,
 } from '../actions/actionTypes';
 
 const initialState = {
   stockList: [],
-  isMarketOpen: null,
-  totalCost: 0.0
+  isMarketOpen: null
 };
 
 export default function stockReducer(state = initialState, action) {
@@ -22,28 +22,38 @@ export default function stockReducer(state = initialState, action) {
       return {
         ...state,
         isMarketOpen: payload
-      }
+      };
     case GET_STOCK_LIST:
       return {
         ...state,
         stockList: payload
-      }
+      };
     case GET_STOCK_ERROR:
       return {
         ...state,
         stockList: []
       };
-    case ADD_TOTAL_COST:
-      const prevCost = state.totalCost === undefined ? 0 : state.totalCost;
+    case EDIT_DAILY_PL:
+      const tickerObjDaily = state.stockList.filter(stock => stock.ticker === payload.ticker);
+      const otherStocksDaily = state.stockList.filter(stock => stock.ticker !== payload.ticker);
+      tickerObjDaily[0].dailyPL = payload.dailyPL;
       return {
         ...state,
-        totalCost: Number((prevCost + payload).toFixed(2))
-      }
+        stockList: [...tickerObjDaily, ...otherStocksDaily]
+      };
+    case EDIT_OVERALL_PL:
+      const tickerObjOverall = state.stockList.filter(stock => stock.ticker === payload.ticker);
+      const otherStocksOverall = state.stockList.filter(stock => stock.ticker !== payload.ticker);
+      tickerObjOverall[0].overallPL = payload.overallPL;
+      return {
+        ...state,
+        stockList: [...tickerObjOverall, ...otherStocksOverall]
+      };
     case LOGOUT:
       return {
         stockList: [],
         isMarketOpen: null
-      }
+      };
     case ADD_STOCK:
     case CHECK_MARKET_STATUS_ERROR:
     default:

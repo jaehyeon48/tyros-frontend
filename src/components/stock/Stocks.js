@@ -7,9 +7,9 @@ import './stocks.css';
 
 const Stocks = ({
   stock,
-  totalTodayPL,
+  totalDailyPL,
   totalOverallPL,
-  setTotalTodayPL,
+  setTotalDailyPL,
   setTotalOverallPL
 }) => {
   return (
@@ -20,9 +20,9 @@ const Stocks = ({
           ticker={eachStock.ticker}
           avgCost={eachStock.avgCost}
           quantity={eachStock.quantity}
-          totalTodayPL={totalTodayPL}
+          totalDailyPL={totalDailyPL}
           totalOverallPL={totalOverallPL}
-          setTotalTodayPL={setTotalTodayPL}
+          setTotalDailyPL={setTotalDailyPL}
           setTotalOverallPL={setTotalOverallPL}
         />
       ))}
@@ -32,9 +32,9 @@ const Stocks = ({
 
 Stocks.propTypes = {
   stock: PropTypes.object,
-  totalTodayPL: PropTypes.number,
+  totalDailyPL: PropTypes.number,
   totalOverallPL: PropTypes.number,
-  setTotalTodayPL: PropTypes.func,
+  setTotalDailyPL: PropTypes.func,
   setTotalOverallPL: PropTypes.func
 };
 

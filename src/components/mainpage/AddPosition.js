@@ -64,7 +64,7 @@ const AddPosition = ({
       const addStockResult = await addStock(currentPortfolio, formData);
 
       if (addStockResult === 0) {
-        showAlert('The position was successfully added!', 'success');
+        window.location.reload();
         closeAddPositionModal();
       }
       else {

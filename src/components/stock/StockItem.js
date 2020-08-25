@@ -84,6 +84,7 @@ const StockItem = ({
     }
   }, [overallPL, avgCost, quantity]);
 
+
   useEffect(() => {
     editDailyPL(ticker, dailyPL);
   }, [dailyPL]);
@@ -91,7 +92,6 @@ const StockItem = ({
   useEffect(() => {
     editOverallPL(ticker, overallPL);
   }, [overallPL]);
-
 
   const colorDailyPL = () => {
     if (dailyPL > 0) return 'pl-positive';

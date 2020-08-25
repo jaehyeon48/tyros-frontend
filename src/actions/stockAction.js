@@ -55,8 +55,6 @@ export const addStock = (portfolioId, formData) => async (dispatch) => {
 
     await axios.post(`${SERVER_URL}/api/stock`, reqBody, config);
     dispatch({ type: ADD_STOCK });
-    dispatch(getStocks(portfolioId));
-    dispatch(getCash(portfolioId));
     return 0;
   } catch (error) {
     console.error(error);

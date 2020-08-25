@@ -19,6 +19,7 @@ const AddPosition = ({
     price: '',
     quantity: '',
     companyName: '',
+    referCash: false,
     transactionDate: new Date().toJSON().slice(0, 10),
     transactionType: 'buy'
   });
@@ -26,7 +27,7 @@ const AddPosition = ({
   const [autoCompleteResults, setAutoCompleteResults] = useState([]);
   const [renderAutoComplete, setRenderAutoComplete] = useState(false);
 
-  const { ticker, price, quantity, companyName, transactionDate, transactionType } = formData;
+  const { ticker, price, quantity, companyName, referCash, transactionDate, transactionType } = formData;
 
   useEffect(() => {
     if (autoCompleteResults.length > 0) setRenderAutoComplete(true);
@@ -68,10 +69,18 @@ const AddPosition = ({
   }
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    if (e.target.name === 'referCash') {
+      setFormData({
+        ...formData,
+        referCash: !referCash
+      });
+    }
+    else {
+      setFormData({
+        ...formData,
+        [e.target.name]: e.target.value
+      });
+    }
   }
 
   return (
@@ -96,6 +105,27 @@ const AddPosition = ({
               onChange={handleChange}
             />
           </label>
+        </div>
+        <div className="refer-cash-container">
+          {transactionType === 'buy' ? (
+            <label>
+              <input
+                type="checkbox"
+                name="referCash"
+                value={referCash}
+                onChange={handleChange}
+              /> Withdraw cash from portfolio to purchase
+            </label>
+          ) : (
+              <label>
+                <input
+                  type="checkbox"
+                  name="referCash"
+                  value={referCash}
+                  onChange={handleChange}
+                /> Deposit cash to portfolio from sale
+              </label>
+            )}
         </div>
         <div className="ticker-container">
           <label className="add-position-inputs">
@@ -170,7 +200,7 @@ AddPosition.propTypes = {
 }
 
 const mapStateToProps = (state) => ({
-  currentPortfolio: state.portfolio.currentPortfolio
+  currentPortfolio: state.portfolio.currentPortfolio,
 });
 
 export default connect(mapStateToProps, {

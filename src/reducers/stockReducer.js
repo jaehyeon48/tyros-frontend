@@ -3,6 +3,8 @@ import {
   CHECK_MARKET_STATUS_ERROR,
   GET_STOCK_LIST,
   GET_STOCK_ERROR,
+  GET_STOCK_GROUP,
+  GET_STOCK_GROUP_ERROR,
   ADD_STOCK,
   EDIT_DAILY_PL,
   EDIT_OVERALL_PL,
@@ -11,6 +13,7 @@ import {
 
 const initialState = {
   stockList: [],
+  stockGroup: [],
   isMarketOpen: null
 };
 
@@ -42,6 +45,16 @@ export default function stockReducer(state = initialState, action) {
       return {
         ...state,
         stockList: []
+      };
+    case GET_STOCK_GROUP:
+      return {
+        ...state,
+        stockGroup: payload
+      };
+    case GET_STOCK_GROUP_ERROR:
+      return {
+        ...state,
+        stockGroup: []
       };
     case EDIT_DAILY_PL:
       const tickerObjDaily = state.stockList.filter(stock => stock.ticker === payload.ticker);

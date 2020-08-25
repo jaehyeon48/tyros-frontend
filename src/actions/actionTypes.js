@@ -33,14 +33,18 @@ export const HIDE_ALERT = 'HIDE_ALERT';
 /* STOCK */
 export const GET_STOCK_LIST = 'GET_STOCK_LIST';
 export const GET_STOCK_ERROR = 'GET_STOCK_ERROR';
+export const GET_STOCK_GROUP = 'GET_STOCK_GROUP';
+export const GET_STOCK_GROUP_ERROR = 'GET_STOCK_GROUP_ERROR';
 export const ADD_STOCK = 'ADD_STOCK';
-
-/* STOCK */
 export const CHECK_MARKET_STATUS = 'CHECK_MARKET_STATUS';
 export const CHECK_MARKET_STATUS_ERROR = 'CHECK_MARKET_STATUS_ERROR';
+export const EDIT_DAILY_PL = 'EDIT_DAILY_PL';
+export const EDIT_OVERALL_PL = 'EDIT_OVERALL_PL';
+
+/* CASH */
 export const GET_CASH = 'GET_CASH';
 export const GET_CASH_ERROR = 'GET_CASH_ERROR';
 export const ADD_CASH = 'ADD_CASH';
 export const ADD_CASH_ERROR = 'ADD_CASH_ERROR';
-export const EDIT_DAILY_PL = 'EDIT_DAILY_PL';
-export const EDIT_OVERALL_PL = 'EDIT_OVERALL_PL';
+
+

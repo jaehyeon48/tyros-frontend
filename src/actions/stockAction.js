@@ -3,6 +3,8 @@ import {
   CHECK_MARKET_STATUS_ERROR,
   GET_STOCK_LIST,
   GET_STOCK_ERROR,
+  GET_STOCK_GROUP,
+  GET_STOCK_GROUP_ERROR,
   ADD_STOCK,
   EDIT_DAILY_PL,
   EDIT_OVERALL_PL
@@ -74,4 +76,19 @@ export const editOverallPL = (ticker, overallPL) => (dispatch) => {
     type: EDIT_OVERALL_PL,
     payload: { ticker, overallPL }
   });
+}
+
+export const getStocksByTickerGroup = (portfolioId, ticker) => async (dispatch) => {
+  const config = { withCredentials: true };
+  try {
+    const tickerGroupResult = await axios.get(`${SERVER_URL}/api/portfolio/${portfolioId}/${ticker}`, config);
+
+    dispatch({
+      type: GET_STOCK_GROUP,
+      payload: tickerGroupResult.data
+    });
+  } catch (error) {
+    console.error(error);
+    dispatch({ type: GET_STOCK_GROUP_ERROR });
+  }
 }

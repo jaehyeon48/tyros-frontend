@@ -1,14 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import { getStocksByTickerGroup } from '../../actions/stockAction';
 import './positionDetail.css';
 
 const PositionDetail = ({
-  match
+  match,
+  getStocksByTickerGroup
 }) => {
   const PORTFOLIO_ID = match.params.portfolioId;
   const TICKER = match.params.ticker;
+
+  useEffect(() => {
+    if (PORTFOLIO_ID && TICKER) {
+      getStocksByTickerGroup(PORTFOLIO_ID, TICKER);
+    }
+  }, [PORTFOLIO_ID, TICKER]);
 
   return (
     <div>
@@ -17,7 +25,10 @@ const PositionDetail = ({
 }
 
 PositionDetail.propTypes = {
-  match: PropTypes.object
+  match: PropTypes.object,
+  getStocksByTickerGroup: PropTypes.func,
 };
 
-export default connect()(PositionDetail);
+const mapStateToProps = (state) => ({});
+
+export default connect(mapStateToProps, { getStocksByTickerGroup })(PositionDetail);

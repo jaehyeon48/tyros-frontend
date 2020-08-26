@@ -1,0 +1,132 @@
+.stock-group-container {
+  display: flex;
+  flex-direction: column;
+  width: 83vw;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 6rem 0;
+}
+
+.stock-group-header {
+  margin: 2rem 0;
+  padding: 1rem;
+  border: 3px solid var(--primary-color);
+  color: var(--primary-color);
+  border-radius: 0.4rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+  display: grid;
+  grid-template-columns: repeat(30, 1fr);
+  align-items: center;
+
+  text-align: center;
+}
+
+.stock-group-header-price {
+  grid-row: 1;
+  grid-column: 2 / span 4;
+}
+
+.stock-group-header-quantity {
+  grid-row: 1;
+  grid-column: 8 / span 5;
+}
+
+.stock-group-header-type {
+  grid-row: 1;
+  grid-column: 16 / span 4;
+}
+
+.stock-group-header-date {
+  grid-row: 1;
+  grid-column: 22 / span 9;
+}
+
+.stock-group-item {
+  margin: 2rem 0;
+  padding: 1.2rem;
+  border: 1px solid var(--primary-color);
+  border-radius: 0.4rem;
+  font-size: 1.7rem;
+  display: grid;
+  grid-template-columns: repeat(30, 1fr);
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+}
+
+.stock-group-item:hover {
+  box-shadow: 0 0 0 5px var(--primary-color);
+}
+
+.stock-group-price {
+  grid-row: 1;
+  grid-column: 2 / span 4;
+  font-weight: 700;
+}
+
+.stock-group-quantity {
+  grid-row: 1;
+  grid-column: 8 / span 5;
+}
+
+.stock-group-type {
+  grid-row: 1;
+  grid-column: 16 / span 4;
+}
+
+.stock-group-date {
+  grid-row: 1;
+  grid-column: 22 / span 9;
+}
+
+@media only screen and (min-width: 426px) and (max-width: 768px) {
+  .stock-group-container {
+    width: 90vw;
+  }
+
+  .stock-group-header {
+    font-size: 1.5rem;
+  }
+
+  .stock-group-item {
+    font-size: 1.3rem;
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  .stock-group-container {
+    width: 90vw;
+  }
+  .stock-group-header {
+    font-size: 1.3rem;
+  }
+  .stock-group-item {
+    font-size: 1.1rem;
+  }
+
+  .stock-group-header-price {
+    grid-column: 1 / span 4;
+  }
+
+  .stock-group-header-quantity {
+    grid-row: 1;
+    grid-column: 7 / span 8;
+  }
+
+  .stock-group-header-type {
+    grid-column: 17 / span 5;
+  }
+
+  .stock-group-price {
+    grid-column: 1 / span 4;
+  }
+
+  .stock-group-quantity {
+    grid-column: 9 / span 4;
+  }
+
+  .stock-group-type {
+    grid-column: 17 / span 4;
+  }
+}

@@ -6,8 +6,8 @@ import {
   GET_STOCK_GROUP,
   GET_STOCK_GROUP_ERROR,
   ADD_STOCK,
-  EDIT_DAILY_PL,
-  EDIT_OVERALL_PL,
+  EDIT_DAILY_RETURN,
+  EDIT_OVERALL_RETURN,
   LOGOUT,
 } from '../actions/actionTypes';
 
@@ -56,19 +56,19 @@ export default function stockReducer(state = initialState, action) {
         ...state,
         stockGroup: []
       };
-    case EDIT_DAILY_PL:
+    case EDIT_DAILY_RETURN:
       const tickerObjDaily = state.stockList.filter(stock => stock.ticker === payload.ticker);
       const otherStocksDaily = state.stockList.filter(stock => stock.ticker !== payload.ticker);
-      tickerObjDaily[0].dailyPL = payload.dailyPL;
+      tickerObjDaily[0].dailyReturn = payload.dailyReturn;
       const newStockListDaily = [...tickerObjDaily, ...otherStocksDaily].sort(compare);
       return {
         ...state,
         stockList: newStockListDaily
       };
-    case EDIT_OVERALL_PL:
+    case EDIT_OVERALL_RETURN:
       const tickerObjOverall = state.stockList.filter(stock => stock.ticker === payload.ticker);
       const otherStocksOverall = state.stockList.filter(stock => stock.ticker !== payload.ticker);
-      tickerObjOverall[0].overallPL = payload.overallPL;
+      tickerObjOverall[0].overallReturn = payload.overallReturn;
       const newStockListOverall = [...tickerObjOverall, ...otherStocksOverall].sort(compare);
       return {
         ...state,

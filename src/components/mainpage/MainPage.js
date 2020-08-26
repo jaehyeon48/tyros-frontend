@@ -18,9 +18,6 @@ import AddPosition from './AddPosition';
 import AddCash from './AddCash';
 import Stocks from '../stock/Stocks';
 import './mainpage.css';
-import SpinnerDark from '../../images/spinner-dark.gif';
-import SpinnerLight from '../../images/spinner-light.gif';
-
 
 const MainPage = ({
   theme,
@@ -39,10 +36,10 @@ const MainPage = ({
   const [isSelectPortfolioModalOpen, setIsSelectPortfolioModalOpen] = useState(false);
   const [isAddPositionModalOpen, setIsAddPositionModalOpen] = useState(false);
   const [isAddCashModalOpen, setIsAddCashModalOpen] = useState(false);
-  const [totalDailyPL, setTotalDailyPL] = useState(0);
-  const [totalOverallPL, setTotalOverallPL] = useState(0);
-  const [dailyPLPercent, setDailyPLPercent] = useState(0);
-  const [overallPLPercent, setOverallPLPercent] = useState(0);
+  const [totalDailyReturn, setTotalDailyReturn] = useState(0);
+  const [totalOverallReturn, setTotalOverallReturn] = useState(0);
+  const [dailyReturnPercent, setDailyReturnPercent] = useState(0);
+  const [overallReturnPercent, setOverallReturnPercent] = useState(0);
   const [totalCost, setTotalCost] = useState(0);
   const [cashToDisplay, setCashToDisplay] = useState(totalCash);
 
@@ -72,31 +69,31 @@ const MainPage = ({
 
   useEffect(() => {
     if (stock.stockList.length > 0) {
-      let sumOfDailyPL = 0;
+      let sumOfDailyReturn = 0;
       stock.stockList.forEach(stock => {
-        sumOfDailyPL += stock.dailyPL;
+        sumOfDailyReturn += stock.dailyReturn;
       });
-      setTotalDailyPL(parseFloat(sumOfDailyPL.toFixed(2)));
+      setTotalDailyReturn(parseFloat(sumOfDailyReturn.toFixed(2)));
     }
   }, [stock.stockList]);
 
   useEffect(() => {
     if (stock.stockList.length > 0) {
-      let sumOfOverallPL = 0;
+      let sumOfOverallReturn = 0;
       stock.stockList.forEach(stock => {
-        sumOfOverallPL += stock.overallPL;
+        sumOfOverallReturn += stock.overallReturn;
       });
-      setTotalOverallPL(parseFloat(sumOfOverallPL.toFixed(2)));
+      setTotalOverallReturn(parseFloat(sumOfOverallReturn.toFixed(2)));
     }
   }, [stock.stockList]);
 
   useEffect(() => {
-    setDailyPLPercent((totalDailyPL / (totalOverallPL + totalCost - totalDailyPL) * 100));
-  }, [totalDailyPL, totalOverallPL, totalCost]);
+    setDailyReturnPercent((totalDailyReturn / (totalOverallReturn + totalCost - totalDailyReturn) * 100));
+  }, [totalDailyReturn, totalOverallReturn, totalCost]);
 
   useEffect(() => {
-    setOverallPLPercent(totalOverallPL / totalCost * 100);
-  }, [totalOverallPL, totalCost]);
+    setOverallReturnPercent(totalOverallReturn / totalCost * 100);
+  }, [totalOverallReturn, totalCost]);
 
   useEffect(() => {
     if (totalCash < 0) {
@@ -136,22 +133,22 @@ const MainPage = ({
   }
 
   const colorDailyPL = () => {
-    if (totalDailyPL > 0) return 'pl-positive';
-    else if (totalDailyPL < 0) return 'pl-negative';
-    else return 'pl-zero';
+    if (totalDailyReturn > 0) return 'return-positive';
+    else if (totalDailyReturn < 0) return 'return-negative';
+    else return 'return-zero';
   }
 
   const colorOverallPL = () => {
-    if (totalOverallPL > 0) return 'pl-positive';
-    else if (totalOverallPL < 0) return 'pl-negative';
-    else return 'pl-zero';
+    if (totalOverallReturn > 0) return 'return-positive';
+    else if (totalOverallReturn < 0) return 'return-negative';
+    else return 'return-zero';
   }
 
-  const colorOverallValue = () => {
-    let overallValue = totalOverallPL + totalCost + cashToDisplay;
-    if (overallValue > 0) return 'pl-positive';
-    else if (overallValue < 0) return 'pl-negative';
-    else return 'pl-zero';
+  const colorTotalValue = () => {
+    let overallValue = totalOverallReturn + totalCost + cashToDisplay;
+    if (overallValue > 0) return 'return-positive';
+    else if (overallValue < 0) return 'return-negative';
+    else return 'return-zero';
   }
 
   return (
@@ -159,27 +156,21 @@ const MainPage = ({
       {portfolioList && portfolioList.length > 0 ? (
         <div className="main-container">
           {stock.stockList.length > 0 ? (
-            <React.Fragment>
-              {totalCost !== null || totalCost !== undefined ? (
-                <React.Fragment>
-                  <div
-                    className={`daily-pl-container ${colorDailyPL()}`}
-                  >DAILY P&L:&nbsp;&nbsp;{totalDailyPL} ({totalDailyPL > 0 ? '+' : null}
-                    {dailyPLPercent.toFixed(2)}%)</div>
-                  <div
-                    className={`overall-pl-container ${colorOverallPL()}`}
-                  >OVERALL P&L:&nbsp;&nbsp;{totalOverallPL} ({totalOverallPL > 0 ? '+' : null}{overallPLPercent.toFixed(2)}%)</div>
-                  <div
-                    className={`overall-value-container ${colorOverallValue()}`}>
-                    TOTAL VALUE: ${(totalOverallPL + totalCost + cashToDisplay).toFixed(2)}
-                  </div>
-                </React.Fragment>
-              ) : <img
-                  src={theme === 'dark' ? SpinnerDark : SpinnerLight}
-                  alt="loading spinner"
-                  className="mainpage-pl-spinner"
-                />}
-            </React.Fragment>
+            <div className="display-return-container">
+              <div className="return-item daily-return">
+                <span>Daily Return</span>
+                <span className={`${colorDailyPL()}`}>{totalDailyReturn} ({totalDailyReturn > 0 && '+'}
+                  {dailyReturnPercent.toFixed(2)}%)</span>
+              </div>
+              <div className="return-item overall-return">
+                <span>Overall Return</span>
+                <span className={`${colorOverallPL()}`}>{totalOverallReturn} ({totalOverallReturn > 0 && '+'}{overallReturnPercent.toFixed(2)}%)</span>
+              </div>
+              <div className="return-item total-value">
+                <span>Total Value</span>
+                <span className={`${colorTotalValue()}`}>{(totalOverallReturn + totalCost + cashToDisplay).toFixed(2)}</span>
+              </div>
+            </div>
           ) : <div className="notice-empty-stocklist">Please Add Your Stock First!</div>}
           <div className="portfolio-actions">
             <button
@@ -199,10 +190,10 @@ const MainPage = ({
             >ADD CASH</button>
           </div>
           <Stocks
-            totalDailyPL={totalDailyPL}
-            totalOverallPL={totalOverallPL}
-            setTotalDailyPL={setTotalDailyPL}
-            setTotalOverallPL={setTotalOverallPL}
+            totalDailyReturn={totalDailyReturn}
+            totalOverallReturn={totalOverallReturn}
+            setTotalDailyReturn={setTotalDailyReturn}
+            setTotalOverallReturn={setTotalOverallReturn}
           />
         </div>
       ) : <div className="notice-empty-portfoliolist">Portfolio Does Not Exist! Why Don't You Create Your First Portfolio?</div>}

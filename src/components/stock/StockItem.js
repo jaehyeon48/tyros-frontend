@@ -7,8 +7,8 @@ import { findCompanyNameByTicker } from '../../utils/findNameByTicker';
 import { getRealTimePrice } from '../../utils/getRealTimePrice';
 import { getClosePrice } from '../../utils/getClosePrice';
 import {
-  editDailyPL,
-  editOverallPL
+  editDailyReturn,
+  editOverallReturn
 } from '../../actions/stockAction';
 
 const StockItem = ({
@@ -17,8 +17,8 @@ const StockItem = ({
   avgCost,
   quantity,
   currentPortfolio,
-  editDailyPL,
-  editOverallPL
+  editDailyReturn,
+  editOverallReturn
 }) => {
   let history = useHistory();
   const [isFirstRender, setIsFirstRender] = useState(true);
@@ -27,9 +27,9 @@ const StockItem = ({
     change: 0,
     changePercent: 0
   });
-  const [dailyPL, setDailyPL] = useState(0);
-  const [overallPL, setOverallPL] = useState(0);
-  const [overallPLPercent, setOverallPLPercent] = useState(0);
+  const [dailyReturn, setDailyReturn] = useState(0);
+  const [overallReturn, setOverallReturn] = useState(0);
+  const [overallReturnPercent, setOverallReturnPercent] = useState(0);
 
   useEffect(() => {
     let intervalId;
@@ -69,41 +69,41 @@ const StockItem = ({
 
   useEffect(() => {
     if (stockPriceData.change !== null) {
-      setDailyPL((stockPriceData.change * quantity));
+      setDailyReturn((stockPriceData.change * quantity));
     }
   }, [quantity, stockPriceData.change]);
 
   useEffect(() => {
     if (stockPriceData.price !== null) {
-      setOverallPL(((stockPriceData.price - avgCost) * quantity));
+      setOverallReturn(((stockPriceData.price - avgCost) * quantity));
     }
   }, [stockPriceData.price, avgCost, quantity]);
 
   useEffect(() => {
-    if (overallPL) {
-      setOverallPLPercent((overallPL / (avgCost * quantity) * 100));
+    if (overallReturn) {
+      setOverallReturnPercent((overallReturn / (avgCost * quantity) * 100));
     }
-  }, [overallPL, avgCost, quantity]);
+  }, [overallReturn, avgCost, quantity]);
 
 
   useEffect(() => {
-    editDailyPL(ticker, dailyPL);
-  }, [dailyPL]);
+    editDailyReturn(ticker, dailyReturn);
+  }, [dailyReturn]);
 
   useEffect(() => {
-    editOverallPL(ticker, overallPL);
-  }, [overallPL]);
+    editOverallReturn(ticker, overallReturn);
+  }, [overallReturn]);
 
   const colorDailyPL = () => {
-    if (dailyPL > 0) return 'pl-positive';
-    else if (dailyPL < 0) return 'pl-negative';
-    else return 'pl-zero';
+    if (dailyReturn > 0) return 'return-positive';
+    else if (dailyReturn < 0) return 'return-negative';
+    else return 'return-zero';
   }
 
   const colorOverallPL = () => {
-    if (overallPL > 0) return 'pl-positive';
-    else if (overallPL < 0) return 'pl-negative';
-    else return 'pl-zero';
+    if (overallReturn > 0) return 'return-positive';
+    else if (overallReturn < 0) return 'return-negative';
+    else return 'return-zero';
   }
 
   const directToPositionDetailPage = () => {
@@ -123,11 +123,11 @@ const StockItem = ({
           <span className="stock-item-quantity">Quantity: {quantity}</span>
           <span className="stock-item-daily-pl">
             Daily: <span className={`stock-item-daily-pl ${colorDailyPL()}`}>
-              {dailyPL.toFixed(2)}({stockPriceData.changePercent.toFixed(2)}%)</span>
+              {dailyReturn.toFixed(2)} ({dailyReturn > 0 && '+'}{stockPriceData.changePercent.toFixed(2)}%)</span>
           </span>
           <span className="stock-item-overall-pl">
             Overall: <span className={`stock-item-overall-pl ${colorOverallPL()}`}>
-              {overallPL.toFixed(2)}({overallPLPercent.toFixed(2)}%)</span>
+              {overallReturn.toFixed(2)} ({overallReturn > 0 && '+'}{overallReturnPercent.toFixed(2)}%)</span>
           </span>
         </div>
       ) : null}
@@ -145,8 +145,8 @@ StockItem.propTypes = {
   totalOverallPL: PropTypes.number,
   setTotalDailyPL: PropTypes.func,
   setTotalOverallPL: PropTypes.func,
-  editDailyPL: PropTypes.func,
-  editOverallPL: PropTypes.func
+  editDailyReturn: PropTypes.func,
+  editOverallReturn: PropTypes.func
 };
 
 const mapStateToProps = (state) => ({
@@ -155,6 +155,6 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-  editDailyPL,
-  editOverallPL
+  editDailyReturn,
+  editOverallReturn
 })(StockItem);

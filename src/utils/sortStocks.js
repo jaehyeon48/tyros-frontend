@@ -56,8 +56,8 @@ const organizeGroupedStocks = (ticker, shareInfo) => {
   share.avgCost = Number((totalQty <= 0 ? 0 : (totalCost / totalQty).toFixed(2)));
   share.quantity = (totalQty <= 0 ? 0 : totalQty);
 
-  share.dailyPL = 0;
-  share.overallPL = 0;
+  share.dailyReturn = 0;
+  share.overallReturn = 0;
 
   return share;
 }

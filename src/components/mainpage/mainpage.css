@@ -1,25 +1,30 @@
 .main-container {
   display: grid;
   grid-template-columns: repeat(30, 1fr);
+  max-width: 1600px;
+  margin: 0 auto;
 }
 
 .portfolio-actions {
   grid-row: 1;
-  grid-column: 8 / span 16;
+  grid-column: 1 / span 30;
   display: flex;
   max-width: 1700px;
   margin: 50px auto;
 }
 
 .portfolio-actions > button {
-  display: block;
+  width: 230px;
+  margin: 0 7px 15px 7px;
+  font-size: 1.3rem;
+  padding: 0.7rem;
 }
 
 .portfolio-list-container {
   max-height: 350px;
   margin: 20px 10px;
   padding: 30px;
-  overflow-y: scroll;
+  overflow-y: auto;
   border: 2px solid var(--highlight-color);
   border-radius: 0.5rem;
 }
@@ -47,13 +52,11 @@
 .btn-open-select-portfolio-modal {
   background-color: var(--orange-color);
   color: var(--white-color);
-  margin: 0 20px 0 0;
 }
 
 .btn-open-add-position-modal {
   background-color: var(--orange-color);
   color: var(--white-color);
-  margin: 0 20px 0 0;
 }
 
 .btn-open-add-position-modal:hover {
@@ -63,11 +66,68 @@
 .btn-open-add-cash-modal {
   background-color: var(--orange-color);
   color: var(--white-color);
-  margin: 0 15px 0 0;
 }
 
 .btn-open-add-cash-modal:hover {
   background-color: var(--dark-orange-color);
+}
+
+.display-return-container {
+  grid-row: 2;
+  grid-column: 1 / span 30;
+  display: grid;
+  grid-template-columns: repeat(40, 1fr);
+  margin: 2rem;
+  padding: 1.2rem 0;
+  border: 1px solid var(--highlight-color);
+  border-radius: 1rem;
+}
+
+.return-item {
+  background-color: #18303d;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.5rem;
+  font-size: 2rem;
+  padding: 20px;
+  margin: 10px 20px;
+  text-align: center;
+}
+
+.daily-return {
+  grid-row: 1;
+  grid-column: 2 / span 12;
+}
+
+.overall-return {
+  grid-row: 1;
+  grid-column: 15 / span 12;
+}
+
+.total-value {
+  grid-row: 1;
+  grid-column: 28 / span 12;
+}
+
+.return-item > span:first-child {
+  overflow-wrap: anywhere;
+  margin: 0 0 15px 0;
+}
+
+.return-item > span:last-child {
+  overflow-wrap: anywhere;
+}
+
+.return-positive {
+  color: #2ead76;
+}
+
+.return-negative {
+  color: #da1f31;
+}
+
+.return-zero {
+  color: #9e9e9e;
 }
 
 .add-position-form {
@@ -157,60 +217,19 @@
   text-align: center;
 }
 
-.daily-pl-container {
-  grid-row: 2;
-  grid-column: 1 / span 30;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2.8rem;
-  font-weight: 700;
-  padding: 8px;
-}
-
-.overall-pl-container {
-  grid-row: 3;
-  grid-column: 1 / span 30;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2.8rem;
-  font-weight: 700;
-  padding: 8px;
-}
-
-.overall-value-container {
-  grid-row: 4;
-  grid-column: 1 / span 30;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2.8rem;
-  font-weight: 700;
-  padding: 8px;
-}
-
-.pl-positive {
-  color: #2ead76;
-}
-
-.pl-negative {
-  color: #da1f31;
-}
-
-.pl-zero {
-  color: #9e9e9e;
-}
-
-.mainpage-pl-spinner {
-  grid-row: 2 / span 2;
-  grid-column: 1 / span 30;
-  margin: 0 auto;
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+  .return-item {
+    font-size: 1.5rem;
+  }
 }
 
 @media only screen and (min-width: 577px) and (max-width: 768px) {
   .portfolio-actions {
     grid-column: 2 / span 28;
+  }
+
+  .portfolio-actions > button {
+    width: 170px;
   }
 
   .daily-pl-container {
@@ -223,6 +242,21 @@
 
   .overall-value-container {
     font-size: 2rem;
+  }
+
+  .daily-return {
+    grid-row: 1;
+    grid-column: 3 / span 36;
+  }
+
+  .overall-return {
+    grid-row: 2;
+    grid-column: 3 / span 36;
+  }
+
+  .total-value {
+    grid-row: 3;
+    grid-column: 3 / span 36;
   }
 }
 
@@ -231,6 +265,10 @@
     flex-direction: column;
   }
 
+  .portfolio-actions > button {
+    width: 230px;
+  }
+
   .daily-pl-container {
     font-size: 1.7rem;
   }
@@ -241,6 +279,25 @@
 
   .overall-value-container {
     font-size: 1.7rem;
+  }
+
+  .return-item {
+    font-size: 1.7rem;
+  }
+
+  .daily-return {
+    grid-row: 1;
+    grid-column: 1 / span 40;
+  }
+
+  .overall-return {
+    grid-row: 2;
+    grid-column: 1 / span 40;
+  }
+
+  .total-value {
+    grid-row: 3;
+    grid-column: 1 / span 40;
   }
 }
 
@@ -267,5 +324,24 @@
 
   .overall-value-container {
     font-size: 1.4rem;
+  }
+
+  .return-item {
+    font-size: 1.5rem;
+  }
+
+  .daily-return {
+    grid-row: 1;
+    grid-column: 1 / span 40;
+  }
+
+  .overall-return {
+    grid-row: 2;
+    grid-column: 1 / span 40;
+  }
+
+  .total-value {
+    grid-row: 3;
+    grid-column: 1 / span 40;
   }
 }

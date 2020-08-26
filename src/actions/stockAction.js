@@ -6,13 +6,12 @@ import {
   GET_STOCK_GROUP,
   GET_STOCK_GROUP_ERROR,
   ADD_STOCK,
-  EDIT_DAILY_PL,
-  EDIT_OVERALL_PL
+  EDIT_DAILY_RETURN,
+  EDIT_OVERALL_RETURN
 } from './actionTypes';
 
 import axios from 'axios';
 import SERVER_URL from './serverURL';
-import { getCash } from './cashAction';
 import { sortStocks } from '../utils/sortStocks';
 
 export const checkMarketStatus = () => async (dispatch) => {
@@ -64,17 +63,17 @@ export const addStock = (portfolioId, formData) => async (dispatch) => {
   }
 }
 
-export const editDailyPL = (ticker, dailyPL) => (dispatch) => {
+export const editDailyReturn = (ticker, dailyReturn) => (dispatch) => {
   dispatch({
-    type: EDIT_DAILY_PL,
-    payload: { ticker, dailyPL }
+    type: EDIT_DAILY_RETURN,
+    payload: { ticker, dailyReturn }
   });
 }
 
-export const editOverallPL = (ticker, overallPL) => (dispatch) => {
+export const editOverallReturn = (ticker, overallReturn) => (dispatch) => {
   dispatch({
-    type: EDIT_OVERALL_PL,
-    payload: { ticker, overallPL }
+    type: EDIT_OVERALL_RETURN,
+    payload: { ticker, overallReturn }
   });
 }
 

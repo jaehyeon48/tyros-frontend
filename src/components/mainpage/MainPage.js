@@ -5,7 +5,6 @@ import { Redirect } from 'react-router-dom';
 
 import {
   loadPortfolios,
-  selectPortfolio,
   getSelectedPortfolio
 } from '../../actions/portfolioAction';
 import {
@@ -14,6 +13,7 @@ import {
 } from '../../actions/stockAction';
 import { getCash } from '../../actions/cashAction';
 import Modal from '../modal/Modal';
+import SelectPortfolio from './SelectPortfolio';
 import AddPosition from './AddPosition';
 import AddCash from './AddCash';
 import Stocks from '../stock/Stocks';
@@ -31,12 +31,12 @@ const MainPage = ({
   portfolioList,
   currentPortfolio,
   loadPortfolios,
-  selectPortfolio,
   getSelectedPortfolio,
   checkMarketStatus,
   getStocks,
   getCash
 }) => {
+  const [isSelectPortfolioModalOpen, setIsSelectPortfolioModalOpen] = useState(false);
   const [isAddPositionModalOpen, setIsAddPositionModalOpen] = useState(false);
   const [isAddCashModalOpen, setIsAddCashModalOpen] = useState(false);
   const [totalDailyPL, setTotalDailyPL] = useState(0);
@@ -111,23 +111,26 @@ const MainPage = ({
     return <Redirect to="/login" />
   }
 
-  const handleSelectPfChange = (e) => {
-    setTotalDailyPL(0);
-    setTotalOverallPL(0);
-    setDailyPLPercent(0);
-    setOverallPLPercent(0);
-    selectPortfolio(e.target.value);
+  const openSelectPortfolioModal = () => {
+    setIsSelectPortfolioModalOpen(true);
+  }
+
+  const closeSelectPortfolioModal = () => {
+    setIsSelectPortfolioModalOpen(false);
   }
 
   const openAddPositionModal = () => {
     setIsAddPositionModalOpen(true);
   }
+
   const closeAddPositionModal = () => {
     setIsAddPositionModalOpen(false);
   }
+
   const openAddCashModal = () => {
     setIsAddCashModalOpen(true);
   }
+
   const closeAddCashModal = () => {
     setIsAddCashModalOpen(false);
   }
@@ -179,28 +182,21 @@ const MainPage = ({
             </React.Fragment>
           ) : <div className="notice-empty-stocklist">Please Add Your Stock First!</div>}
           <div className="portfolio-actions">
-            <div className="portfolio-list-container">
-              <select onChange={handleSelectPfChange} value={currentPortfolio !== null && currentPortfolio} readOnly>
-                {portfolioList && portfolioList.map(portfolio => (
-                  <option
-                    key={portfolio.portfolioId}
-                    value={portfolio.portfolioId}
-                  >{portfolio.portfolioName}</option>
-                ))}
-              </select>
-            </div>
-            <div className="add-buttons-container">
-              <button
-                type="button"
-                className="btn btn-open-add-position-modal"
-                onClick={openAddPositionModal}
-              >ADD POSITION</button>
-              <button
-                type="button"
-                className="btn btn-open-add-cash-modal"
-                onClick={openAddCashModal}
-              >ADD CASH</button>
-            </div>
+            <button
+              type="button"
+              className="btn btn-open-select-portfolio-modal"
+              onClick={openSelectPortfolioModal}
+            >SELECT PORTFOLIO</button>
+            <button
+              type="button"
+              className="btn btn-open-add-position-modal"
+              onClick={openAddPositionModal}
+            >ADD POSITION</button>
+            <button
+              type="button"
+              className="btn btn-open-add-cash-modal"
+              onClick={openAddCashModal}
+            >ADD CASH</button>
           </div>
           <Stocks
             totalDailyPL={totalDailyPL}
@@ -210,6 +206,11 @@ const MainPage = ({
           />
         </div>
       ) : <div className="notice-empty-portfoliolist">Portfolio Does Not Exist! Why Don't You Create Your First Portfolio?</div>}
+      {isSelectPortfolioModalOpen && (
+        <Modal closeModalFunc={closeSelectPortfolioModal}>
+          <SelectPortfolio closeModalFunc={closeSelectPortfolioModal} />
+        </Modal>
+      )}
       {isAddPositionModalOpen && (
         <Modal closeModalFunc={closeAddPositionModal}>
           <AddPosition closeAddPositionModal={closeAddPositionModal} />
@@ -234,7 +235,6 @@ MainPage.propTypes = {
   portfolioList: PropTypes.array,
   currentPortfolio: PropTypes.number,
   loadPortfolios: PropTypes.func,
-  selectPortfolio: PropTypes.func,
   checkMarketStatus: PropTypes.func,
   getSelectedPortfolio: PropTypes.func,
   getStocks: PropTypes.func,
@@ -254,7 +254,6 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   loadPortfolios,
-  selectPortfolio,
   getSelectedPortfolio,
   checkMarketStatus,
   getStocks,

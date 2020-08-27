@@ -5,6 +5,8 @@ import {
   GET_STOCK_ERROR,
   GET_STOCK_GROUP,
   GET_STOCK_GROUP_ERROR,
+  GET_SECTOR,
+  GET_SECTOR_ERROR,
   ADD_STOCK,
   EDIT_DAILY_RETURN,
   EDIT_OVERALL_RETURN,
@@ -74,11 +76,21 @@ export default function stockReducer(state = initialState, action) {
         ...state,
         stockList: newStockListOverall
       };
+    case GET_SECTOR:
+      const targetStockObj = state.stockList.filter(stock => stock.ticker === payload.ticker);
+      const otherStockObjs = state.stockList.filter(stock => stock.ticker !== payload.ticker);
+      targetStockObj[0].sector = payload.sector;
+      const newStockList = [...targetStockObj, ...otherStockObjs].sort(compare);
+      return {
+        ...state,
+        stockList: newStockList
+      };
     case LOGOUT:
       return {
         stockList: [],
         isMarketOpen: null
       };
+    case GET_SECTOR_ERROR:
     case ADD_STOCK:
     case CHECK_MARKET_STATUS_ERROR:
     default:

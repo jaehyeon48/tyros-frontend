@@ -7,7 +7,9 @@ import {
   GET_STOCK_GROUP_ERROR,
   ADD_STOCK,
   EDIT_DAILY_RETURN,
-  EDIT_OVERALL_RETURN
+  EDIT_OVERALL_RETURN,
+  GET_SECTOR_ERROR,
+  GET_SECTOR
 } from './actionTypes';
 
 import axios from 'axios';
@@ -40,6 +42,22 @@ export const getStocks = (portfolioId) => async (dispatch) => {
   } catch (error) {
     console.error(error);
     dispatch({ type: GET_STOCK_ERROR });
+  }
+}
+
+export const getSectorInfo = (ticker) => async (dispatch) => {
+  const config = { withCredentials: true };
+
+  try {
+    const response = await axios.get(`${SERVER_URL}/api/stock/sector/${ticker}`, config);
+
+    dispatch({
+      type: GET_SECTOR,
+      payload: { ticker, sector: response.data }
+    });
+  } catch (error) {
+    console.error(error);
+    dispatch({ type: GET_SECTOR_ERROR });
   }
 }
 

@@ -10,6 +10,7 @@ import {
 import {
   checkMarketStatus,
   getStocks,
+  getSectorInfo
 } from '../../actions/stockAction';
 import { getCash } from '../../actions/cashAction';
 import Modal from '../modal/Modal';
@@ -31,7 +32,8 @@ const MainPage = ({
   getSelectedPortfolio,
   checkMarketStatus,
   getStocks,
-  getCash
+  getCash,
+  getSectorInfo
 }) => {
   const [isSelectPortfolioModalOpen, setIsSelectPortfolioModalOpen] = useState(false);
   const [isAddPositionModalOpen, setIsAddPositionModalOpen] = useState(false);
@@ -103,6 +105,14 @@ const MainPage = ({
       setCashToDisplay(totalCash);
     }
   }, [totalCash]);
+
+  useEffect(() => {
+    if (stock.stockList && stock.stockList.length > 0) {
+      stock.stockList.forEach(stock => {
+        getSectorInfo(stock.ticker);
+      });
+    }
+  }, [stock.stockList.length]);
 
   if (!isAuthenticated && !loading) {
     return <Redirect to="/login" />
@@ -230,7 +240,8 @@ MainPage.propTypes = {
   getSelectedPortfolio: PropTypes.func,
   getStocks: PropTypes.func,
   addTotalCost: PropTypes.func,
-  getCash: PropTypes.func
+  getCash: PropTypes.func,
+  getSectorInfo: PropTypes.func
 };
 
 const mapStateToProps = (state) => ({
@@ -248,5 +259,6 @@ export default connect(mapStateToProps, {
   getSelectedPortfolio,
   checkMarketStatus,
   getStocks,
-  getCash
+  getCash,
+  getSectorInfo
 })(MainPage);

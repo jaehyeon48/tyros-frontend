@@ -25,9 +25,12 @@ const CompanyInfo = ({
         <span>ADDRESS</span>
         <span>{companyInfo.address} {companyInfo.city}, {companyInfo.state}</span>
       </div>
-      <button type="button" className="btn-company-website">
-        <a href={companyInfo.website} target="_blank" rel="noreferrer noopener">WEBSITE</a>
-      </button>
+      <a
+        href={companyInfo.website}
+        target="_blank"
+        rel="noreferrer noopener"
+        className="btn-company-website"
+      >WEBSITE</a>
     </div>
   );
 }

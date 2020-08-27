@@ -63,6 +63,7 @@
 }
 
 .btn-company-website {
+  display: inline-block;
   border: 1px solid var(--highlight-color);
   background: none;
   color: var(--white-color);

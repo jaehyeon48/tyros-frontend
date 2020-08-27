@@ -1,4 +1,36 @@
+.position-details {
+  display: grid;
+  grid-template-columns: repeat(30, 1fr);
+}
+
+.position-header {
+  display: flex;
+  justify-content: center;
+  padding: 4rem 0 1.5rem 0;
+  grid-row: 1;
+  grid-column: 1 / span 30;
+  font-size: 3rem;
+}
+
+.position-header > span:first-child {
+  color: var(--highlight-color);
+  margin: 0 1.5rem 0 0;
+}
+
+.btn-company-info {
+  grid-row: 2;
+  grid-column: 13 / span 5;
+  background-color: #a05d72;
+  color: var(--white-color);
+}
+
+.btn-company-info:hover {
+  background-color: #7c4154;
+}
+
 .stock-group-container {
+  grid-row: 3;
+  grid-column: 1 / span 30;
   display: flex;
   flex-direction: column;
   width: 83vw;
@@ -8,7 +40,7 @@
 }
 
 .stock-group-header {
-  margin: 2rem 0;
+  margin: 2rem 0.5rem;
   padding: 1rem;
   border: 3px solid var(--primary-color);
   color: var(--primary-color);
@@ -34,12 +66,18 @@
 
 .stock-group-header-type {
   grid-row: 1;
-  grid-column: 16 / span 4;
+  grid-column: 17 / span 4;
 }
 
 .stock-group-header-date {
   grid-row: 1;
   grid-column: 22 / span 9;
+}
+
+.stock-group-items {
+  overflow-y: auto;
+  max-height: 580px;
+  padding: 0 0.5rem;
 }
 
 .stock-group-item {
@@ -72,7 +110,7 @@
 
 .stock-group-type {
   grid-row: 1;
-  grid-column: 16 / span 4;
+  grid-column: 17 / span 4;
 }
 
 .stock-group-date {
@@ -91,6 +129,10 @@
 
   .stock-group-item {
     font-size: 1.3rem;
+  }
+
+  .stock-group-items {
+    max-height: 450px;
   }
 }
 
@@ -128,5 +170,9 @@
 
   .stock-group-type {
     grid-column: 17 / span 4;
+  }
+
+  .stock-group-items {
+    max-height: 350px;
   }
 }

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import StockGroupItem from './StockGroupItem';
 import Modal from '../modal/Modal';
 import { getStocksByTickerGroup } from '../../actions/stockAction';
+import { getCompanyInfo } from '../../utils/getCompanyInfo';
 import './positionDetail.css';
 import EditPosition from './EditPosition';
 
@@ -25,6 +26,7 @@ const PositionDetail = ({
     transactionType: '',
     transactionDate: ''
   });
+  const [companyInfo, setCompanyInfo] = useState({});
 
   useEffect(() => {
     if (PORTFOLIO_ID && TICKER) {
@@ -40,8 +42,23 @@ const PositionDetail = ({
     setIsModalOpen(false);
   }
 
+  useEffect(() => {
+    (async () => {
+      const companyInfoResult = await getCompanyInfo(TICKER);
+      setCompanyInfo(companyInfoResult);
+    })();
+  }, [TICKER]);
+
   return (
-    <React.Fragment>
+    <div className="position-details">
+      <div className="position-header">
+        <span>{TICKER.toUpperCase()}</span>
+        <span>{companyInfo && companyInfo.companyName}</span>
+      </div>
+      <button
+        type="button"
+        className="btn btn-company-info"
+      >See Company Info</button>
       <div className="stock-group-container">
         <div className="stock-group-header">
           <span className="stock-group-header-price">Price</span>
@@ -49,18 +66,20 @@ const PositionDetail = ({
           <span className="stock-group-header-type">Type</span>
           <span className="stock-group-header-date">Date</span>
         </div>
-        {stockGroup && stockGroup.map(item => (
-          <StockGroupItem
-            key={item.stockId}
-            stockId={item.stockId}
-            price={item.price}
-            quantity={item.quantity}
-            transactionType={item.transactionType}
-            transactionDate={new Date(item.transactionDate).toJSON().slice(0, 10)}
-            formData={formData}
-            openEditModal={openEditModal}
-            setFormData={setFormData}
-          />))}
+        <div className="stock-group-items">
+          {stockGroup && stockGroup.map(item => (
+            <StockGroupItem
+              key={item.stockId}
+              stockId={item.stockId}
+              price={item.price}
+              quantity={item.quantity}
+              transactionType={item.transactionType}
+              transactionDate={new Date(item.transactionDate).toJSON().slice(0, 10)}
+              formData={formData}
+              openEditModal={openEditModal}
+              setFormData={setFormData}
+            />))}
+        </div>
       </div>
       {isModalOpen && (
         <Modal closeModalFunc={closeEditModal}>
@@ -70,7 +89,7 @@ const PositionDetail = ({
           />
         </Modal>
       )}
-    </React.Fragment>
+    </div>
   );
 }
 

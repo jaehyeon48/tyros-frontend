@@ -8,6 +8,7 @@ import { getStocksByTickerGroup } from '../../actions/stockAction';
 import { getCompanyInfo } from '../../utils/getCompanyInfo';
 import './positionDetail.css';
 import EditPosition from './EditPosition';
+import CompanyInfo from './CompanyInfo';
 
 const PositionDetail = ({
   match,
@@ -17,7 +18,8 @@ const PositionDetail = ({
   const PORTFOLIO_ID = match.params.portfolioId;
   const TICKER = match.params.ticker;
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     stockId: '',
     ticker: TICKER.toUpperCase(),
@@ -35,11 +37,18 @@ const PositionDetail = ({
   }, [PORTFOLIO_ID, TICKER]);
 
   const openEditModal = () => {
-    setIsModalOpen(true);
+    setIsEditModalOpen(true);
   }
 
   const closeEditModal = () => {
-    setIsModalOpen(false);
+    setIsEditModalOpen(false);
+  }
+
+  const openInfoModal = () => {
+    setIsInfoModalOpen(true);
+  }
+  const closeInfoModal = () => {
+    setIsInfoModalOpen(false);
   }
 
   useEffect(() => {
@@ -58,6 +67,7 @@ const PositionDetail = ({
       <button
         type="button"
         className="btn btn-company-info"
+        onClick={openInfoModal}
       >See Company Info</button>
       <div className="stock-group-container">
         <div className="stock-group-header">
@@ -81,12 +91,17 @@ const PositionDetail = ({
             />))}
         </div>
       </div>
-      {isModalOpen && (
+      {isEditModalOpen && (
         <Modal closeModalFunc={closeEditModal}>
           <EditPosition
             formData={formData}
             setFormData={setFormData}
           />
+        </Modal>
+      )}
+      {isInfoModalOpen && (
+        <Modal closeModalFunc={closeInfoModal}>
+          <CompanyInfo companyInfo={companyInfo} />
         </Modal>
       )}
     </div>

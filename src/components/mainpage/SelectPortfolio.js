@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import { getStocks } from '../../actions/stockAction';
 import { selectPortfolio } from '../../actions/portfolioAction';
 
 const SelectPortfolio = ({
@@ -12,6 +13,7 @@ const SelectPortfolio = ({
   const handleSelectPortfolio = (id) => {
     selectPortfolio(id)
     closeModalFunc();
+    window.location.reload();
   }
 
   return (

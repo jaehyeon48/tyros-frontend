@@ -10,7 +10,7 @@ import {
 import {
   checkMarketStatus,
   getStocks,
-  getSectorInfo
+  resetStockLoading
 } from '../../actions/stockAction';
 import { getCash } from '../../actions/cashAction';
 import Modal from '../modal/Modal';
@@ -18,7 +18,10 @@ import SelectPortfolio from './SelectPortfolio';
 import AddPosition from './AddPosition';
 import AddCash from './AddCash';
 import Stocks from '../stock/Stocks';
+import ValuePieChart from './ValuePieChart';
 import './mainpage.css';
+import spinnerDark from '../../images/spinner-dark.gif';
+import spinnerLight from '../../images/spinner-light.gif';
 
 const MainPage = ({
   theme,
@@ -33,7 +36,7 @@ const MainPage = ({
   checkMarketStatus,
   getStocks,
   getCash,
-  getSectorInfo
+  resetStockLoading
 }) => {
   const [isSelectPortfolioModalOpen, setIsSelectPortfolioModalOpen] = useState(false);
   const [isAddPositionModalOpen, setIsAddPositionModalOpen] = useState(false);
@@ -45,19 +48,28 @@ const MainPage = ({
   const [totalCost, setTotalCost] = useState(0);
   const [cashToDisplay, setCashToDisplay] = useState(totalCash);
 
-
+  useEffect(() => {
+    if (currentPortfolio) {
+      resetStockLoading();
+      getStocks(currentPortfolio);
+      getCash(currentPortfolio);
+    }
+  }, []);
   useEffect(() => { checkMarketStatus(); }, []);
+  useEffect(() => { getSelectedPortfolio(); }, []);
 
   useEffect(() => {
-    getStocks(currentPortfolio);
-    getCash(currentPortfolio);
+    if (stock.stockList.length === 0 && currentPortfolio) {
+      getStocks(currentPortfolio);
+      getCash(currentPortfolio);
+    }
   }, [currentPortfolio]);
 
   useEffect(() => {
     loadPortfolios();
   }, [loadPortfolios]);
 
-  useEffect(() => { getSelectedPortfolio(); }, [getSelectedPortfolio]);
+
 
   useEffect(() => {
     if (stock.stockList.length > 0) {
@@ -105,14 +117,6 @@ const MainPage = ({
       setCashToDisplay(totalCash);
     }
   }, [totalCash]);
-
-  useEffect(() => {
-    if (stock.stockList && stock.stockList.length > 0) {
-      stock.stockList.forEach(stock => {
-        getSectorInfo(stock.ticker);
-      });
-    }
-  }, [stock.stockList.length]);
 
   if (!isAuthenticated && !loading) {
     return <Redirect to="/login" />
@@ -165,23 +169,40 @@ const MainPage = ({
     <React.Fragment>
       {portfolioList && portfolioList.length > 0 ? (
         <div className="main-container">
-          {stock.stockList.length > 0 ? (
-            <div className="display-return-container">
-              <div className="return-item daily-return">
-                <span>Daily Return</span>
-                <span className={`${colorDailyPL()}`}>{totalDailyReturn} ({totalDailyReturn > 0 && '+'}
-                  {dailyReturnPercent.toFixed(2)}%)</span>
+          {!stock.stockLoading ? (
+            <React.Fragment>
+              {stock.stockList.length > 0 ? (
+                <React.Fragment>
+                  <div className="display-return-container">
+                    <div className="return-item daily-return">
+                      <span>Daily Return</span>
+                      <span className={`${colorDailyPL()}`}>{totalDailyReturn} ({totalDailyReturn > 0 && '+'}
+                        {dailyReturnPercent.toFixed(2)}%)</span>
+                    </div>
+                    <div className="return-item overall-return">
+                      <span>Overall Return</span>
+                      <span className={`${colorOverallPL()}`}>{totalOverallReturn} ({totalOverallReturn > 0 && '+'}{overallReturnPercent.toFixed(2)}%)</span>
+                    </div>
+                    <div className="return-item total-value">
+                      <span>Total Value</span>
+                      <span className={`${colorTotalValue()}`}>{(totalOverallReturn + totalCost + cashToDisplay).toFixed(2)}</span>
+                    </div>
+                  </div>
+                  <Stocks
+                    totalDailyReturn={totalDailyReturn}
+                    totalOverallReturn={totalOverallReturn}
+                    setTotalDailyReturn={setTotalDailyReturn}
+                    setTotalOverallReturn={setTotalOverallReturn}
+                  />
+                  {stock.stockList.length > 0 && <ValuePieChart stockListLength={stock.stockList.length} />}
+                </React.Fragment>
+              ) : <div className="notice-empty-stocklist">Please Add Your Stock First!</div>}
+            </React.Fragment>
+          ) : (
+              <div className="mainpage-loading-spinner">
+                {theme === 'dark' ? <img src={spinnerDark} alt="loading spinner" /> : <img src={spinnerLight} alt="loading spinner" />}
               </div>
-              <div className="return-item overall-return">
-                <span>Overall Return</span>
-                <span className={`${colorOverallPL()}`}>{totalOverallReturn} ({totalOverallReturn > 0 && '+'}{overallReturnPercent.toFixed(2)}%)</span>
-              </div>
-              <div className="return-item total-value">
-                <span>Total Value</span>
-                <span className={`${colorTotalValue()}`}>{(totalOverallReturn + totalCost + cashToDisplay).toFixed(2)}</span>
-              </div>
-            </div>
-          ) : <div className="notice-empty-stocklist">Please Add Your Stock First!</div>}
+            )}
           <div className="portfolio-actions">
             <button
               type="button"
@@ -199,12 +220,7 @@ const MainPage = ({
               onClick={openAddCashModal}
             >ADD CASH</button>
           </div>
-          <Stocks
-            totalDailyReturn={totalDailyReturn}
-            totalOverallReturn={totalOverallReturn}
-            setTotalDailyReturn={setTotalDailyReturn}
-            setTotalOverallReturn={setTotalOverallReturn}
-          />
+
         </div>
       ) : <div className="notice-empty-portfoliolist">Portfolio Does Not Exist! Why Don't You Create Your First Portfolio?</div>}
       {isSelectPortfolioModalOpen && (
@@ -241,7 +257,7 @@ MainPage.propTypes = {
   getStocks: PropTypes.func,
   addTotalCost: PropTypes.func,
   getCash: PropTypes.func,
-  getSectorInfo: PropTypes.func
+  resetStockLoading: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
@@ -260,5 +276,5 @@ export default connect(mapStateToProps, {
   checkMarketStatus,
   getStocks,
   getCash,
-  getSectorInfo
+  resetStockLoading
 })(MainPage);

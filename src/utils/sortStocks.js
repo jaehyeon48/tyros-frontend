@@ -1,8 +1,11 @@
-export const sortStocks = (stocksList) => {
+import axios from 'axios';
+import SERVER_URL from '../actions/serverURL';
+
+export const sortStocks = async (stocksList) => {
   let organizedShares = [];
   const groupedStocks = groupStocksByTickerName(stocksList);
   for (let [ticker, value] of Object.entries(groupedStocks)) {
-    organizedShares.push(organizeGroupedStocks(ticker, value));
+    organizedShares.push(await organizeGroupedStocks(ticker, value));
   }
   return organizedShares;
 }
@@ -27,7 +30,7 @@ const groupStocksByTickerName = (stocks) => {
   return stockGroup;
 };
 
-const organizeGroupedStocks = (ticker, shareInfo) => {
+const organizeGroupedStocks = async (ticker, shareInfo) => {
   shareInfo.sort((a, b) => (a.transactionType < b.transactionType) ? 1 : ((b.transactionType < a.transactionType) ? -1 : 0));
   const share = {};
   let totalCost = 0;
@@ -56,8 +59,20 @@ const organizeGroupedStocks = (ticker, shareInfo) => {
   share.avgCost = Number((totalQty <= 0 ? 0 : (totalCost / totalQty).toFixed(2)));
   share.quantity = (totalQty <= 0 ? 0 : totalQty);
 
-  share.dailyReturn = 0;
-  share.overallReturn = 0;
-
+  share.dailyReturn = null;
+  share.overallReturn = null;
+  share.sector = await getSectorInfo(share.ticker);
   return share;
+}
+
+const getSectorInfo = async (ticker) => {
+  const config = { withCredentials: true };
+
+  try {
+    const response = await axios.get(`${SERVER_URL}/api/stock/sector/${ticker}`, config);
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
 }

@@ -217,9 +217,47 @@
   text-align: center;
 }
 
+.value-pie-chart {
+  grid-row: 6;
+  grid-column: 1 / span 15;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem;
+  border: 1px solid var(--highlight-color);
+  border-radius: 1rem;
+  text-align: center;
+}
+
+.chart-wrapper {
+  position: relative;
+  width: 500px !important;
+  height: 500px !important;
+  padding: 1rem;
+}
+
+.mainpage-loading-spinner {
+  grid-row: 2;
+  grid-column: 1 / span 30;
+  display: flex;
+  justify-content: center;
+}
+
 @media only screen and (min-width: 769px) and (max-width: 1024px) {
   .return-item {
     font-size: 1.5rem;
+  }
+
+  .value-pie-chart {
+    grid-row: 6;
+    grid-column: 1 / span 30;
+  }
+
+  .chart-wrapper {
+    position: relative;
+    width: 500px !important;
+    height: 630px !important;
   }
 }
 
@@ -257,6 +295,17 @@
   .total-value {
     grid-row: 3;
     grid-column: 3 / span 36;
+  }
+
+  .value-pie-chart {
+    grid-row: 6;
+    grid-column: 1 / span 30;
+  }
+
+  .chart-wrapper {
+    position: relative;
+    width: 450px !important;
+    height: 560px !important;
   }
 }
 
@@ -298,6 +347,17 @@
   .total-value {
     grid-row: 3;
     grid-column: 1 / span 40;
+  }
+
+  .value-pie-chart {
+    grid-row: 6;
+    grid-column: 1 / span 30;
+  }
+
+  .chart-wrapper {
+    position: relative;
+    width: 400px !important;
+    height: 470px !important;
   }
 }
 
@@ -343,5 +403,31 @@
   .total-value {
     grid-row: 3;
     grid-column: 1 / span 40;
+  }
+
+  .value-pie-chart {
+    grid-row: 6;
+    grid-column: 1 / span 30;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 2rem;
+    border: 1px solid var(--highlight-color);
+    border-radius: 1rem;
+  }
+
+  .chart-wrapper {
+    position: relative;
+    width: 360px !important;
+    height: 430px !important;
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  .chart-wrapper {
+    position: relative;
+    width: 310px !important;
+    height: 380px !important;
   }
 }

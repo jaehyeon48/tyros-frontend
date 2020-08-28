@@ -33,58 +33,65 @@ const StockItem = ({
 
   useEffect(() => {
     let intervalId;
-    (async () => {
-      if (stock.isMarketOpen) {
-        if (isFirstRender) {
-          setIsFirstRender(false);
-          (async () => {
+    let isCancelled = false;
+    if (!isCancelled) {
+      (async () => {
+        if (stock.isMarketOpen) {
+          if (isFirstRender) {
+            setIsFirstRender(false);
+            if (!isCancelled) {
+              (async () => {
+                const realTimeData = await getRealTimePrice(ticker);
+                setStockPriceData({
+                  price: realTimeData.price,
+                  change: realTimeData.change,
+                  changePercent: realTimeData.changePercent
+                });
+              })();
+            }
+          }
+          intervalId = setInterval(async () => {
             const realTimeData = await getRealTimePrice(ticker);
             setStockPriceData({
               price: realTimeData.price,
               change: realTimeData.change,
               changePercent: realTimeData.changePercent
             });
-          })();
+          }, 5000000);
         }
-        intervalId = setInterval(async () => {
-          const realTimeData = await getRealTimePrice(ticker);
-          setStockPriceData({
-            price: realTimeData.price,
-            change: realTimeData.change,
-            changePercent: realTimeData.changePercent
-          });
-        }, 5000);
-      }
-      else {
-        const closeData = await getClosePrice(ticker);
-        setStockPriceData({
-          price: closeData.price,
-          change: closeData.change,
-          changePercent: closeData.changePercent
-        });
-      }
-    })();
-    return () => clearInterval(intervalId);
-  }, [stock.isMarketOpen, ticker]);
+        else {
+          if (!isCancelled) {
+            const closeData = await getClosePrice(ticker);
+            setStockPriceData({
+              price: closeData.price,
+              change: closeData.change,
+              changePercent: closeData.changePercent
+            });
+          }
+        }
+      })();
+    }
+    return () => {
+      isCancelled = true;
+      clearInterval(intervalId);
+    }
+  }, []);
 
   useEffect(() => {
     if (stockPriceData.change !== null) {
-      setDailyReturn((stockPriceData.change * quantity));
+      setDailyReturn(parseFloat((stockPriceData.change * quantity).toFixed(2)));
     }
   }, [quantity, stockPriceData.change]);
 
   useEffect(() => {
     if (stockPriceData.price !== null) {
-      setOverallReturn(((stockPriceData.price - avgCost) * quantity));
+      setOverallReturn(parseFloat(((stockPriceData.price - avgCost) * quantity).toFixed(2)));
     }
   }, [stockPriceData.price, avgCost, quantity]);
 
   useEffect(() => {
-    if (overallReturn) {
-      setOverallReturnPercent((overallReturn / (avgCost * quantity) * 100));
-    }
+    setOverallReturnPercent(parseFloat((overallReturn / (avgCost * quantity) * 100).toFixed(2)));
   }, [overallReturn, avgCost, quantity]);
-
 
   useEffect(() => {
     editDailyReturn(ticker, dailyReturn);
@@ -123,11 +130,11 @@ const StockItem = ({
           <span className="stock-item-quantity">Quantity: {quantity}</span>
           <span className="stock-item-daily-pl">
             Daily: <span className={`stock-item-daily-pl ${colorDailyPL()}`}>
-              {dailyReturn.toFixed(2)} ({dailyReturn > 0 && '+'}{stockPriceData.changePercent.toFixed(2)}%)</span>
+              {dailyReturn} ({dailyReturn > 0 && '+'}{stockPriceData.changePercent.toFixed(2)}%)</span>
           </span>
           <span className="stock-item-overall-pl">
             Overall: <span className={`stock-item-overall-pl ${colorOverallPL()}`}>
-              {overallReturn.toFixed(2)} ({overallReturn > 0 && '+'}{overallReturnPercent.toFixed(2)}%)</span>
+              {overallReturn} ({overallReturn > 0 && '+'}{overallReturnPercent}%)</span>
           </span>
         </div>
       ) : null}

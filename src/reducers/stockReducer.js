@@ -1,7 +1,9 @@
 import {
+  RESET_STOCK_LOADING,
   CHECK_MARKET_STATUS,
   CHECK_MARKET_STATUS_ERROR,
   GET_STOCK_LIST,
+  GET_EMPTY_STOCK_LIST,
   GET_STOCK_ERROR,
   GET_STOCK_GROUP,
   GET_STOCK_GROUP_ERROR,
@@ -16,7 +18,8 @@ import {
 const initialState = {
   stockList: [],
   stockGroup: [],
-  isMarketOpen: null
+  isMarketOpen: null,
+  stockLoading: true
 };
 
 const compare = (a, b) => {
@@ -41,12 +44,20 @@ export default function stockReducer(state = initialState, action) {
     case GET_STOCK_LIST:
       return {
         ...state,
-        stockList: payload
+        stockList: payload,
+        stockLoading: false
+      };
+    case GET_EMPTY_STOCK_LIST:
+      return {
+        ...state,
+        stockList: payload,
+        stockLoading: false
       };
     case GET_STOCK_ERROR:
       return {
         ...state,
-        stockList: []
+        stockList: [],
+        stockLoading: false
       };
     case GET_STOCK_GROUP:
       return {
@@ -84,6 +95,11 @@ export default function stockReducer(state = initialState, action) {
       return {
         ...state,
         stockList: newStockList
+      };
+    case RESET_STOCK_LOADING:
+      return {
+        ...state,
+        stockLoading: true
       };
     case LOGOUT:
       return {

@@ -1,7 +1,9 @@
 import {
+  RESET_STOCK_LOADING,
   CHECK_MARKET_STATUS,
   CHECK_MARKET_STATUS_ERROR,
   GET_STOCK_LIST,
+  GET_EMPTY_STOCK_LIST,
   GET_STOCK_ERROR,
   GET_STOCK_GROUP,
   GET_STOCK_GROUP_ERROR,
@@ -34,11 +36,19 @@ export const getStocks = (portfolioId) => async (dispatch) => {
   const config = { withCredentials: true };
   try {
     const stocksResult = await axios.get(`${SERVER_URL}/api/portfolio/${portfolioId}/stocks`, config);
-    const sortedStocks = sortStocks(stocksResult.data);
-    dispatch({
-      type: GET_STOCK_LIST,
-      payload: sortedStocks
-    });
+    if (stocksResult.data !== null) {
+      const sortedStocks = await sortStocks(stocksResult.data);
+      dispatch({
+        type: GET_STOCK_LIST,
+        payload: sortedStocks
+      });
+    }
+    else {
+      dispatch({
+        type: GET_EMPTY_STOCK_LIST,
+        payload: []
+      });
+    }
   } catch (error) {
     console.error(error);
     dispatch({ type: GET_STOCK_ERROR });
@@ -108,4 +118,8 @@ export const getStocksByTickerGroup = (portfolioId, ticker) => async (dispatch) 
     console.error(error);
     dispatch({ type: GET_STOCK_GROUP_ERROR });
   }
+}
+
+export const resetStockLoading = () => (dispatch) => {
+  dispatch({ type: RESET_STOCK_LOADING });
 }

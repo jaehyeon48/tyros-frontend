@@ -155,7 +155,7 @@ const SectorPieChart = ({
 
   return (
     <div className="sector-pie-chart">
-      <h1 className="value-pie-chart-header">DISTRIBUTION BY SECTOR</h1>
+      <h1>DISTRIBUTION BY SECTOR</h1>
       <div className="chart-wrapper">
         <Pie
           data={chartData}

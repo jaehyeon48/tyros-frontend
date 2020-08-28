@@ -154,7 +154,7 @@ const ValuePieChart = ({
 
   return (
     <div className="value-pie-chart">
-      <h1 className="value-pie-chart-header">DISTRIBUTION BY VALUE</h1>
+      <h1>DISTRIBUTION BY VALUE</h1>
       <div className="chart-wrapper">
         <Pie
           data={chartData}

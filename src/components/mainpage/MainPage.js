@@ -19,6 +19,7 @@ import AddPosition from './AddPosition';
 import AddCash from './AddCash';
 import Stocks from '../stock/Stocks';
 import ValuePieChart from './ValuePieChart';
+import SectorPieChart from './SectorPieChart';
 import './mainpage.css';
 import spinnerDark from '../../images/spinner-dark.gif';
 import spinnerLight from '../../images/spinner-light.gif';
@@ -195,6 +196,7 @@ const MainPage = ({
                     setTotalOverallReturn={setTotalOverallReturn}
                   />
                   {stock.stockList.length > 0 && <ValuePieChart stockListLength={stock.stockList.length} />}
+                  {stock.stockList.length > 0 && <SectorPieChart />}
                 </React.Fragment>
               ) : <div className="notice-empty-stocklist">Please Add Your Stock First!</div>}
             </React.Fragment>

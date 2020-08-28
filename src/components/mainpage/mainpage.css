@@ -230,6 +230,19 @@
   text-align: center;
 }
 
+.sector-pie-chart {
+  grid-row: 6;
+  grid-column: 16 / span 30;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem;
+  border: 1px solid var(--highlight-color);
+  border-radius: 1rem;
+  text-align: center;
+}
+
 .chart-wrapper {
   position: relative;
   width: 500px !important;
@@ -251,6 +264,11 @@
 
   .value-pie-chart {
     grid-row: 6;
+    grid-column: 1 / span 30;
+  }
+
+  .sector-pie-chart {
+    grid-row: 7;
     grid-column: 1 / span 30;
   }
 
@@ -299,6 +317,11 @@
 
   .value-pie-chart {
     grid-row: 6;
+    grid-column: 1 / span 30;
+  }
+
+  .sector-pie-chart {
+    grid-row: 7;
     grid-column: 1 / span 30;
   }
 
@@ -351,6 +374,11 @@
 
   .value-pie-chart {
     grid-row: 6;
+    grid-column: 1 / span 30;
+  }
+
+  .sector-pie-chart {
+    grid-row: 7;
     grid-column: 1 / span 30;
   }
 
@@ -408,13 +436,11 @@
   .value-pie-chart {
     grid-row: 6;
     grid-column: 1 / span 30;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 2rem;
-    border: 1px solid var(--highlight-color);
-    border-radius: 1rem;
+  }
+
+  .sector-pie-chart {
+    grid-row: 7;
+    grid-column: 1 / span 30;
   }
 
   .chart-wrapper {

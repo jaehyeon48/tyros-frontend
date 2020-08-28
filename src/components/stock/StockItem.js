@@ -57,7 +57,7 @@ const StockItem = ({
               change: realTimeData.change,
               changePercent: realTimeData.changePercent
             });
-          }, 5000000);
+          }, 10000);
         }
         else {
           if (!isCancelled) {

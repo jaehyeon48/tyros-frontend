@@ -100,7 +100,7 @@ const PositionDetail = ({
         </Modal>
       )}
       {isInfoModalOpen && (
-        <Modal closeModalFunc={closeInfoModal}>
+        <Modal closeModalFunc={closeInfoModal} overflowY={true}>
           <CompanyInfo companyInfo={companyInfo} />
         </Modal>
       )}

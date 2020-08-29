@@ -11,7 +11,9 @@ import {
   EDIT_DAILY_RETURN,
   EDIT_OVERALL_RETURN,
   GET_SECTOR_ERROR,
-  GET_SECTOR
+  GET_SECTOR,
+  CLOSE_POSITION,
+  CLOSE_POSITION_ERROR
 } from './actionTypes';
 
 import axios from 'axios';
@@ -122,4 +124,17 @@ export const getStocksByTickerGroup = (portfolioId, ticker) => async (dispatch) 
 
 export const resetStockLoading = () => (dispatch) => {
   dispatch({ type: RESET_STOCK_LOADING });
+}
+
+export const closePosition = (portfolioId, ticker) => async (dispatch) => {
+  const config = { withCredentials: true };
+  try {
+    await axios.delete(`${SERVER_URL}/api/stock/${portfolioId}/${ticker}`, config);
+    dispatch({ type: CLOSE_POSITION });
+    return 0;
+  } catch (error) {
+    console.error(error);
+    dispatch({ type: CLOSE_POSITION_ERROR });
+    return -1;
+  }
 }

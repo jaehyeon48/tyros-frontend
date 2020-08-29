@@ -12,6 +12,8 @@ import {
   ADD_STOCK,
   EDIT_DAILY_RETURN,
   EDIT_OVERALL_RETURN,
+  CLOSE_POSITION,
+  CLOSE_POSITION_ERROR,
   LOGOUT,
 } from '../actions/actionTypes';
 
@@ -104,10 +106,13 @@ export default function stockReducer(state = initialState, action) {
     case LOGOUT:
       return {
         stockList: [],
-        isMarketOpen: null
+        isMarketOpen: null,
+        stockLoading: true
       };
     case GET_SECTOR_ERROR:
     case ADD_STOCK:
+    case CLOSE_POSITION:
+    case CLOSE_POSITION_ERROR:
     case CHECK_MARKET_STATUS_ERROR:
     default:
       return state;

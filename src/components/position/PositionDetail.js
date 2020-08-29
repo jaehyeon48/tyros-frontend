@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import StockGroupItem from './StockGroupItem';
 import Modal from '../modal/Modal';
-import { getStocksByTickerGroup } from '../../actions/stockAction';
+import {
+  getStocksByTickerGroup,
+  closePosition
+} from '../../actions/stockAction';
+import { showAlert } from '../../actions/alertAction';
 import { getCompanyInfo } from '../../utils/getCompanyInfo';
 import './positionDetail.css';
 import EditPosition from './EditPosition';
@@ -13,8 +18,11 @@ import CompanyInfo from './CompanyInfo';
 const PositionDetail = ({
   match,
   stockGroup,
-  getStocksByTickerGroup
+  getStocksByTickerGroup,
+  closePosition,
+  showAlert
 }) => {
+  let history = useHistory();
   const PORTFOLIO_ID = match.params.portfolioId;
   const TICKER = match.params.ticker;
 
@@ -51,6 +59,18 @@ const PositionDetail = ({
     setIsInfoModalOpen(false);
   }
 
+  const handleClosePosition = async () => {
+    if (window.confirm('Do you really want to close this position?')) {
+      const closePositionResult = await closePosition(PORTFOLIO_ID, TICKER);
+      if (closePositionResult === 0) {
+        history.push('/main');
+      }
+      else if (closePositionResult === -1) {
+        showAlert('Something went wrong. Please try again!', 'fail');
+      }
+    }
+  }
+
   useEffect(() => {
     (async () => {
       const companyInfoResult = await getCompanyInfo(TICKER);
@@ -69,6 +89,11 @@ const PositionDetail = ({
         className="btn btn-company-info"
         onClick={openInfoModal}
       >See Company Info</button>
+      <button
+        type="button"
+        className="btn btn-close-position"
+        onClick={handleClosePosition}
+      >ClosePosition</button>
       <div className="stock-group-container">
         <div className="stock-group-header">
           <span className="stock-group-header-price">Price</span>
@@ -111,10 +136,16 @@ const PositionDetail = ({
 PositionDetail.propTypes = {
   match: PropTypes.object,
   getStocksByTickerGroup: PropTypes.func,
+  closePosition: PropTypes.func,
+  showAlert: PropTypes.func
 };
 
 const mapStateToProps = (state) => ({
   stockGroup: state.stock.stockGroup
 });
 
-export default connect(mapStateToProps, { getStocksByTickerGroup })(PositionDetail);
+export default connect(mapStateToProps, {
+  getStocksByTickerGroup,
+  closePosition,
+  showAlert
+})(PositionDetail);

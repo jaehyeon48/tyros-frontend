@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { editStock } from '../../actions/stockAction';
 
-const EditPosition = ({
+const EditTransaction = ({
   formData,
   setFormData,
   editStock
@@ -27,8 +27,8 @@ const EditPosition = ({
   }
 
   return (
-    <div className="add-position-container">
-      <form autoComplete="off" onSubmit={handleSubmit} className="add-position-form">
+    <div className="add-transaction-container">
+      <form autoComplete="off" onSubmit={handleSubmit} className="add-transaction-form">
         <div className="transaction-type-container">
           <label>BUY
           <input
@@ -50,18 +50,18 @@ const EditPosition = ({
           </label>
         </div>
         <div className="ticker-container">
-          <label className="add-position-inputs">
+          <label className="add-transaction-inputs">
             Ticker
           <input
               type="text"
               name="ticker"
               value={ticker}
-              className="add-position-field"
+              className="add-transaction-field"
               disabled={true}
             />
           </label>
         </div>
-        <label className="add-position-inputs">
+        <label className="add-transaction-inputs">
           Price
           <input
             type="number"
@@ -70,41 +70,42 @@ const EditPosition = ({
             onChange={handleChange}
             min="0"
             step="0.01"
-            className="add-position-field"
+            className="add-transaction-field"
             required={true}
           />
         </label>
-        <label className="add-position-inputs">
+        <label className="add-transaction-inputs">
           Quantity
           <input
             type="number"
             name="quantity"
             value={quantity}
             onChange={handleChange}
-            className="add-position-field"
+            className="add-transaction-field"
             required={true}
           />
         </label>
-        <label className="add-position-inputs">
+        <label className="add-transaction-inputs">
           Date
           <input
             type="date"
             name="transactionDate"
             value={transactionDate}
             onChange={handleChange}
-            className="add-position-date-field"
+            className="add-transaction-date-field"
           />
         </label>
-        <button type="submit" className="btn btn-add-position">Edit Position</button>
+        <button type="submit" className="btn btn-add-transaction">EDIT TRANSACTION</button>
       </form>
+      <button type="button">Delete </button>
     </div>
   );
 }
 
-EditPosition.propTypes = {
+EditTransaction.propTypes = {
   formData: PropTypes.object,
   setFormData: PropTypes.func,
   editStock: PropTypes.func
 };
 
-export default connect(null, { editStock })(EditPosition);
+export default connect(null, { editStock })(EditTransaction);

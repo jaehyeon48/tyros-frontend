@@ -8,8 +8,8 @@ import AutoCompleteResult from './AutoCompleteResult';
 import { addStock } from '../../actions/stockAction';
 import { showAlert } from '../../actions/alertAction';
 
-const AddPosition = ({
-  closeAddPositionModal,
+const AddTransaction = ({
+  closeAddTransactionModal,
   currentPortfolio,
   totalCash,
   addStock,
@@ -65,11 +65,11 @@ const AddPosition = ({
 
       if (addStockResult === 0) {
         window.location.reload();
-        closeAddPositionModal();
+        closeAddTransactionModal();
       }
       else {
         showAlert('Something went wrong. Please try again!', 'fail');
-        closeAddPositionModal();
+        closeAddTransactionModal();
       }
     }
   }
@@ -90,8 +90,8 @@ const AddPosition = ({
   }
 
   return (
-    <div className="add-position-container">
-      <form autoComplete="off" onSubmit={handleSubmit} className="add-position-form">
+    <div className="add-transaction-container">
+      <form autoComplete="off" onSubmit={handleSubmit} className="add-transaction-form">
         <div className="transaction-type-container">
           <label>BUY
           <input
@@ -134,7 +134,7 @@ const AddPosition = ({
             )}
         </div>
         <div className="ticker-container">
-          <label className="add-position-inputs">
+          <label className="add-transaction-inputs">
             Ticker
           <input
               type="text"
@@ -142,7 +142,7 @@ const AddPosition = ({
               value={ticker}
               onChange={handleChange}
               onInput={handleTickerInput}
-              className="add-position-field"
+              className="add-transaction-field"
             />
           </label>
           {renderAutoComplete && <AutoCompleteResult
@@ -151,16 +151,16 @@ const AddPosition = ({
             handleClickItem={handleClickItem}
           />}
         </div>
-        <label className="add-position-inputs">
+        <label className="add-transaction-inputs">
           Company
           <input
             type="text"
             value={companyName}
-            className="add-position-field"
+            className="add-transaction-field"
             disabled={true}
           />
         </label>
-        <label className="add-position-inputs">
+        <label className="add-transaction-inputs">
           Price
           <input
             type="number"
@@ -169,37 +169,37 @@ const AddPosition = ({
             onChange={handleChange}
             min="0"
             step="0.01"
-            className="add-position-field"
+            className="add-transaction-field"
           />
         </label>
-        <label className="add-position-inputs">
+        <label className="add-transaction-inputs">
           Quantity
           <input
             type="number"
             name="quantity"
             value={quantity}
             onChange={handleChange}
-            className="add-position-field"
+            className="add-transaction-field"
           />
         </label>
-        <label className="add-position-inputs">
+        <label className="add-transaction-inputs">
           Date
           <input
             type="date"
             name="transactionDate"
             value={transactionDate}
             onChange={handleChange}
-            className="add-position-date-field"
+            className="add-transaction-date-field"
           />
         </label>
-        <button type="submit" className="btn btn-add-position">Add Position</button>
+        <button type="submit" className="btn btn-add-transaction">ADD TRANSACTION</button>
       </form>
     </div>
   );
 }
 
-AddPosition.propTypes = {
-  closeAddPositionModal: PropTypes.func,
+AddTransaction.propTypes = {
+  closeAddTransactionModal: PropTypes.func,
   currentPortfolio: PropTypes.number,
   totalCash: PropTypes.number,
   addStock: PropTypes.func,
@@ -214,4 +214,4 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   addStock,
   showAlert
-})(AddPosition);
+})(AddTransaction);

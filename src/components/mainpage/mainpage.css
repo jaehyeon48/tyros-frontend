@@ -54,12 +54,12 @@
   color: var(--white-color);
 }
 
-.btn-open-add-position-modal {
+.btn-open-add-transaction-modal {
   background-color: var(--orange-color);
   color: var(--white-color);
 }
 
-.btn-open-add-position-modal:hover {
+.btn-open-add-transaction-modal:hover {
   background-color: var(--dark-orange-color);
 }
 
@@ -130,7 +130,7 @@
   color: #9e9e9e;
 }
 
-.add-position-form {
+.add-transaction-form {
   display: flex;
   flex-direction: column;
   font-size: 1.6rem;
@@ -156,14 +156,14 @@
   transform: scale(1.3);
 }
 
-.add-position-inputs {
+.add-transaction-inputs {
   margin: 16px 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.add-position-field {
+.add-transaction-field {
   font-size: 1.6rem;
   padding: 8px;
   margin: 0 10px 0 0;
@@ -175,30 +175,30 @@
   background-color: var(--white-color);
 }
 
-.add-position-field:focus {
+.add-transaction-field:focus {
   box-shadow: 0 0 0 3px var(--highlight-color);
 }
 
-.add-position-field:disabled {
+.add-transaction-field:disabled {
   background-color: var(--darkgray-color);
   color: var(--dark-color);
   font-size: 1.4rem;
 }
 
-.add-position-date-field {
+.add-transaction-date-field {
   margin: 0 10px 0 0;
   padding: 4px;
   font-size: 1.6rem;
   cursor: pointer;
 }
 
-.btn-add-position {
+.btn-add-transaction {
   margin: 15px 0 0 0;
   background-color: var(--orange-color);
   color: var(--white-color);
 }
 
-.btn-add-position:hover {
+.btn-add-transaction:hover {
   background-color: var(--dark-orange-color);
 }
 
@@ -390,15 +390,15 @@
 }
 
 @media only screen and (max-width: 425px) {
-  .add-position-form {
+  .add-transaction-form {
     font-size: 1.5rem;
   }
 
-  .add-position-field {
+  .add-transaction-field {
     width: 60%;
   }
 
-  .add-position-date-field {
+  .add-transaction-date-field {
     width: 60%;
   }
 

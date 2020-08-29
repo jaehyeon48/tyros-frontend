@@ -40,7 +40,7 @@ const MainPage = ({
   resetStockLoading
 }) => {
   const [isSelectPortfolioModalOpen, setIsSelectPortfolioModalOpen] = useState(false);
-  const [isAddPositionModalOpen, setIsAddPositionModalOpen] = useState(false);
+  const [isAddTransactionModalOpen, setIsAddTransactionModalOpen] = useState(false);
   const [isAddCashModalOpen, setIsAddCashModalOpen] = useState(false);
   const [totalDailyReturn, setTotalDailyReturn] = useState(0);
   const [totalOverallReturn, setTotalOverallReturn] = useState(0);
@@ -132,11 +132,11 @@ const MainPage = ({
   }
 
   const openAddPositionModal = () => {
-    setIsAddPositionModalOpen(true);
+    setIsAddTransactionModalOpen(true);
   }
 
   const closeAddPositionModal = () => {
-    setIsAddPositionModalOpen(false);
+    setIsAddTransactionModalOpen(false);
   }
 
   const openAddCashModal = () => {
@@ -213,9 +213,9 @@ const MainPage = ({
             >SELECT PORTFOLIO</button>
             <button
               type="button"
-              className="btn btn-open-add-position-modal"
+              className="btn btn-open-add-transaction-modal"
               onClick={openAddPositionModal}
-            >ADD POSITION</button>
+            >ADD TRANSACTION</button>
             <button
               type="button"
               className="btn btn-open-add-cash-modal"
@@ -230,7 +230,7 @@ const MainPage = ({
           <SelectPortfolio closeModalFunc={closeSelectPortfolioModal} />
         </Modal>
       )}
-      {isAddPositionModalOpen && (
+      {isAddTransactionModalOpen && (
         <Modal closeModalFunc={closeAddPositionModal}>
           <AddPosition closeAddPositionModal={closeAddPositionModal} />
         </Modal>

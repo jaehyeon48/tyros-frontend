@@ -2,12 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { editStock } from '../../actions/stockAction';
+import {
+  editStock,
+  deleteStock
+} from '../../actions/stockAction';
 
 const EditTransaction = ({
   formData,
   setFormData,
-  editStock
+  editStock,
+  deleteStock
 }) => {
   const { ticker, price, quantity, transactionType, transactionDate } = formData;
 
@@ -23,6 +27,16 @@ const EditTransaction = ({
     const editResult = await editStock(formData);
     if (editResult === 0) {
       window.location.reload();
+    }
+  }
+
+  const handleDeleteTransaction = async (stockId) => {
+    const deleteResponse = await deleteStock(stockId);
+    if (deleteResponse === 0) {
+      window.location.reload();
+    }
+    else {
+
     }
   }
 
@@ -97,7 +111,11 @@ const EditTransaction = ({
         </label>
         <button type="submit" className="btn btn-add-transaction">EDIT TRANSACTION</button>
       </form>
-      <button type="button">Delete </button>
+      <button
+        type="button"
+        className="btn btn-delete-transaction"
+        onClick={() => handleDeleteTransaction(formData.stockId)}
+      >DELETE TRANSACTION</button>
     </div>
   );
 }
@@ -105,7 +123,11 @@ const EditTransaction = ({
 EditTransaction.propTypes = {
   formData: PropTypes.object,
   setFormData: PropTypes.func,
-  editStock: PropTypes.func
+  editStock: PropTypes.func,
+  deleteStock: PropTypes.func
 };
 
-export default connect(null, { editStock })(EditTransaction);
+export default connect(null, {
+  editStock,
+  deleteStock
+})(EditTransaction);

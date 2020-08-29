@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useHistory } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import StockGroupItem from './StockGroupItem';
@@ -77,6 +77,10 @@ const PositionDetail = ({
       setCompanyInfo(companyInfoResult);
     })();
   }, [TICKER]);
+
+  if (stockGroup && stockGroup.length === 0) {
+    return <Redirect to="/main" />
+  }
 
   return (
     <div className="position-details">

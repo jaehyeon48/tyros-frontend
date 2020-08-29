@@ -9,6 +9,7 @@ import {
   GET_STOCK_GROUP_ERROR,
   ADD_STOCK,
   EDIT_STOCK,
+  DELETE_STOCK,
   EDIT_DAILY_RETURN,
   EDIT_OVERALL_RETURN,
   GET_SECTOR_ERROR,
@@ -106,6 +107,18 @@ export const editStock = (formData) => async (dispatch) => {
     const reqBody = JSON.stringify({ price, quantity, transactionDate, transactionType });
     await axios.put(`${SERVER_URL}/api/stock/${stockId}`, reqBody, config);
     dispatch({ type: EDIT_STOCK });
+    return 0;
+  } catch (error) {
+    console.error(error);
+    return -1;
+  }
+}
+
+export const deleteStock = (stockId) => async (dispatch) => {
+  const config = { withCredentials: true };
+  try {
+    await axios.delete(`${SERVER_URL}/api/stock/${stockId}`, config);
+    dispatch({ type: DELETE_STOCK });
     return 0;
   } catch (error) {
     console.error(error);

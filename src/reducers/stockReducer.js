@@ -11,6 +11,7 @@ import {
   GET_SECTOR_ERROR,
   ADD_STOCK,
   EDIT_STOCK,
+  DELETE_STOCK,
   EDIT_DAILY_RETURN,
   EDIT_OVERALL_RETURN,
   CLOSE_POSITION,
@@ -116,6 +117,7 @@ export default function stockReducer(state = initialState, action) {
     case CLOSE_POSITION:
     case CLOSE_POSITION_ERROR:
     case CHECK_MARKET_STATUS_ERROR:
+    case DELETE_STOCK:
     default:
       return state;
   }

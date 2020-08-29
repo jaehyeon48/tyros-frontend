@@ -8,6 +8,7 @@ import {
   GET_STOCK_GROUP,
   GET_STOCK_GROUP_ERROR,
   ADD_STOCK,
+  EDIT_STOCK,
   EDIT_DAILY_RETURN,
   EDIT_OVERALL_RETURN,
   GET_SECTOR_ERROR,
@@ -86,6 +87,25 @@ export const addStock = (portfolioId, formData) => async (dispatch) => {
 
     await axios.post(`${SERVER_URL}/api/stock`, reqBody, config);
     dispatch({ type: ADD_STOCK });
+    return 0;
+  } catch (error) {
+    console.error(error);
+    return -1;
+  }
+}
+
+export const editStock = (formData) => async (dispatch) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    withCredentials: true
+  };
+  const { stockId, price, quantity, transactionDate, transactionType } = formData;
+  try {
+    const reqBody = JSON.stringify({ price, quantity, transactionDate, transactionType });
+    await axios.put(`${SERVER_URL}/api/stock/${stockId}`, reqBody, config);
+    dispatch({ type: EDIT_STOCK });
     return 0;
   } catch (error) {
     console.error(error);

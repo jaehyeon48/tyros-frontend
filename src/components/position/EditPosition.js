@@ -1,9 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
+import { editStock } from '../../actions/stockAction';
 
 const EditPosition = ({
   formData,
-  setFormData
+  setFormData,
+  editStock
 }) => {
   const { ticker, price, quantity, transactionType, transactionDate } = formData;
 
@@ -14,8 +18,12 @@ const EditPosition = ({
     });
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const editResult = await editStock(formData);
+    if (editResult === 0) {
+      window.location.reload();
+    }
   }
 
   return (
@@ -63,6 +71,7 @@ const EditPosition = ({
             min="0"
             step="0.01"
             className="add-position-field"
+            required={true}
           />
         </label>
         <label className="add-position-inputs">
@@ -73,6 +82,7 @@ const EditPosition = ({
             value={quantity}
             onChange={handleChange}
             className="add-position-field"
+            required={true}
           />
         </label>
         <label className="add-position-inputs">
@@ -91,4 +101,10 @@ const EditPosition = ({
   );
 }
 
-export default EditPosition;
+EditPosition.propTypes = {
+  formData: PropTypes.object,
+  setFormData: PropTypes.func,
+  editStock: PropTypes.func
+};
+
+export default connect(null, { editStock })(EditPosition);

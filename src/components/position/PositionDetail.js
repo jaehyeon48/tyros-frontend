@@ -12,7 +12,7 @@ import {
 import { showAlert } from '../../actions/alertAction';
 import { getCompanyInfo } from '../../utils/getCompanyInfo';
 import './positionDetail.css';
-import EditPosition from './EditPosition';
+import EditTransaction from './EditTransaction';
 import CompanyInfo from './CompanyInfo';
 
 const PositionDetail = ({
@@ -118,7 +118,7 @@ const PositionDetail = ({
       </div>
       {isEditModalOpen && (
         <Modal closeModalFunc={closeEditModal}>
-          <EditPosition
+          <EditTransaction
             formData={formData}
             setFormData={setFormData}
           />

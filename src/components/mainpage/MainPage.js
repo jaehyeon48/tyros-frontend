@@ -15,7 +15,7 @@ import {
 import { getCash } from '../../actions/cashAction';
 import Modal from '../modal/Modal';
 import SelectPortfolio from './SelectPortfolio';
-import AddPosition from './AddPosition';
+import AddTransaction from './AddTransaction';
 import AddCash from './AddCash';
 import Stocks from '../stock/Stocks';
 import ValuePieChart from './ValuePieChart';
@@ -232,7 +232,7 @@ const MainPage = ({
       )}
       {isAddTransactionModalOpen && (
         <Modal closeModalFunc={closeAddPositionModal}>
-          <AddPosition closeAddPositionModal={closeAddPositionModal} />
+          <AddTransaction closeAddPositionModal={closeAddPositionModal} />
         </Modal>
       )}
       {isAddCashModalOpen && (

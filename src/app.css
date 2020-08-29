@@ -51,6 +51,10 @@ html {
   font-size: 1rem;
 }
 
+body {
+  margin: 0;
+}
+
 /* link */
 a {
   text-decoration: none;

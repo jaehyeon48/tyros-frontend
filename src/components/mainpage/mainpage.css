@@ -384,8 +384,8 @@
 
   .chart-wrapper {
     position: relative;
-    width: 400px !important;
-    height: 470px !important;
+    width: 350px !important;
+    height: 410px !important;
   }
 }
 
@@ -445,15 +445,15 @@
 
   .chart-wrapper {
     position: relative;
-    width: 360px !important;
-    height: 430px !important;
+    width: 320px !important;
+    height: 370px !important;
   }
 }
 
 @media only screen and (max-width: 375px) {
   .chart-wrapper {
     position: relative;
-    width: 310px !important;
-    height: 380px !important;
+    width: 280px !important;
+    height: 320px !important;
   }
 }

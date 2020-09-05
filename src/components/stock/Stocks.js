@@ -12,6 +12,7 @@ import { getSelectedPortfolio } from '../../actions/portfolioAction';
 import './stocks.css';
 
 const Stocks = ({
+  loading,
   isAuthenticated,
   stock,
   currentPortfolio,
@@ -45,7 +46,7 @@ const Stocks = ({
     setIsAddTransactionModalOpen(false);
   }
 
-  if (!isAuthenticated) {
+  if (!loading && !isAuthenticated) {
     return <Redirect to="/login" />
   }
 
@@ -86,6 +87,7 @@ Stocks.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
+  loading: state.auth.loading,
   isAuthenticated: state.auth.isAuthenticated,
   stock: state.stock,
   currentPortfolio: state.portfolio.currentPortfolio

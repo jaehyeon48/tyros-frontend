@@ -4,9 +4,10 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 const Cash = ({
-  isAuthenticated
+  loading,
+  isAuthenticated,
 }) => {
-  if (!isAuthenticated) {
+  if (!loading && !isAuthenticated) {
     return <Redirect to="/login" />
   }
 
@@ -18,11 +19,13 @@ const Cash = ({
 }
 
 Cash.propTypes = {
-  isAuthenticated: PropTypes.bool
+  isAuthenticated: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated
+  loading: state.auth.loading,
+  isAuthenticated: state.auth.isAuthenticated,
+  currentPortfolio: state.portfolio.currentPortfolio
 });
 
-export default connect(mapStateToProps)(Cash);
+export default connect(mapStateToProps, {})(Cash);

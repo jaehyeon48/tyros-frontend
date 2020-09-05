@@ -78,10 +78,6 @@ const PositionDetail = ({
     })();
   }, [TICKER]);
 
-  if (stockGroup && stockGroup.length === 0) {
-    return <Redirect to="/main" />
-  }
-
   return (
     <div className="position-details">
       <div className="position-header">

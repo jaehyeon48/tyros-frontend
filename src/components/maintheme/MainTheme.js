@@ -9,7 +9,7 @@ const MainTheme = ({
   theme
 }) => {
   return (
-    <div className={theme === 'dark' ? 'main--dark-theme' : 'main--light-theme'}>
+    <div className={theme === 'light' ? 'main--light-theme' : 'main--dark-theme'}>
       {children}
     </div>
   );

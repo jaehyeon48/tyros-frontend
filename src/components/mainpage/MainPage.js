@@ -14,18 +14,15 @@ import {
 } from '../../actions/stockAction';
 import { getCash } from '../../actions/cashAction';
 import Modal from '../modal/Modal';
-import SelectPortfolio from './SelectPortfolio';
-import AddTransaction from './AddTransaction';
 import AddCash from './AddCash';
-import Stocks from '../stock/Stocks';
+import GetStockPrice from './GetStockPrice';
 import ValuePieChart from './ValuePieChart';
 import SectorPieChart from './SectorPieChart';
+import DollarSignIcon from '../icons/DollarSignIcon';
+import Spinner from '../spinner/Spinner';
 import './mainpage.css';
-import spinnerDark from '../../images/spinner-dark.gif';
-import spinnerLight from '../../images/spinner-light.gif';
 
 const MainPage = ({
-  theme,
   loading,
   isAuthenticated,
   stock,
@@ -39,8 +36,6 @@ const MainPage = ({
   getCash,
   resetStockLoading
 }) => {
-  const [isSelectPortfolioModalOpen, setIsSelectPortfolioModalOpen] = useState(false);
-  const [isAddTransactionModalOpen, setIsAddTransactionModalOpen] = useState(false);
   const [isAddCashModalOpen, setIsAddCashModalOpen] = useState(false);
   const [totalDailyReturn, setTotalDailyReturn] = useState(0);
   const [totalOverallReturn, setTotalOverallReturn] = useState(0);
@@ -48,29 +43,22 @@ const MainPage = ({
   const [overallReturnPercent, setOverallReturnPercent] = useState(0);
   const [totalCost, setTotalCost] = useState(0);
   const [cashToDisplay, setCashToDisplay] = useState(totalCash);
+  const [totalValue, setTotalValue] = useState(0);
 
-  useEffect(() => {
-    if (currentPortfolio) {
-      resetStockLoading();
-      getStocks(currentPortfolio);
-      getCash(currentPortfolio);
-    }
-  }, []);
   useEffect(() => { checkMarketStatus(); }, []);
   useEffect(() => { getSelectedPortfolio(); }, []);
-
-  useEffect(() => {
-    if (stock.stockList.length === 0 && currentPortfolio) {
-      getStocks(currentPortfolio);
-      getCash(currentPortfolio);
-    }
-  }, [currentPortfolio]);
+  useEffect(() => { resetStockLoading(); }, []);
 
   useEffect(() => {
     loadPortfolios();
   }, [loadPortfolios]);
 
-
+  useEffect(() => {
+    if (currentPortfolio) {
+      getStocks(currentPortfolio);
+      getCash(currentPortfolio);
+    }
+  }, [currentPortfolio]);
 
   useEffect(() => {
     if (stock.stockList.length > 0) {
@@ -111,6 +99,10 @@ const MainPage = ({
   }, [totalOverallReturn, totalCost]);
 
   useEffect(() => {
+    setTotalValue(totalOverallReturn + totalCost + cashToDisplay);
+  }, [totalOverallReturn, totalCost, cashToDisplay]);
+
+  useEffect(() => {
     if (totalCash < 0) {
       setCashToDisplay(0);
     }
@@ -123,22 +115,6 @@ const MainPage = ({
     return <Redirect to="/login" />
   }
 
-  const openSelectPortfolioModal = () => {
-    setIsSelectPortfolioModalOpen(true);
-  }
-
-  const closeSelectPortfolioModal = () => {
-    setIsSelectPortfolioModalOpen(false);
-  }
-
-  const openAddPositionModal = () => {
-    setIsAddTransactionModalOpen(true);
-  }
-
-  const closeAddPositionModal = () => {
-    setIsAddTransactionModalOpen(false);
-  }
-
   const openAddCashModal = () => {
     setIsAddCashModalOpen(true);
   }
@@ -147,23 +123,16 @@ const MainPage = ({
     setIsAddCashModalOpen(false);
   }
 
-  const colorDailyPL = () => {
-    if (totalDailyReturn > 0) return 'return-positive';
-    else if (totalDailyReturn < 0) return 'return-negative';
+  const colorReturnItem = (value) => {
+    if (value > 0) return 'return-positive';
+    else if (value < 0) return 'return-negative';
     else return 'return-zero';
   }
 
-  const colorOverallPL = () => {
-    if (totalOverallReturn > 0) return 'return-positive';
-    else if (totalOverallReturn < 0) return 'return-negative';
-    else return 'return-zero';
-  }
-
-  const colorTotalValue = () => {
-    let overallValue = totalOverallReturn + totalCost + cashToDisplay;
-    if (overallValue > 0) return 'return-positive';
-    else if (overallValue < 0) return 'return-negative';
-    else return 'return-zero';
+  const colorReturnItemBottom = (value) => {
+    if (value > 0) return 'return-item-bottom-positive';
+    else if (value < 0) return 'return-item-bottom-negative';
+    else return 'return-item-bottom-zero';
   }
 
   return (
@@ -175,66 +144,58 @@ const MainPage = ({
               {stock.stockList.length > 0 ? (
                 <React.Fragment>
                   <div className="display-return-container">
-                    <div className="return-item daily-return">
+                    <div
+                      className={`return-item daily-return ${colorReturnItemBottom(totalDailyReturn)}`}
+                    >
                       <span>Daily Return</span>
-                      <span className={`${colorDailyPL()}`}>{totalDailyReturn} ({totalDailyReturn > 0 && '+'}
-                        {dailyReturnPercent.toFixed(2)}%)</span>
+                      <span className={`${colorReturnItem(totalDailyReturn)}`}>
+                        <DollarSignIcon />
+                        {totalDailyReturn} ({totalDailyReturn > 0 && '+'}
+                        {dailyReturnPercent.toFixed(2)}%)
+                        </span>
                     </div>
-                    <div className="return-item overall-return">
+                    <div
+                      className={`return-item overall-return ${colorReturnItemBottom(totalOverallReturn)}`}
+                    >
                       <span>Overall Return</span>
-                      <span className={`${colorOverallPL()}`}>{totalOverallReturn} ({totalOverallReturn > 0 && '+'}{overallReturnPercent.toFixed(2)}%)</span>
+                      <span className={`${colorReturnItem(totalOverallReturn)}`}>
+                        <DollarSignIcon />
+                        {totalOverallReturn} ({totalOverallReturn > 0 && '+'}
+                        {overallReturnPercent.toFixed(2)}%)
+                      </span>
                     </div>
-                    <div className="return-item total-value">
+                    <div className={`return-item total-value ${colorReturnItemBottom(totalValue)}`}>
                       <span>Total Value</span>
-                      <span className={`${colorTotalValue()}`}>{(totalOverallReturn + totalCost + cashToDisplay).toFixed(2)}</span>
+                      <span className={`${colorReturnItem(totalValue)}`}>
+                        <DollarSignIcon />
+                        {(totalValue).toFixed(2)}
+                      </span>
                     </div>
                   </div>
-                  <Stocks
-                    totalDailyReturn={totalDailyReturn}
-                    totalOverallReturn={totalOverallReturn}
-                    setTotalDailyReturn={setTotalDailyReturn}
-                    setTotalOverallReturn={setTotalOverallReturn}
-                  />
+
                   {stock.stockList.length > 0 && <ValuePieChart stockListLength={stock.stockList.length} />}
                   {stock.stockList.length > 0 && <SectorPieChart />}
                 </React.Fragment>
               ) : <div className="notice-empty-stocklist">Please Add Your Stock First!</div>}
             </React.Fragment>
-          ) : (
-              <div className="mainpage-loading-spinner">
-                {theme === 'dark' ? <img src={spinnerDark} alt="loading spinner" /> : <img src={spinnerLight} alt="loading spinner" />}
-              </div>
-            )}
+          ) : <div className="dashboard-spinner"><Spinner /></div>}
           <div className="portfolio-actions">
-            <button
-              type="button"
-              className="btn btn-open-select-portfolio-modal"
-              onClick={openSelectPortfolioModal}
-            >SELECT PORTFOLIO</button>
-            <button
-              type="button"
-              className="btn btn-open-add-transaction-modal"
-              onClick={openAddPositionModal}
-            >ADD TRANSACTION</button>
             <button
               type="button"
               className="btn btn-open-add-cash-modal"
               onClick={openAddCashModal}
             >ADD CASH</button>
           </div>
-
+          {stock && !stock.stockLoading && stock.stockList.map(eachStock => (
+            <GetStockPrice
+              key={eachStock.ticker}
+              ticker={eachStock.ticker}
+              avgCost={eachStock.avgCost}
+              quantity={eachStock.quantity}
+            />
+          ))}
         </div>
       ) : <div className="notice-empty-portfoliolist">Portfolio Does Not Exist! Why Don't You Create Your First Portfolio?</div>}
-      {isSelectPortfolioModalOpen && (
-        <Modal closeModalFunc={closeSelectPortfolioModal}>
-          <SelectPortfolio closeModalFunc={closeSelectPortfolioModal} />
-        </Modal>
-      )}
-      {isAddTransactionModalOpen && (
-        <Modal closeModalFunc={closeAddPositionModal}>
-          <AddTransaction closeAddPositionModal={closeAddPositionModal} />
-        </Modal>
-      )}
       {isAddCashModalOpen && (
         <Modal closeModalFunc={closeAddCashModal}>
           <AddCash closeAddCashModal={closeAddCashModal} />

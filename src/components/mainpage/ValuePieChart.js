@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { Pie } from 'react-chartjs-2';
 import 'chartjs-plugin-datalabels';
 
+import './charts.css';
+
 
 const ValuePieChart = ({
   stockList,
@@ -16,7 +18,7 @@ const ValuePieChart = ({
     datasets: [{
       data: [],
       backgroundColor: [],
-      borderColor: '#fff',
+      borderColor: '#e8f0fe',
       borderWidth: 1
     }]
   });
@@ -56,7 +58,7 @@ const ValuePieChart = ({
         datasets: [{
           data: [...chartData.datasets[0].data],
           backgroundColor: newColors,
-          borderColor: '#fff',
+          borderColor: '#e8f0fe',
           borderWidth: 1
         }]
       });
@@ -92,7 +94,7 @@ const ValuePieChart = ({
         datasets: [{
           data: [...stockValueData],
           backgroundColor: newColors,
-          borderColor: '#fff',
+          borderColor: '#e8f0fe',
           borderWidth: 1
         }]
       });
@@ -106,7 +108,7 @@ const ValuePieChart = ({
     maintainAspectRatio: false,
     legend: {
       labels: {
-        fontColor: 'white',
+        fontColor: '#372750',
         padding: 20,
         fontSize: 16
       }
@@ -153,8 +155,8 @@ const ValuePieChart = ({
   }
 
   return (
-    <div className="value-pie-chart">
-      <h1>DISTRIBUTION BY VALUE</h1>
+    <div className="chart-container value-pie-chart">
+      <h1>Distribution By Value</h1>
       <div className="chart-wrapper">
         <Pie
           data={chartData}

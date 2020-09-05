@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
@@ -6,8 +6,16 @@ import { Link, withRouter } from 'react-router-dom';
 import './navbar.css';
 import AvatarImage from '../avatar/AvatarImage';
 import mainLogoWhite from '../../images/tyros_logo_white.png';
-import mainLogoBlack from '../../images/tyros_logo_black.png';
 
+/* Import SVG Icon Components */
+import SignUpIcon from '../icons/SignUpIcon';
+import LoginIcon from '../icons/LoginIcon';
+import MonitorIcon from '../icons/MonitorIcon';
+import ListIcon from '../icons/ListIcon';
+import FolderIcon from '../icons/FolderIcon';
+import SignOutIcon from '../icons/SignOutIcon';
+import HomeIcon from '../icons/HomeIcon';
+import CoinIcon from '../icons/CoinIcon';
 import { logout } from '../../actions/authAction';
 
 const Navbar = ({
@@ -18,134 +26,251 @@ const Navbar = ({
   history,
   logout
 }) => {
-  const sideBarRef = useRef();
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isDropdownMenuOpen, setIsDropdownMenuOpen] = useState(false);
+  const [isHomeOpen, setIsHomeOpen] = useState(false);
+  const [isSignUpOpen, setIsSignUpOpen] = useState(false);
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isDashboardOpen, setIsDashboardOpen] = useState(false);
+  const [isStockListOpen, setIsStockListOpen] = useState(false);
+  const [isPortfolioOpen, setIsPortfolioOpen] = useState(false);
+  const [isCashOpen, setIsCashOpen] = useState(false);
 
-  const handleClickSidebar = async () => {
-    if (isSidebarOpen) {
-      sideBarRef.current.style = 'animation: closeSidebar 400ms';
-      if (isAuthenticated) {
-        sideBarRef.current.children[1].style = 'visibility: hidden';
-        sideBarRef.current.children[2].style = 'visibility: hidden';
-        sideBarRef.current.children[3].style = 'visibility: hidden';
-      }
-      else {
-        sideBarRef.current.children[1].style = 'visibility: hidden';
-        sideBarRef.current.children[2].style = 'visibility: hidden';
-      }
 
-      await new Promise(resolve => setTimeout(resolve, 400)); // wait for animation
-      setIsSidebarOpen(!isSidebarOpen);
+  useEffect(() => {
+    const currentLocation = history.location.pathname;
+    if (currentLocation === '/') {
+      setIsHomeOpen(true);
+      setIsSignUpOpen(false);
+      setIsLoginOpen(false);
     }
-    else {
-      setIsSidebarOpen(!isSidebarOpen);
+    else if (currentLocation === '/signup') {
+      setIsSignUpOpen(true);
+      setIsHomeOpen(false);
+      setIsLoginOpen(false);
     }
-  };
+    else if (currentLocation === '/login') {
+      setIsLoginOpen(true);
+      setIsSignUpOpen(false);
+      setIsHomeOpen(false);
+    }
+    else if (currentLocation === '/dashboard') {
+      setIsDashboardOpen(true);
+      setIsStockListOpen(false);
+      setIsPortfolioOpen(false);
+      setIsCashOpen(false);
+    }
+    else if (currentLocation === '/stocks') {
+      setIsStockListOpen(true);
+      setIsDashboardOpen(false);
+      setIsPortfolioOpen(false);
+      setIsCashOpen(false);
+    }
+    else if (currentLocation === '/portfolios') {
+      setIsPortfolioOpen(true);
+      setIsStockListOpen(false);
+      setIsDashboardOpen(false);
+      setIsCashOpen(false);
+    }
+    else if (currentLocation === '/cash') {
+      setIsCashOpen(true);
+      setIsDashboardOpen(false);
+      setIsStockListOpen(false);
+      setIsPortfolioOpen(false);
+    }
+  }, [history.location.pathname]);
+
+
 
   const handleClickLogo = () => {
-    history.push('/');
-    if (isSidebarOpen) {
-      handleClickSidebar();
+    if (!loading) {
+      if (!isAuthenticated) {
+        history.push('/');
+      }
+      else {
+        history.push('/dashboard');
+      }
     }
   };
 
-  const handleClickSidebarLogout = () => {
-    setIsSidebarOpen(false);
-    logout();
-  }
-
-  const openProfileMenu = () => {
-    setIsDropdownMenuOpen(true);
-  }
-
-  const closeProfileMenu = () => {
-    setIsDropdownMenuOpen(false);
-  }
-
-  const handleProfileMenuLogout = () => {
-    setIsDropdownMenuOpen(false);
+  const handleDashboardLogout = () => {
     logout();
   }
 
   const goToProfilePage = () => {
-    if (isSidebarOpen) {
-      handleClickSidebar();
-    }
-    else {
-      setIsDropdownMenuOpen(false);
-    }
     history.push('/profile');
+  }
+
+  const handleHomeOpen = () => {
+    history.push('/');
+  }
+
+  const handleSignUpOpen = () => {
+    history.push('/signup');
+  }
+
+  const handleLoginOpen = () => {
+    history.push('/login');
+  }
+
+  const handleDashboardOpen = () => {
+    history.push('/dashboard');
+  }
+
+  const handleStockListOpen = () => {
+    history.push('/stocks');
+  }
+
+  const handlePortfolioOpen = () => {
+    history.push('/portfolios');
+  }
+
+  const handleCashOpen = () => {
+    history.push('/cash');
   }
 
   const navGuest = (
     <React.Fragment>
-      <Link to="/signup" className="navbar-signup">Sign Up</Link>
-      <Link to="login" className="navbar-login">Login</Link>
-      <div className="navbar-bars-icon" onClick={handleClickSidebar}>
-        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="bars" className="svg-inline--fa fa-bars fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path></svg>
+      <div
+        className="dashboard-main dashboard-icon-container"
+        title="Open Landing Page"
+        onClick={handleHomeOpen}
+        style={isHomeOpen ? { backgroundColor: "var(--light-theme-bg-color)", color: "var(--light-dark-color)" } : null}
+      >
+        <HomeIcon />
+        <span>Home</span>
       </div>
-      {isSidebarOpen &&
-        <div ref={sideBarRef} className={`navbar-sidebar ${theme === 'dark' ? 'sidebar--dark-theme' : 'sidebar--light-theme'}`}>
-          <div className="sidebar-close-btn-container">
-            <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" className="svg-inline--fa fa-times fa-w-11" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512" onClick={handleClickSidebar}><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg>
-          </div>
-          <div className="sidebar-content sidebar-signup">
-            <Link to="/signup" onClick={handleClickSidebar}>Sign Up</Link>
-          </div>
-          <div className="sidebar-content sidebar-login">
-            <Link to="/login" onClick={handleClickSidebar}>Login</Link>
-          </div>
-        </div>}
+      <div
+        className="dashboard-main dashboard-icon-container"
+        title="Open Sign-up Page"
+        onClick={handleSignUpOpen}
+        style={isSignUpOpen ? { backgroundColor: "var(--light-theme-bg-color)", color: "var(--light-dark-color)" } : null}
+      >
+        <SignUpIcon />
+        <span>Sign Up</span>
+      </div>
+      <div
+        className="dashboard-main dashboard-icon-container"
+        title="Open Login Page"
+        onClick={handleLoginOpen}
+        style={isLoginOpen ? { backgroundColor: "var(--light-theme-bg-color)", color: "var(--light-dark-color)" } : null}
+      >
+        <LoginIcon />
+        <span>Login</span>
+      </div>
+      <div className="navbar-mobile-icons">
+        <div
+          className="mobile-icon-item"
+          style={isHomeOpen ? { backgroundColor: "var(--light-theme-bg-color)", color: "var(--light-dark-color)" } : null}
+          onClick={handleHomeOpen}>
+          <HomeIcon />
+        </div>
+        <div
+          className="mobile-icon-item"
+          style={isSignUpOpen ? { backgroundColor: "var(--light-theme-bg-color)", color: "var(--light-dark-color)" } : null}
+          onClick={handleSignUpOpen}
+        >
+          <SignUpIcon />
+        </div>
+        <div
+          className="mobile-icon-item"
+          style={isLoginOpen ? { backgroundColor: "var(--light-theme-bg-color)", color: "var(--light-dark-color)" } : null}
+          onClick={handleLoginOpen}
+        >
+          <LoginIcon />
+        </div>
+      </div>
     </React.Fragment>
   );
   const navAuth = (
     <React.Fragment>
-      <div className="navbar-bars-icon" onClick={handleClickSidebar}>
-        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="bars" className="svg-inline--fa fa-bars fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path></svg>
+      <div
+        className="dashboard-main dashboard-icon-container"
+        title="Main Dashboard Page"
+        onClick={handleDashboardOpen}
+        style={isDashboardOpen ? { backgroundColor: "var(--light-theme-bg-color)", color: "var(--light-dark-color)" } : null}
+      >
+        <MonitorIcon />
+        <span>Dashboard</span>
       </div>
-      {isSidebarOpen &&
-        <div ref={sideBarRef} className={`navbar-sidebar ${theme === 'dark' ? 'sidebar--dark-theme' : 'sidebar--light-theme'}`}>
-          <div className="sidebar-close-btn-container">
-            <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" className="svg-inline--fa fa-times fa-w-11" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512" onClick={handleClickSidebar}><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg>
-          </div>
-          <div className="sidebar-content sidebar-user">
-            <div className="sidebar-avatar-container">
-              <AvatarImage />
-            </div>
-            <div className="sidebar-user-info" onClick={goToProfilePage}>
-              <span className="user-info-name">{user && user.firstName} {user && user.lastName}</span>
-              <span className="user-info-email">{user && user.email}</span>
-            </div>
-          </div>
-          <div className="sidebar-content">
-            <Link to="/portfolios" onClick={handleClickSidebar}>My Portfolios</Link>
-          </div>
-          <div className="sidebar-content">
-            <span onClick={handleClickSidebarLogout}>Logout</span>
-          </div>
-        </div>}
-      <div className="navbar-avatar-container" onMouseEnter={openProfileMenu} onMouseLeave={closeProfileMenu}>
+      <div
+        className="dashboard-icon-container"
+        title="Shows My Stocks"
+        onClick={handleStockListOpen}
+        style={isStockListOpen ? { backgroundColor: "var(--light-theme-bg-color)", color: "var(--light-dark-color)" } : null}
+      >
+        <ListIcon />
+        <span>Stock List</span>
+      </div>
+      <div
+        className="dashboard-icon-container"
+        title="Displays My Portfolio"
+        onClick={handlePortfolioOpen}
+        style={isPortfolioOpen ? { backgroundColor: "var(--light-theme-bg-color)", color: "var(--light-dark-color)" } : null}
+      >
+        <FolderIcon />
+        <span>Portfolio</span>
+      </div>
+      <div
+        className="dashboard-icon-container"
+        title="Displays My Cash"
+        onClick={handleCashOpen}
+        style={isCashOpen ? { backgroundColor: "var(--light-theme-bg-color)", color: "var(--light-dark-color)" } : null}
+      >
+        <CoinIcon />
+        <span>Cash</span>
+      </div>
+      <div className="navbar-avatar-container">
         <AvatarImage />
-        {isDropdownMenuOpen &&
-          <div className={`navbar-dropdown-menu ${theme === 'dark' ? "sidebar--dark-theme" : "sidebar--light-theme"}`}>
-            <div className="dropdown-menu-item dropdown-user-info" onClick={goToProfilePage}>
-              <span className="user-info-name">{user.firstName} {user.lastName}</span>
-              <span className="user-info-email">{user.email}</span>
-            </div>
-            <Link to="/portfolios" className="dropdown-menu-item" onClick={closeProfileMenu}>
-              <span>My Portfolios</span></Link>
-            <div className="dropdown-menu-item" onClick={handleProfileMenuLogout}><span>Logout</span></div>
-          </div>}
+      </div>
+      <div
+        className="dashboard-icon-container dashboard-logout"
+        onClick={handleDashboardLogout}
+      >
+        <SignOutIcon />
+        <span>Sign Out</span>
+      </div>
+      <div className="navbar-mobile-icons">
+        <div
+          className="mobile-icon-item"
+          style={isDashboardOpen ? { backgroundColor: "var(--light-theme-bg-color)", color: "var(--light-dark-color)" } : null}
+          onClick={handleDashboardOpen}>
+          <MonitorIcon />
+        </div>
+        <div
+          className="mobile-icon-item"
+          style={isStockListOpen ? { backgroundColor: "var(--light-theme-bg-color)", color: "var(--light-dark-color)" } : null}
+          onClick={handleStockListOpen}
+        >
+          <ListIcon />
+        </div>
+        <div
+          className="mobile-icon-item"
+          style={isPortfolioOpen ? { backgroundColor: "var(--light-theme-bg-color)", color: "var(--light-dark-color)" } : null}
+          onClick={handlePortfolioOpen}
+        >
+          <FolderIcon />
+        </div>
+        <div
+          className="mobile-icon-item"
+          style={isCashOpen ? { backgroundColor: "var(--light-theme-bg-color)", color: "var(--light-dark-color)" } : null}
+          onClick={handleCashOpen}>
+          <CoinIcon />
+        </div>
+        <div className="mobile-icon-item" onClick={handleDashboardLogout}>
+          <SignOutIcon />
+        </div>
       </div>
     </React.Fragment>
   );
 
   return (
-    <nav className={`navbar ${theme === 'dark' ? 'navbar--dark-theme' : 'navbar--light-theme'}`}>
-      <img src={theme === 'dark' ? mainLogoWhite : mainLogoBlack} alt="main logo" className="main-logo" onClick={handleClickLogo} />
-      {isAuthenticated && !loading ? navAuth : navGuest}
-    </nav>
+    <React.Fragment>
+      {!loading && (
+        <nav className={`navbar ${theme === 'light' ? 'navbar--light-theme' : 'navbar--dark-theme'}`}>
+          <img src={mainLogoWhite} alt="main logo" className="main-logo" onClick={handleClickLogo} />
+          {isAuthenticated ? navAuth : navGuest}
+        </nav>
+      )}
+    </React.Fragment>
   );
 }
 

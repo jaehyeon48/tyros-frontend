@@ -94,7 +94,7 @@ const Login = ({
   }
 
   if (isAuthenticated) {
-    return <Redirect to="/main" />
+    return <Redirect to="/dashboard" />
   }
 
   return (

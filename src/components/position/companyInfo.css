@@ -66,7 +66,7 @@
   display: inline-block;
   border: 1px solid var(--highlight-color);
   background: none;
-  color: var(--white-color);
+  color: var(--highlight-color);
   border-radius: 0.5rem;
   padding: 1rem 1.5rem;
   font-size: 1.2rem;

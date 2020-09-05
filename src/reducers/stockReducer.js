@@ -26,7 +26,7 @@ const initialState = {
   stockLoading: true
 };
 
-const compare = (a, b) => {
+const sortByTicker = (a, b) => {
   if (a.ticker > b.ticker) {
     return 1;
   }
@@ -34,6 +34,22 @@ const compare = (a, b) => {
     return -1;
   }
   return 0;
+}
+
+/* compare each property but daily & overall returns in previous stock list 
+ * and current stock list (which is passed by payload) and returns false if 
+ * two stock lists are different.
+*/
+const compareStockList = (prevStockList, nextStockList) => {
+  if (prevStockList.length !== nextStockList.length) return false;
+
+  for (let i = 0; i < prevStockList.length; i++) {
+    if (prevStockList[i].ticker !== nextStockList[i].ticker) return false;
+    if (prevStockList[i].avgCost !== nextStockList[i].avgCost) return false;
+    if (prevStockList[i].quantity !== nextStockList[i].quantity) return false;
+    if (prevStockList[i].sector !== nextStockList[i].sector) return false;
+  }
+  return true;
 }
 
 export default function stockReducer(state = initialState, action) {
@@ -46,6 +62,12 @@ export default function stockReducer(state = initialState, action) {
         isMarketOpen: payload
       };
     case GET_STOCK_LIST:
+      if (compareStockList(state.stockList, payload)) {
+        return {
+          ...state,
+          stockLoading: false
+        };
+      }
       return {
         ...state,
         stockList: payload,
@@ -77,7 +99,7 @@ export default function stockReducer(state = initialState, action) {
       const tickerObjDaily = state.stockList.filter(stock => stock.ticker === payload.ticker);
       const otherStocksDaily = state.stockList.filter(stock => stock.ticker !== payload.ticker);
       tickerObjDaily[0].dailyReturn = payload.dailyReturn;
-      const newStockListDaily = [...tickerObjDaily, ...otherStocksDaily].sort(compare);
+      const newStockListDaily = [...tickerObjDaily, ...otherStocksDaily].sort(sortByTicker);
       return {
         ...state,
         stockList: newStockListDaily
@@ -86,7 +108,7 @@ export default function stockReducer(state = initialState, action) {
       const tickerObjOverall = state.stockList.filter(stock => stock.ticker === payload.ticker);
       const otherStocksOverall = state.stockList.filter(stock => stock.ticker !== payload.ticker);
       tickerObjOverall[0].overallReturn = payload.overallReturn;
-      const newStockListOverall = [...tickerObjOverall, ...otherStocksOverall].sort(compare);
+      const newStockListOverall = [...tickerObjOverall, ...otherStocksOverall].sort(sortByTicker);
       return {
         ...state,
         stockList: newStockListOverall
@@ -95,7 +117,7 @@ export default function stockReducer(state = initialState, action) {
       const targetStockObj = state.stockList.filter(stock => stock.ticker === payload.ticker);
       const otherStockObjs = state.stockList.filter(stock => stock.ticker !== payload.ticker);
       targetStockObj[0].sector = payload.sector;
-      const newStockList = [...targetStockObj, ...otherStockObjs].sort(compare);
+      const newStockList = [...targetStockObj, ...otherStockObjs].sort(sortByTicker);
       return {
         ...state,
         stockList: newStockList

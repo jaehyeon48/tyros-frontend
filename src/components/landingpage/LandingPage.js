@@ -10,12 +10,12 @@ const LandingPage = ({
   isAuthenticated
 }) => {
   if (isAuthenticated && !loading) {
-    return <Redirect to="/main" />
+    return <Redirect to="/dashboard" />
   }
 
   return (
     <React.Fragment>
-      {!loading ? (
+      {!loading &&
         <main className="landing-background">
           <header className="landing-header-filter">
             <div className="landing-header-title">
@@ -25,8 +25,7 @@ const LandingPage = ({
               TYROS, a pioneer of commission-free investing, gives you more ways to make your money work harder.
         </div>
           </header>
-        </main>
-      ) : null}
+        </main>}
     </React.Fragment>
   );
 }

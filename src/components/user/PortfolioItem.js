@@ -9,10 +9,12 @@ import {
 } from '../../actions/portfolioAction';
 
 import { showAlert } from '../../actions/alertAction';
+import { selectPortfolio } from '../../actions/portfolioAction';
 
 const PortfolioItem = ({
   portfolio,
   currentPortfolio,
+  selectPortfolio,
   editPortfolio,
   deletePortfolio,
   showAlert
@@ -68,6 +70,13 @@ const PortfolioItem = ({
     }
   }
 
+  const handleSelectPortfolio = (e) => {
+    if (e.target.classList.contains('not-selected-portfolio')) {
+      selectPortfolio(portfolio.portfolioId);
+      window.location.reload();
+    }
+  }
+
   const handleDeletePortfolio = async () => {
     await deletePortfolio(portfolio.portfolioId);
     showAlert('The portfolio was successfully deleted!', 'success');
@@ -77,12 +86,16 @@ const PortfolioItem = ({
     <React.Fragment>
       <div className="portfolio-item">
         <div className="portfolio-name">{portfolio.portfolioName}</div>
-        <button className="btn btn-portfolio-edit" onClick={openEditModal}>EDIT</button>
-        <button className="btn btn-portfolio-delete" onClick={handleDeletePortfolio}>DELETE</button>
-        <span className={
-          `select-notice 
+        <div className="portfolio-item-actions">
+          <button className="btn btn-portfolio-edit" onClick={openEditModal}>EDIT</button>
+          <button className="btn btn-portfolio-delete" onClick={handleDeletePortfolio}>DELETE</button>
+          <span className={
+            `select-notice 
         ${portfolio.portfolioId === currentPortfolio
-            ? "selected-portfolio" : "not-selected-portfolio"}`}>SELECTED</span>
+              ? "selected-portfolio" : "not-selected-portfolio"}`}
+            onClick={handleSelectPortfolio}
+          >SELECTED</span>
+        </div>
       </div>
       {isEditModalOpen &&
         <Modal closeModalFunc={closeEditModal}>
@@ -113,6 +126,7 @@ PortfolioItem.propTypes = {
 
 export default connect(null, {
   editPortfolio,
+  selectPortfolio,
   deletePortfolio,
   showAlert
 })(PortfolioItem);

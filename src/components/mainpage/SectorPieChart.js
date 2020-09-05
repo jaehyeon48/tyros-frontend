@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { Pie } from 'react-chartjs-2';
 import 'chartjs-plugin-datalabels';
 
+import './charts.css';
+
 const SectorPieChart = ({
   stockList,
   stockLoading
@@ -13,7 +15,7 @@ const SectorPieChart = ({
     datasets: [{
       data: [],
       backgroundColor: [],
-      borderColor: '#fff',
+      borderColor: '#e8f0fe',
       borderWidth: 1
     }]
   });
@@ -71,7 +73,7 @@ const SectorPieChart = ({
         datasets: [{
           data: [...chartData.datasets[0].data],
           backgroundColor: [...newColors],
-          borderColor: '#fff',
+          borderColor: '#e8f0fe',
           borderWidth: 1
         }]
       });
@@ -96,7 +98,7 @@ const SectorPieChart = ({
         datasets: [{
           data: [...sectorsCount],
           backgroundColor: [...chartData.datasets[0].backgroundColor],
-          borderColor: '#fff',
+          borderColor: '#e8f0fe',
           borderWidth: 1
         }]
       });
@@ -107,7 +109,7 @@ const SectorPieChart = ({
     maintainAspectRatio: false,
     legend: {
       labels: {
-        fontColor: 'white',
+        fontColor: '#372750',
         padding: 20,
         fontSize: 16
       }
@@ -154,8 +156,8 @@ const SectorPieChart = ({
   }
 
   return (
-    <div className="sector-pie-chart">
-      <h1>DISTRIBUTION BY SECTOR</h1>
+    <div className="chart-container sector-pie-chart">
+      <h1>Distribution By Sector</h1>
       <div className="chart-wrapper">
         <Pie
           data={chartData}

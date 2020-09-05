@@ -14,11 +14,11 @@
   --dark-green-color: #228138;
   --lightgray-color: #cfcfcf;
   --darkgray-color: #b8b8b8;
-  --highlight-color: #43cbce;
+  --highlight-color: #f0616f;
   --dark-theme-bg-color: #1c1d1e;
   --dark-theme-nav-bg-color: #262728;
-  --light-theme-bg-color: #ececec;
-  --light-theme-nav-bg-color: #dfeaf1;
+  --light-theme-bg-color: #f8f8fc;
+  --light-theme-nav-bg-color: #372750;
 }
 
 /* Fonts */
@@ -46,6 +46,10 @@
   src: url('../src/fonts/Lato-Black.ttf');
 }
 
+#root {
+  display: flex;
+}
+
 html {
   font-family: 'Lato', sans-serif;
   font-size: 1rem;
@@ -53,15 +57,12 @@ html {
 
 body {
   margin: 0;
+  background-color: var(--light-theme-bg-color);
 }
 
 /* link */
 a {
   text-decoration: none;
-  color: inherit;
-}
-
-a:visited {
   color: inherit;
 }
 
@@ -75,11 +76,11 @@ a:visited {
 }
 
 .btn:disabled {
-  background-color: var(--darkgray-color);
+  background-color: var(--light-dark-color);
 }
 
 .btn:disabled:hover {
-  background-color: var(--darkgray-color);
+  background-color: var(--light-dark-color);
   color: var(--light-color);
   cursor: not-allowed;
 }
@@ -123,7 +124,7 @@ a:visited {
 
 .auth-form-field {
   font-size: 1.7rem;
-  padding: 8px;
+  padding: 10px;
   width: 60%;
   border: none;
   outline: none;
@@ -155,14 +156,17 @@ a:visited {
 }
 
 .auth-button {
-  background-color: var(--highlight-color);
-  color: var(--light-color);
   width: 60%;
   transition: all 150ms ease;
+  color: var(--light-color);
+  background-color: var(--highlight-color);
+  border-bottom: 3px solid #ca2636;
+  -webkit-box-shadow: inset 0 -3px #ca2636;
+  box-shadow: inset 0 -3px #ca2636;
 }
 
 .auth-button:hover {
-  background-color: var(--primary-color);
+  background-color: #bd2d3b;
   color: var(--lightgray-color);
 }
 
@@ -185,6 +189,13 @@ a:visited {
 
 .form-label-error {
   color: var(--danger-color);
+}
+
+/* Spinner */
+.spinner {
+  margin: 30vh 0;
+  display: flex;
+  justify-content: center;
 }
 
 @media only screen and (min-width: 769px) and (max-width: 1024px) {

@@ -11,9 +11,12 @@
   margin: 0 auto 30px;
   max-width: 300px;
   width: 90%;
-  background-color: var(--success-color);
-  color: var(--white-color);
   transition: all 100ms ease;
+  color: var(--white-color);
+  background-color: #1dc956;
+  border-bottom: 3px solid #2f8e4e;
+  -webkit-box-shadow: inset 0 -3px #2f8e4e;
+  box-shadow: inset 0 -3px #2f8e4e;
 }
 
 .btn-new-portfolio:hover {
@@ -21,14 +24,16 @@
 }
 
 .portfolio-item {
-  margin: 2rem 0;
+  margin: 2rem 1rem;
   padding: 1rem;
-  border: 1px solid var(--primary-color);
   border-radius: 0.4rem;
   font-size: 1.6rem;
-  display: grid;
-  grid-template-columns: repeat(30, 1fr);
+  display: flex;
+  flex-direction: row;
   align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  box-shadow: 2px 3px 2px 3px var(--darkgray-color);
 }
 
 .portfolio-name {
@@ -40,17 +45,28 @@
 }
 
 .portfolio-item:hover {
-  box-shadow: 0 0 0 5px var(--primary-color);
+  background-color: var(--lightgray-color);
+}
+
+.portfolio-item-actions {
+  width: 55%;
+  max-width: 475px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 .btn-portfolio-edit {
   grid-row: 1;
   grid-column: 17 / span 3;
-  max-width: 95px;
+  width: 75px;
   max-height: 40px;
-  background-color: var(--orange-color);
-  color: var(--white-color);
   transition: all 100ms ease;
+  color: var(--white-color);
+  background-color: #f8803b;
+  border-bottom: 3px solid var(--dark-orange-color);
+  -webkit-box-shadow: inset 0 -3px var(--dark-orange-color);
+  box-shadow: inset 0 -3px var(--dark-orange-color);
 }
 
 .btn-portfolio-edit:hover {
@@ -60,11 +76,14 @@
 .btn-portfolio-delete {
   grid-row: 1;
   grid-column: 21 / span 4;
-  max-width: 100px;
+  width: 95px;
   max-height: 40px;
-  background-color: var(--danger-color);
-  color: var(--white-color);
   transition: all 100ms ease;
+  color: var(--white-color);
+  background: #fc1529;
+  border-bottom: 3px solid var(--dark-red-color);
+  -webkit-box-shadow: inset 0 -3px var(--dark-red-color);
+  box-shadow: inset 0 -3px var(--dark-red-color);
 }
 
 .btn-portfolio-delete:hover {
@@ -76,6 +95,7 @@
   grid-column: 26 / span 4;
   font-weight: 800;
   font-size: 1.5rem;
+  cursor: pointer;
 }
 
 .selected-portfolio {
@@ -129,8 +149,11 @@
 }
 
 .pf-add-btn {
-  background-color: var(--success-color);
   color: var(--white-color);
+  background-color: #1dc956;
+  border-bottom: 3px solid #2f8e4e;
+  -webkit-box-shadow: inset 0 -3px #2f8e4e;
+  box-shadow: inset 0 -3px #2f8e4e;
 }
 
 .pf-add-btn:hover {
@@ -153,212 +176,39 @@
   grid-column: 10 / span 13;
 }
 
-@media only screen and (min-width: 577px) and (max-width: 768px) {
-  .new-portfolio-form-container {
-    width: 92vw;
-  }
-
-  .portfolios-container {
-    width: 92vw;
-  }
-
+@media only screen and (max-width: 768px) {
   .portfolio-item {
-    font-size: 1.4rem;
-  }
-
-  .portfolio-name {
-    grid-column: 1 / span 10;
-  }
-
-  .new-portfolio-form-field {
-    margin-left: 20px;
-    width: 55%;
-  }
-
-  .new-portfolio-error-notice {
-    left: 22px;
-  }
-
-  .btn-portfolio-edit {
-    grid-column: 13 / span 4;
-  }
-
-  .btn-portfolio-delete {
-    grid-column: 18 / span 5;
-  }
-
-  .select-notice {
-    grid-column: 25 / span 4;
-  }
-
-  .portfolio-form-label {
-    grid-row: 1;
-    grid-column: 2 / span 20;
-    margin: 0 0 5px 0;
-    font-size: 1.4rem;
-  }
-
-  .portfolio-form-field {
-    grid-row: 2;
-    grid-column: 2 / span 20;
-  }
-
-  .portfolio-form-btn {
-    grid-row: 2;
-    grid-column: 23 / span 7;
-  }
-
-  .notice-pf-name-error {
-    grid-row: 3;
-    grid-column: 2 / span 28;
-  }
-}
-
-@media only screen and (min-width: 426px) and (max-width: 576px) {
-  .new-portfolio-form-container {
-    width: 92vw;
     flex-direction: column;
   }
 
-  .new-portfolio-form-field {
-    margin: 0 0 10px 0;
-    width: 80%;
-  }
-
-  .portfolios-container {
-    width: 92vw;
-  }
-
-  .portfolio-item {
-    font-size: 1.3rem;
-  }
-
-  .new-portfolio-error-notice {
-    left: 50px;
-    top: -25px;
-  }
-
-  .portfolio-name {
-    grid-column: 1 / span 30;
-    margin: 0 0 20px 0;
-  }
-
-  .btn-new-portfolio {
-    font-size: 1.3rem !important;
-  }
-
-  .btn-portfolio-edit {
-    grid-row: 2;
-    grid-column: 3 / span 6;
-  }
-
-  .btn-portfolio-delete {
-    grid-row: 2;
-    grid-column: 12 / span 8;
-  }
-
-  .select-notice {
-    grid-row: 2;
-    grid-column: 22 / span 6;
-  }
-
-  .portfolio-form-label {
-    grid-row: 1;
-    grid-column: 2 / span 20;
-    margin: 0 0 5px 0;
-    font-size: 1.4rem;
-  }
-
-  .portfolio-form-field {
-    grid-row: 2;
-    grid-column: 2 / span 20;
-  }
-
-  .portfolio-form-btn {
-    grid-row: 2;
-    grid-column: 23 / span 7;
-  }
-
-  .notice-pf-name-error {
-    grid-row: 3;
-    grid-column: 2 / span 28;
+  .portfolio-item-actions {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 450px;
   }
 }
 
-@media only screen and (max-width: 425px) {
-  .new-portfolio-form-container {
-    width: 95vw;
-    flex-direction: column;
-  }
-
-  .new-portfolio-form-field {
-    height: 80%;
-    margin: 0 0 10px 0;
-    width: 90%;
-  }
-
+@media only screen and (max-width: 576px) {
   .portfolios-container {
-    width: 95vw;
+    width: 100vw;
   }
 
   .portfolio-item {
-    font-size: 1.3rem;
-  }
-
-  .portfolio-name {
-    grid-column: 1 / span 30;
-    margin: 0 0 20px 0;
-  }
-
-  .new-portfolio-error-notice {
-    left: 20px;
-    top: -25px;
-  }
-
-  .btn-new-portfolio {
-    font-size: 1.2rem !important;
+    padding: 0.6rem;
+    font-size: 1.5rem;
   }
 
   .btn-portfolio-edit {
-    grid-row: 2;
-    grid-column: 1 / span 7;
-  }
-
-  .btn-portfolio-delete {
-    grid-row: 2;
-    grid-column: 10 / span 9;
-  }
-
-  .select-notice {
-    grid-row: 2;
-    grid-column: 21 / span 6;
-    font-size: 1.3rem;
-  }
-
-  .no-portfolio-notice {
-    font-size: 2.5rem;
-  }
-
-  .portfolio-form-label {
-    grid-row: 1;
-    grid-column: 2 / span 20;
-    margin: 0 0 5px 0;
-    font-size: 1.4rem;
-  }
-
-  .portfolio-form-field {
-    grid-row: 2;
-    grid-column: 2 / span 20;
-  }
-
-  .portfolio-form-btn {
-    grid-row: 2;
-    grid-column: 23 / span 8;
     font-size: 1.1rem !important;
+    width: 60px;
   }
 
-  .notice-pf-name-error {
-    grid-row: 3;
-    grid-column: 2 / span 28;
+  .btn-portfolio-delete {
+    font-size: 1.1rem !important;
+    width: 80px;
+  }
+
+  .select-notice {
+    font-size: 1.3rem;
   }
 }

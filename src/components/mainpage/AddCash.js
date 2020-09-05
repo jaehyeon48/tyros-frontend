@@ -41,8 +41,8 @@ const AddCash = ({
   }
 
   return (
-    <div className="add-position-container">
-      <form autoComplete="off" onSubmit={handleSubmit} className="add-position-form">
+    <div className="add-transaction-container">
+      <form autoComplete="off" onSubmit={handleSubmit} className="add-transaction-form">
         <div className="transaction-type-container">
           <label>DEPOSIT
           <input
@@ -64,7 +64,7 @@ const AddCash = ({
           </label>
         </div>
         <div className="ticker-container">
-          <label className="add-position-inputs">
+          <label className="add-transaction-inputs">
             AMOUNT
           <input
               type="number"
@@ -73,21 +73,21 @@ const AddCash = ({
               step="0.01"
               value={amount}
               onChange={handleChange}
-              className="add-position-field"
+              className="add-transaction-field"
             />
           </label>
         </div>
-        <label className="add-position-inputs">
+        <label className="add-transaction-inputs">
           Date
           <input
             type="date"
             name="transactionDate"
             value={transactionDate}
             onChange={handleChange}
-            className="add-position-date-field"
+            className="add-transaction-date-field"
           />
         </label>
-        <button type="submit" className="btn btn-add-position">Add Cash</button>
+        <button type="submit" className="btn btn-add-transaction">Add Cash</button>
       </form>
     </div>
   );

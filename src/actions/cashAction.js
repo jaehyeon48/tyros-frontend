@@ -1,5 +1,6 @@
 import {
-  GET_CASH,
+  GET_TOTAL_CASH,
+  GET_CASH_LIST,
   GET_CASH_ERROR,
   ADD_CASH,
   ADD_CASH_ERROR
@@ -11,7 +12,7 @@ import SERVER_URL from './serverURL';
 import { calculateTotalCashAmount } from '../utils/calculateTotalCash';
 
 
-export const getCash = (portfolioId) => async (dispatch) => {
+export const getTotalCash = (portfolioId) => async (dispatch) => {
   const config = { withCredentials: true };
 
   try {
@@ -19,7 +20,7 @@ export const getCash = (portfolioId) => async (dispatch) => {
     if (cashResponse.data.length > 0) {
       const totalCash = calculateTotalCashAmount(cashResponse.data);
       dispatch({
-        type: GET_CASH,
+        type: GET_TOTAL_CASH,
         payload: totalCash
       });
     }
@@ -41,7 +42,7 @@ export const addCash = (portfolioId, formData) => async (dispatch) => {
     const reqBody = JSON.stringify({ portfolioId, ...formData });
     await axios.post(`${SERVER_URL}/api/cash`, reqBody, config);
     dispatch({ type: ADD_CASH });
-    dispatch(getCash(portfolioId));
+    dispatch(getTotalCash(portfolioId));
     return 0;
   } catch (error) {
     console.error(error);

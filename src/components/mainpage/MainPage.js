@@ -12,7 +12,7 @@ import {
   getStocks,
   resetStockLoading
 } from '../../actions/stockAction';
-import { getCash } from '../../actions/cashAction';
+import { getTotalCash } from '../../actions/cashAction';
 import Modal from '../modal/Modal';
 import AddCash from './AddCash';
 import GetStockPrice from './GetStockPrice';
@@ -33,7 +33,7 @@ const MainPage = ({
   getSelectedPortfolio,
   checkMarketStatus,
   getStocks,
-  getCash,
+  getTotalCash,
   resetStockLoading
 }) => {
   const [isAddCashModalOpen, setIsAddCashModalOpen] = useState(false);
@@ -56,7 +56,7 @@ const MainPage = ({
   useEffect(() => {
     if (currentPortfolio) {
       getStocks(currentPortfolio);
-      getCash(currentPortfolio);
+      getTotalCash(currentPortfolio);
     }
   }, [currentPortfolio]);
 
@@ -172,7 +172,6 @@ const MainPage = ({
                       </span>
                     </div>
                   </div>
-
                   {stock.stockList.length > 0 && <ValuePieChart stockListLength={stock.stockList.length} />}
                   {stock.stockList.length > 0 && <SectorPieChart />}
                 </React.Fragment>
@@ -219,7 +218,7 @@ MainPage.propTypes = {
   getSelectedPortfolio: PropTypes.func,
   getStocks: PropTypes.func,
   addTotalCost: PropTypes.func,
-  getCash: PropTypes.func,
+  getTotalCash: PropTypes.func,
   resetStockLoading: PropTypes.func,
 };
 
@@ -238,6 +237,6 @@ export default connect(mapStateToProps, {
   getSelectedPortfolio,
   checkMarketStatus,
   getStocks,
-  getCash,
+  getTotalCash,
   resetStockLoading
 })(MainPage);

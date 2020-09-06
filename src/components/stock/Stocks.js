@@ -7,6 +7,7 @@ import StockItem from './StockItem';
 import Modal from '../modal/Modal';
 import AddTransaction from './AddTransaction';
 import Spinner from '../spinner/Spinner';
+import { getTotalCash } from '../../actions/cashAction';
 import { getStocks } from '../../actions/stockAction';
 import { getSelectedPortfolio } from '../../actions/portfolioAction';
 import './stocks.css';
@@ -16,6 +17,7 @@ const Stocks = ({
   isAuthenticated,
   stock,
   currentPortfolio,
+  getTotalCash,
   getStocks,
   getSelectedPortfolio
 }) => {
@@ -34,6 +36,7 @@ const Stocks = ({
 
   useEffect(() => {
     if (currentPortfolioId) {
+      getTotalCash(currentPortfolioId);
       getStocks(currentPortfolioId);
     }
   }, [currentPortfolioId]);
@@ -82,6 +85,7 @@ Stocks.propTypes = {
   isAuthenticated: PropTypes.bool,
   stock: PropTypes.object,
   currentPortfolio: PropTypes.number,
+  getTotalCash: PropTypes.func,
   getStocks: PropTypes.func,
   getSelectedPortfolio: PropTypes.func
 };
@@ -94,6 +98,7 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
+  getTotalCash,
   getStocks,
   getSelectedPortfolio
 })(Stocks);

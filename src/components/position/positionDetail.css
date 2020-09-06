@@ -1,6 +1,7 @@
 .position-details {
   display: grid;
   grid-template-columns: repeat(30, 1fr);
+  margin-bottom: 70px;
 }
 
 .position-header {

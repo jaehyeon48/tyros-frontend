@@ -43,6 +43,7 @@
 @media only screen and (max-width: 767px) {
   .landing-header-subtitle {
     grid-column: 5 / span 20;
+    margin-bottom: 70px;
   }
 }
 

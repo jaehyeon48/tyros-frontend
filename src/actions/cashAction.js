@@ -11,6 +11,20 @@ import SERVER_URL from './serverURL';
 
 import { calculateTotalCashAmount } from '../utils/calculateTotalCash';
 
+export const getCash = (portfolioId) => async (dispatch) => {
+  const config = { withCredentials: true };
+
+  try {
+    const cashResponse = await axios.get(`${SERVER_URL}/api/portfolio/${portfolioId}/cash`, config);
+    dispatch({
+      type: GET_CASH_LIST,
+      payload: cashResponse.data
+    });
+  } catch (error) {
+    console.error(error);
+    dispatch({ type: GET_CASH_ERROR });
+  }
+}
 
 export const getTotalCash = (portfolioId) => async (dispatch) => {
   const config = { withCredentials: true };

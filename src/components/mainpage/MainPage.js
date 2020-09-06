@@ -13,8 +13,6 @@ import {
   resetStockLoading
 } from '../../actions/stockAction';
 import { getTotalCash } from '../../actions/cashAction';
-import Modal from '../modal/Modal';
-import AddCash from './AddCash';
 import GetStockPrice from './GetStockPrice';
 import ValuePieChart from './ValuePieChart';
 import SectorPieChart from './SectorPieChart';
@@ -36,7 +34,6 @@ const MainPage = ({
   getTotalCash,
   resetStockLoading
 }) => {
-  const [isAddCashModalOpen, setIsAddCashModalOpen] = useState(false);
   const [totalDailyReturn, setTotalDailyReturn] = useState(0);
   const [totalOverallReturn, setTotalOverallReturn] = useState(0);
   const [dailyReturnPercent, setDailyReturnPercent] = useState(0);
@@ -115,14 +112,6 @@ const MainPage = ({
     return <Redirect to="/login" />
   }
 
-  const openAddCashModal = () => {
-    setIsAddCashModalOpen(true);
-  }
-
-  const closeAddCashModal = () => {
-    setIsAddCashModalOpen(false);
-  }
-
   const colorReturnItem = (value) => {
     if (value > 0) return 'return-positive';
     else if (value < 0) return 'return-negative';
@@ -179,11 +168,6 @@ const MainPage = ({
             </React.Fragment>
           ) : <div className="dashboard-spinner"><Spinner /></div>}
           <div className="portfolio-actions">
-            <button
-              type="button"
-              className="btn btn-open-add-cash-modal"
-              onClick={openAddCashModal}
-            >ADD CASH</button>
           </div>
           {stock && !stock.stockLoading && stock.stockList.map(eachStock => (
             <GetStockPrice
@@ -195,11 +179,6 @@ const MainPage = ({
           ))}
         </div>
       ) : <div className="notice-empty-portfoliolist">Portfolio Does Not Exist! Why Don't You Create Your First Portfolio?</div>}
-      {isAddCashModalOpen && (
-        <Modal closeModalFunc={closeAddCashModal}>
-          <AddCash closeAddCashModal={closeAddCashModal} />
-        </Modal>
-      )}
     </React.Fragment>
   );
 }

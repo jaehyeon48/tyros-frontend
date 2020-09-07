@@ -87,10 +87,11 @@
 }
 
 .notice-empty-stocklist {
-  grid-row: 2;
+  margin-top: 30px;
   grid-column: 1 / span 30;
   font-size: 2.7rem;
   text-align: center;
+  color: var(--highlight-color);
 }
 
 .notice-empty-portfoliolist {

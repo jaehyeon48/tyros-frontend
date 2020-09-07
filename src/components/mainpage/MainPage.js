@@ -164,7 +164,7 @@ const MainPage = ({
                   {stock.stockList.length > 0 && <ValuePieChart stockListLength={stock.stockList.length} />}
                   {stock.stockList.length > 0 && <SectorPieChart />}
                 </React.Fragment>
-              ) : <div className="notice-empty-stocklist">Please Add Your Stock First!</div>}
+              ) : <div className="notice-empty-stocklist">The stock list is empty. Please Add Your Stock First!</div>}
             </React.Fragment>
           ) : <div className="dashboard-spinner"><Spinner /></div>}
           <div className="portfolio-actions">

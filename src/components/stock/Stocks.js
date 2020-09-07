@@ -63,14 +63,14 @@ const Stocks = ({
       {stock && !stock.stockLoading ? (
         <React.Fragment>
           <div className="stocks-container">
-            {stock.stockList && stock.stockList.map(eachStock => (
+            {stock.stockList && stock.stockList.length > 0 ? stock.stockList.map(eachStock => (
               <StockItem
                 key={eachStock.ticker}
                 ticker={eachStock.ticker}
                 avgCost={eachStock.avgCost}
                 quantity={eachStock.quantity}
               />
-            ))}
+            )) : <div className="notice-empty-stocklist">The stock list is empty. Please Add Your Stock First!</div>}
           </div>
           {isAddTransactionModalOpen && <Modal closeModalFunc={closeAddTransactionModal} overflowY={true}>
             <AddTransaction closeAddTransactionModal={closeAddTransactionModal} />

@@ -40,7 +40,9 @@ const ValuePieChart = ({
     if (!stockLoading && stockList && stockList.length > 0) {
       let newTickerLabels = ['CASH'];
       stockList.forEach(stock => {
-        newTickerLabels.push(stock.ticker.toUpperCase());
+        if (stock.quantity > 0) {
+          newTickerLabels.push(stock.ticker.toUpperCase());
+        }
       });
       setTickerLabels(newTickerLabels);
     }
@@ -68,10 +70,12 @@ const ValuePieChart = ({
   // update each stocks return
   useEffect(() => {
     if (stockList.length === stockListLength) {
-      let newChartData = new Array(stockListLength + 1);
+      // filter stock items with quantity is 0
+      const filteredStockList = stockList.filter((stock) => stock.quantity > 0)
+      let newChartData = new Array(filteredStockList.length + 1); // + 1 for cash
       newChartData.splice(0, 1, totalCash)
-      stockList.forEach((stock, index) => {
-        if (stock.overallReturn !== null) {
+      filteredStockList.forEach((stock, index) => {
+        if (stock.overallReturn !== null && stock.quantity > 0) {
           const overallReturn = parseFloat((stock.avgCost * stock.quantity + stock.overallReturn).toFixed(2));
           if (overallReturn > 0) {
             newChartData.splice(index + 1, 1, overallReturn);
@@ -100,9 +104,6 @@ const ValuePieChart = ({
       });
     }
   }, [stockValueData]);
-
-  useEffect(() => {
-  }, [chartData]);
 
   const chartOptions = {
     maintainAspectRatio: false,

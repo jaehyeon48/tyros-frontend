@@ -37,7 +37,9 @@ const SectorPieChart = ({
     if (stockList.length > 0) {
       let newSectorsArray = [];
       stockList.forEach((stock, index) => {
-        newSectorsArray.splice(index, 1, stock.sector);
+        if (stock.quantity > 0) {
+          newSectorsArray.splice(index, 1, stock.sector);
+        }
       });
       setSectors(newSectorsArray);
     }
@@ -47,13 +49,15 @@ const SectorPieChart = ({
     if (!stockLoading && stockList.length > 0) {
       let newSectorLabelsArray = [];
       stockList.forEach(stock => {
-        if (newSectorLabelsArray.length === 0) {
-          newSectorLabelsArray.push(stock.sector);
-        }
-        else {
-          const isSectorNameDuplicate = newSectorLabelsArray.find(sectorName => sectorName === stock.sector);
-          if (isSectorNameDuplicate === undefined) {
+        if (stock.quantity > 0) {
+          if (newSectorLabelsArray.length === 0) {
             newSectorLabelsArray.push(stock.sector);
+          }
+          else {
+            const isSectorNameDuplicate = newSectorLabelsArray.find(sectorName => sectorName === stock.sector);
+            if (isSectorNameDuplicate === undefined) {
+              newSectorLabelsArray.push(stock.sector);
+            }
           }
         }
       });

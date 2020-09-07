@@ -64,6 +64,7 @@ const PositionDetail = ({
       const closePositionResult = await closePosition(PORTFOLIO_ID, TICKER);
       if (closePositionResult === 0) {
         history.push('/stocks');
+        window.location.reload();
       }
       else if (closePositionResult === -1) {
         showAlert('Something went wrong. Please try again!', 'fail');

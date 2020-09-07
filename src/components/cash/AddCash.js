@@ -30,8 +30,8 @@ const AddCash = ({
     e.preventDefault();
     const addCashResult = await addCash(currentPortfolio, formData);
     if (addCashResult === 0) {
-      showAlert('The cash info was successfully added!', 'success');
       closeAddCashModal();
+      window.location.reload();
     }
     else {
       showAlert('Something went wrong. Please try again!', 'fail');

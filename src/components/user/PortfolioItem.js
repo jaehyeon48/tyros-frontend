@@ -78,8 +78,10 @@ const PortfolioItem = ({
   }
 
   const handleDeletePortfolio = async () => {
-    await deletePortfolio(portfolio.portfolioId);
-    showAlert('The portfolio was successfully deleted!', 'success');
+    if (window.confirm(`Do you really want to delete '${portfolio.portfolioName}' portfolio?`)) {
+      await deletePortfolio(portfolio.portfolioId);
+      showAlert('The portfolio was successfully deleted!', 'success');
+    }
   }
 
   return (

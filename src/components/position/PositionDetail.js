@@ -63,7 +63,7 @@ const PositionDetail = ({
     if (window.confirm('Do you really want to close this position?')) {
       const closePositionResult = await closePosition(PORTFOLIO_ID, TICKER);
       if (closePositionResult === 0) {
-        history.push('/main');
+        history.push('/stocks');
       }
       else if (closePositionResult === -1) {
         showAlert('Something went wrong. Please try again!', 'fail');

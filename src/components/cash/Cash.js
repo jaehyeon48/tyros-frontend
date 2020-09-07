@@ -58,39 +58,41 @@ const Cash = ({
   return (
     <React.Fragment>
       {!cashLoading ? (
-        <div className="cash-page">
-          <div className="cash-total-amount">
-            <span>Total Cash</span>
-            <span><DollarSignIcon />{totalCash}</span>
-          </div>
+        <React.Fragment>
           <button
             type="button"
             className="btn btn-open-add-cash-modal"
             onClick={openAddCashModal}
           >ADD CASH</button>
-          <div className="cash-header">
-            <span className="cash-header-amount">Amount</span>
-            <span className="cash-header-type">Type</span>
-            <span className="cash-header-date">Date</span>
-          </div>
-          <div className="cash-container">
-            {cashList && cashList.length > 0 &&
-              cashList.map((cash) => (
-                <CashItem
-                  key={cash.cashId}
-                  amount={cash.amount}
-                  transactionType={cash.transactionType}
-                  transactionDate={new Date(cash.transactionDate).toJSON().slice(2, 10)}
-                />
-              ))
-            }
-          </div>
+          {cashList && cashList.length > 0 ? (
+            <div className="cash-page">
+              <div className="cash-total-amount">
+                <span>Total Cash</span>
+                <span><DollarSignIcon />{totalCash}</span>
+              </div>
+              <div className="cash-header">
+                <span className="cash-header-amount">Amount</span>
+                <span className="cash-header-type">Type</span>
+                <span className="cash-header-date">Date</span>
+              </div>
+              <div className="cash-container">
+                {cashList.map((cash) => (
+                  <CashItem
+                    key={cash.cashId}
+                    amount={cash.amount}
+                    transactionType={cash.transactionType}
+                    transactionDate={new Date(cash.transactionDate).toJSON().slice(2, 10)}
+                  />
+                ))}
+              </div>
+            </div>
+          ) : (<div className="notice-empty-cashlist">The cash list is empty. Add a cash transaction!</div>)}
           {isAddCashModalOpen && (
             <Modal closeModalFunc={closeAddCashModal}>
               <AddCash closeAddCashModal={closeAddCashModal} />
             </Modal>
           )}
-        </div>
+        </React.Fragment>
       ) : (<Spinner />)}
     </React.Fragment>
   );

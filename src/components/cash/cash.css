@@ -128,6 +128,13 @@
   box-shadow: inset 0 -3px var(--dark-red-color);
 }
 
+.notice-empty-cashlist {
+  margin-top: 30px;
+  font-size: 2.7rem;
+  text-align: center;
+  color: var(--highlight-color);
+}
+
 @media only screen and (max-width: 1024px) {
   .cash-header {
     font-size: 1.5rem;

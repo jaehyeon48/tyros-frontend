@@ -87,7 +87,7 @@ const AddCash = ({
             className="add-transaction-date-field"
           />
         </label>
-        <button type="submit" className="btn btn-add-transaction">Add Cash</button>
+        <button type="submit" className="btn btn-add-transaction">ADD CASH TRANSACTION</button>
       </form>
     </div>
   );

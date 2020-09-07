@@ -63,7 +63,7 @@ const Cash = ({
             type="button"
             className="btn btn-open-add-cash-modal"
             onClick={openAddCashModal}
-          >ADD CASH</button>
+          >ADD CASH TRANSACTION</button>
           {cashList && cashList.length > 0 ? (
             <div className="cash-page">
               <div className="cash-total-amount">

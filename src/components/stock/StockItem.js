@@ -118,16 +118,16 @@ const StockItem = ({
   }
 
   return (
-    <React.Fragment>
-      {quantity > 0 ? (
-        <div className="stock-item" onClick={directToPositionDetailPage}>
-          <div className="stock-item-info">
-            <span className="stock-item-ticker">{ticker.toUpperCase()}</span>
-            <span className="stock-item-name">{findCompanyNameByTicker(ticker)}</span>
-          </div>
-          <span className="stock-item-realtime">{stockPriceData.price}</span>
-          <span className="stock-item-avgPrice">Cost: {avgCost}</span>
-          <span className="stock-item-quantity">Quantity: {quantity}</span>
+    <div className="stock-item" onClick={directToPositionDetailPage}>
+      <div className="stock-item-info">
+        <span className="stock-item-ticker">{ticker.toUpperCase()}</span>
+        <span className="stock-item-name">{findCompanyNameByTicker(ticker)}</span>
+      </div>
+      <span className="stock-item-realtime">{stockPriceData.price}</span>
+      <span className="stock-item-avgPrice">Cost: {avgCost}</span>
+      <span className="stock-item-quantity">Quantity: {quantity}</span>
+      {quantity > 0 && (
+        <React.Fragment>
           <span className="stock-item-daily-pl">
             Daily: <span className={`stock-item-daily-pl ${colorDailyPL()}`}>
               {dailyReturn} ({dailyReturn > 0 && '+'}{stockPriceData.changePercent.toFixed(2)}%)</span>
@@ -136,9 +136,9 @@ const StockItem = ({
             Overall: <span className={`stock-item-overall-pl ${colorOverallPL()}`}>
               {overallReturn} ({overallReturn > 0 && '+'}{overallReturnPercent}%)</span>
           </span>
-        </div>
-      ) : null}
-    </React.Fragment>
+        </React.Fragment>
+      )}
+    </div>
   )
 }
 

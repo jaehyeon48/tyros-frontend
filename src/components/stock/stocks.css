@@ -77,8 +77,13 @@
   margin: 2rem auto;
   display: block;
   color: var(--white-color);
-  background: var(--orange-color);
-  box-shadow: inset -2px -3px #b95049;
+  background-color: #1dc956;
+  border-bottom: 3px solid #2f8e4e;
+  box-shadow: inset 0 -3px #2f8e4e;
+}
+
+.btn-open-add-transaction-modal:hover {
+  background-color: var(--dark-green-color);
 }
 
 .add-transaction-form {
@@ -142,19 +147,6 @@
   padding: 4px;
   font-size: 1.6rem;
   cursor: pointer;
-}
-
-.btn-add-transaction {
-  margin: 15px 0 0 0;
-  color: var(--white-color);
-  background-color: #f8803b;
-  border-bottom: 3px solid var(--dark-orange-color);
-  -webkit-box-shadow: inset 0 -3px var(--dark-orange-color);
-  box-shadow: inset 0 -3px var(--dark-orange-color);
-}
-
-.btn-add-transaction:hover {
-  background-color: var(--dark-orange-color);
 }
 
 .btn-delete-transaction {

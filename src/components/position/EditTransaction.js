@@ -109,7 +109,7 @@ const EditTransaction = ({
             className="add-transaction-date-field"
           />
         </label>
-        <button type="submit" className="btn btn-add-transaction">EDIT TRANSACTION</button>
+        <button type="submit" className="btn btn-edit-transaction">EDIT TRANSACTION</button>
       </form>
       <button
         type="button"

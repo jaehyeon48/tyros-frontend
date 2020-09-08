@@ -31,6 +31,12 @@
   padding: 1rem;
 }
 
+.notice-chart-no-display {
+  margin: 1rem 0;
+  font-size: 1.5rem;
+  color: var(--highlight-color);
+}
+
 @media only screen and (min-width: 769px) and (max-width: 1024px) {
   .value-pie-chart {
     grid-row: 6;

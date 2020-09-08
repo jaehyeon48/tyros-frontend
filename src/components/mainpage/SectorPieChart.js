@@ -22,6 +22,7 @@ const SectorPieChart = ({
   const [sectors, setSectors] = useState([]);
   const [sectorLabels, setSectorLabels] = useState([]);
   const [sectorsCount, setSectorsCount] = useState([]);
+  const [shouldRenderChart, setShouldRenderChart] = useState(false);
 
   function getRandomColor(i) {
     const colors = ['#0F4BBD', '#F7A8D5', '#CA2F4C', '#F2AB59', '#CAD038', '#69C58B', '#0F4E52', '#134253', '#17A7AA', '#6F9BA9', '#4B3B57'];
@@ -109,6 +110,15 @@ const SectorPieChart = ({
     }
   }, [sectorsCount]);
 
+  useEffect(() => {
+    if (chartData.labels.length > 0) {
+      setShouldRenderChart(true);
+    }
+    else {
+      setShouldRenderChart(false);
+    }
+  }, [chartData.labels.length]);
+
   const chartOptions = {
     maintainAspectRatio: false,
     legend: {
@@ -159,15 +169,19 @@ const SectorPieChart = ({
     }
   }
 
+
+
   return (
     <div className="chart-container sector-pie-chart">
       <h1>Distribution By Sector</h1>
-      <div className="chart-wrapper">
-        <Pie
-          data={chartData}
-          options={chartOptions}
-        />
-      </div>
+      {shouldRenderChart ? (
+        <div className="chart-wrapper">
+          <Pie
+            data={chartData}
+            options={chartOptions}
+          />
+        </div>
+      ) : <div className="notice-chart-no-display">Nothing to display.</div>}
     </div>
   );
 }

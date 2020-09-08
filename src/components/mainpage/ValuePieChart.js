@@ -24,6 +24,7 @@ const ValuePieChart = ({
   });
   const [tickerLabels, setTickerLabels] = useState([]);
   const [stockValueData, setStockValueData] = useState([]);
+  const [shouldRenderChart, setShouldRenderChart] = useState(false);
 
   function getRandomColor(i) {
     const colors = ['#F7A8D5', '#CA2F4C', '#F2AB59', '#CAD038', '#69C58B', '#0F4E52', '#134253', '#17A7AA', '#6F9BA9', '#4B3B57', '#0F4BBD'];
@@ -38,7 +39,10 @@ const ValuePieChart = ({
   // insert ticker into the chart's data label array
   useEffect(() => {
     if (!stockLoading && stockList && stockList.length > 0) {
-      let newTickerLabels = ['CASH'];
+      let newTickerLabels = [];
+      if (totalCash > 0) {
+        newTickerLabels.push('CASH');
+      }
       stockList.forEach(stock => {
         if (stock.quantity > 0) {
           newTickerLabels.push(stock.ticker.toUpperCase());
@@ -47,6 +51,7 @@ const ValuePieChart = ({
       setTickerLabels(newTickerLabels);
     }
   }, [stockList]);
+
 
   // initialize chart data labels, background colors and border colors
   useEffect(() => {
@@ -71,17 +76,31 @@ const ValuePieChart = ({
   useEffect(() => {
     if (stockList.length === stockListLength) {
       // filter stock items with quantity is 0
-      const filteredStockList = stockList.filter((stock) => stock.quantity > 0)
-      let newChartData = new Array(filteredStockList.length + 1); // + 1 for cash
-      newChartData.splice(0, 1, totalCash)
-      filteredStockList.forEach((stock, index) => {
-        if (stock.overallReturn !== null && stock.quantity > 0) {
-          const overallReturn = parseFloat((stock.avgCost * stock.quantity + stock.overallReturn).toFixed(2));
-          if (overallReturn > 0) {
-            newChartData.splice(index + 1, 1, overallReturn);
+      const filteredStockList = stockList.filter((stock) => stock.quantity > 0);
+      let newChartData;
+      if (totalCash > 0) {
+        newChartData = new Array(filteredStockList.length + 1); // add 1 for cash
+        newChartData.splice(0, 1, totalCash);
+        filteredStockList.forEach((stock, index) => {
+          if (stock.overallReturn !== null && stock.quantity > 0) {
+            const overallReturn = parseFloat((stock.avgCost * stock.quantity + stock.overallReturn).toFixed(2));
+            if (overallReturn > 0) {
+              newChartData.splice(index + 1, 1, overallReturn);
+            }
           }
-        }
-      });
+        });
+      }
+      else {
+        newChartData = new Array(filteredStockList.length);
+        filteredStockList.forEach((stock, index) => {
+          if (stock.overallReturn !== null && stock.quantity > 0) {
+            const overallReturn = parseFloat((stock.avgCost * stock.quantity + stock.overallReturn).toFixed(2));
+            if (overallReturn > 0) {
+              newChartData.splice(index, 1, overallReturn);
+            }
+          }
+        });
+      }
       setStockValueData(newChartData);
     }
   }, [stockList, totalCash]);
@@ -104,6 +123,15 @@ const ValuePieChart = ({
       });
     }
   }, [stockValueData]);
+
+  useEffect(() => {
+    if (chartData.labels.length > 0) {
+      setShouldRenderChart(true);
+    }
+    else {
+      setShouldRenderChart(false);
+    }
+  }, [chartData.labels.length]);
 
   const chartOptions = {
     maintainAspectRatio: false,
@@ -158,12 +186,14 @@ const ValuePieChart = ({
   return (
     <div className="chart-container value-pie-chart">
       <h1>Distribution By Value</h1>
-      <div className="chart-wrapper">
-        <Pie
-          data={chartData}
-          options={chartOptions}
-        />
-      </div>
+      {shouldRenderChart ? (
+        <div className="chart-wrapper">
+          <Pie
+            data={chartData}
+            options={chartOptions}
+          />
+        </div>
+      ) : <div className="notice-chart-no-display">Nothing to display.</div>}
     </div>
   );
 }

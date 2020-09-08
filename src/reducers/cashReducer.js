@@ -4,6 +4,8 @@ import {
   GET_CASH_ERROR,
   ADD_CASH,
   ADD_CASH_ERROR,
+  DELETE_CASH,
+  DELETE_CASH_ERROR,
   LOGOUT
 } from '../actions/actionTypes';
 
@@ -36,12 +38,18 @@ export default function cashReducer(state = initialState, action) {
         cashLoading: true
       };
     case ADD_CASH:
+    case DELETE_CASH:
+      return {
+        ...state,
+        cashLoading: true
+      };
     case ADD_CASH_ERROR:
     case GET_CASH_ERROR:
+    case DELETE_CASH_ERROR:
     default:
       return {
         ...state,
         cashLoading: false
-      }
+      };
   }
 }

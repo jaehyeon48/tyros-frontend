@@ -3,7 +3,9 @@ import {
   GET_CASH_LIST,
   GET_CASH_ERROR,
   ADD_CASH,
-  ADD_CASH_ERROR
+  ADD_CASH_ERROR,
+  DELETE_CASH,
+  DELETE_CASH_ERROR
 } from './actionTypes';
 
 import axios from 'axios';
@@ -61,6 +63,20 @@ export const addCash = (portfolioId, formData) => async (dispatch) => {
   } catch (error) {
     console.error(error);
     dispatch({ type: ADD_CASH_ERROR });
+    return -1;
+  }
+}
+
+export const deleteCash = (cashId) => async (dispatch) => {
+  const config = { withCredentials: true };
+
+  try {
+    await axios.delete(`${SERVER_URL}/api/cash/${cashId}`, config);
+    dispatch({ type: DELETE_CASH });
+    return 0;
+  } catch (error) {
+    console.error(error);
+    dispatch({ type: DELETE_CASH_ERROR });
     return -1;
   }
 }

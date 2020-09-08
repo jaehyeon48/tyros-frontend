@@ -79,6 +79,7 @@ const Cash = ({
                 {cashList.map((cash) => (
                   <CashItem
                     key={cash.cashId}
+                    cashId={cash.cashId}
                     amount={cash.amount}
                     transactionType={cash.transactionType}
                     transactionDate={new Date(cash.transactionDate).toJSON().slice(2, 10)}

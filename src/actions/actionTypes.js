@@ -55,6 +55,8 @@ export const GET_TOTAL_CASH = 'GET_TOTAL_CASH';
 export const GET_CASH_ERROR = 'GET_CASH_ERROR';
 export const ADD_CASH = 'ADD_CASH';
 export const ADD_CASH_ERROR = 'ADD_CASH_ERROR';
+export const EDIT_CASH = 'EDIT_CASH';
+export const EDIT_CASH_ERROR = 'EDIT_CASH_ERROR';
 export const DELETE_CASH = 'DELETE_CASH';
 export const DELETE_CASH_ERROR = 'DELETE_CASH_ERROR';
 

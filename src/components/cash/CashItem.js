@@ -10,9 +10,13 @@ const CashItem = ({
   cashId,
   transactionType,
   transactionDate,
+  formData,
+  setFormData,
+  openEditCashModal,
   deleteCash,
   showAlert
 }) => {
+
   const handleDeleteCash = async () => {
     if (window.confirm('Do you really want to delete the cash transaction record?')) {
       const deleteResult = await deleteCash(cashId);
@@ -25,12 +29,27 @@ const CashItem = ({
     }
   }
 
+  const handleOpenEditCashModal = () => {
+    setFormData({
+      ...formData,
+      cashId,
+      amount,
+      transactionDate,
+      transactionType
+    });
+    openEditCashModal();
+  }
+
   return (
     <div className="cash-item">
       <span className="cash-item-amount">{amount}</span>
       <span className="cash-item-type">{transactionType}</span>
-      <span className="cash-item-date">{transactionDate}</span>
-      <button type="button" className="btn btn-edit-cash">EDIT</button>
+      <span className="cash-item-date">{transactionDate.slice(2)}</span>
+      <button
+        type="button"
+        className="btn btn-edit-cash"
+        onClick={handleOpenEditCashModal}
+      >EDIT</button>
       <button
         type="button"
         className="btn btn-delete-cash"
@@ -42,6 +61,9 @@ const CashItem = ({
 CashItem.propTypes = {
   amount: PropTypes.number,
   transactionType: PropTypes.string,
+  formData: PropTypes.object,
+  setFormData: PropTypes.func,
+  openEditCashModal: PropTypes.func,
   deleteCash: PropTypes.func,
   showAlert: PropTypes.func
 };

@@ -4,6 +4,8 @@ import {
   GET_CASH_ERROR,
   ADD_CASH,
   ADD_CASH_ERROR,
+  EDIT_CASH,
+  EDIT_CASH_ERROR,
   DELETE_CASH,
   DELETE_CASH_ERROR
 } from './actionTypes';
@@ -63,6 +65,27 @@ export const addCash = (portfolioId, formData) => async (dispatch) => {
   } catch (error) {
     console.error(error);
     dispatch({ type: ADD_CASH_ERROR });
+    return -1;
+  }
+}
+
+export const editCash = (formData) => async (dispatch) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    withCredentials: true
+  };
+  try {
+    const { cashId } = formData;
+    const reqBody = JSON.stringify(formData);
+
+    await axios.put(`${SERVER_URL}/api/cash/${cashId}`, reqBody, config);
+    dispatch({ type: EDIT_CASH });
+    return 0;
+  } catch (error) {
+    console.error(error);
+    dispatch({ type: EDIT_CASH_ERROR });
     return -1;
   }
 }

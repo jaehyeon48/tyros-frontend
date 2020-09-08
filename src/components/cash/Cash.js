@@ -8,6 +8,7 @@ import Spinner from '../spinner/Spinner';
 import DollarSignIcon from '../icons/DollarSignIcon';
 import Modal from '../modal/Modal';
 import AddCash from './AddCash';
+import EditCash from './EditCash';
 import './cash.css';
 import { getSelectedPortfolio } from '../../actions/portfolioAction';
 import {
@@ -27,6 +28,14 @@ const Cash = ({
   getTotalCash
 }) => {
   const [isAddCashModalOpen, setIsAddCashModalOpen] = useState(false);
+  const [isEditCashModalOpen, setIsEditCashModalOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    cashId: '',
+    amount: '',
+    transactionType: 'deposit',
+    transactionDate: new Date().toJSON().slice(0, 10)
+  });
+
   useEffect(() => {
     getSelectedPortfolio();
   }, []);
@@ -49,6 +58,14 @@ const Cash = ({
 
   const closeAddCashModal = () => {
     setIsAddCashModalOpen(false);
+  }
+
+  const openEditCashModal = () => {
+    setIsEditCashModalOpen(true);
+  }
+
+  const closeEditCashModal = () => {
+    setIsEditCashModalOpen(false);
   }
 
   if (!loading && !isAuthenticated) {
@@ -82,7 +99,10 @@ const Cash = ({
                     cashId={cash.cashId}
                     amount={cash.amount}
                     transactionType={cash.transactionType}
-                    transactionDate={new Date(cash.transactionDate).toJSON().slice(2, 10)}
+                    transactionDate={new Date(cash.transactionDate).toJSON().slice(0, 10)}
+                    formData={formData}
+                    setFormData={setFormData}
+                    openEditCashModal={openEditCashModal}
                   />
                 ))}
               </div>
@@ -91,6 +111,14 @@ const Cash = ({
           {isAddCashModalOpen && (
             <Modal closeModalFunc={closeAddCashModal}>
               <AddCash closeAddCashModal={closeAddCashModal} />
+            </Modal>
+          )}
+          {isEditCashModalOpen && (
+            <Modal closeModalFunc={closeEditCashModal}>
+              <EditCash
+                closeEditCashModal={closeEditCashModal}
+                formData={formData}
+                setFormData={setFormData} />
             </Modal>
           )}
         </React.Fragment>

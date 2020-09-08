@@ -37,6 +37,14 @@
   color: var(--highlight-color);
 }
 
+@media only screen and (max-width: 1275px) {
+  .chart-wrapper {
+    position: relative;
+    width: 420px !important;
+    height: 420px !important;
+  }
+}
+
 @media only screen and (min-width: 769px) and (max-width: 1024px) {
   .value-pie-chart {
     grid-row: 6;
@@ -92,6 +100,10 @@
 }
 
 @media only screen and (max-width: 425px) {
+  .chart-container {
+    margin: 2rem 1rem;
+  }
+
   .value-pie-chart {
     grid-row: 6;
     grid-column: 1 / span 30;

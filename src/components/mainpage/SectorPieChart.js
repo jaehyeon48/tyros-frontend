@@ -131,7 +131,7 @@ const SectorPieChart = ({
     layout: {
       padding: {
         top: 10,
-        bottom: 10
+        bottom: 20
       }
     },
     plugins: {

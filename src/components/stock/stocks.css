@@ -137,8 +137,8 @@
 }
 
 .add-transaction-field:disabled {
-  background-color: var(--light-dark-color);
-  color: var(--dark-color);
+  background-color: var(--darkgray-color);
+  color: var(--light-dark-color);
   font-size: 1.4rem;
 }
 

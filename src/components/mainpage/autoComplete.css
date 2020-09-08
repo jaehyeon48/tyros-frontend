@@ -4,53 +4,55 @@
   flex-direction: column;
   position: absolute;
   z-index: 999;
-  top: 61px;
+  top: 63px;
   right: 7px;
-  width: 71%;
-  background-color: var(--dark-theme-bg-color);
-  border: 1px solid;
+  width: 71.5%;
+  background-color: var(--light-theme-bg-color);
+  border: 1px solid var(--lightgray-color);
   padding: 5px;
   max-height: 400px;
   overflow-y: scroll;
 }
 
 .auto-complete-item {
-  background-color: inherit;
-  color: #fff;
-  border: 1px solid var(--light-dark-color);
-  margin: 5px 0;
-  padding: 1px 3px;
+  background-color: #fff;
+  color: var(--dark-color);
+  border-radius: 0.5rem;
+  margin: 0.8rem 0;
+  padding: 0.5rem 0 0.5rem 0.5rem;
   width: 98%;
   cursor: pointer;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
+  box-shadow: 2px 3px 2px 2px var(--lightgray-color);
 }
 
 .auto-complete-item:hover {
-  background-color: #40475e;
+  background-color: var(--darkgray-color);
 }
 
 .auto-complete-item-exchange {
   margin: 3px 0 0 0;
-  font-size: 1rem;
+  font-size: 0.9rem;
 }
 
 .match-words {
-  color: dodgerblue;
+  color: var(--highlight-color);
+  font-weight: 700;
+  font-size: 1.3rem;
 }
 
-@media only screen and (min-width: 426px) and (max-width: 768px) {
+@media only screen and (max-width: 768px) {
   .auto-complete-container {
     right: 10px;
   }
 }
 
 @media only screen and (max-width: 425px) {
-  .auto-complete-container {
-    right: 10px;
-    width: 61%;
+  .match-words {
+    font-size: 1.2rem;
   }
 
   .auto-complete-item {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
   }
 }

@@ -140,7 +140,9 @@ const MainPage = ({
                       <span className={`${colorReturnItem(totalDailyReturn)}`}>
                         <DollarSignIcon />
                         {totalDailyReturn} ({totalDailyReturn > 0 && '+'}
-                        {dailyReturnPercent.toFixed(2)}%)
+                        {isNaN(dailyReturnPercent.toFixed(2)) ? (0) : (
+                          dailyReturnPercent.toFixed(2)
+                        )}%)
                         </span>
                     </div>
                     <div
@@ -150,7 +152,9 @@ const MainPage = ({
                       <span className={`${colorReturnItem(totalOverallReturn)}`}>
                         <DollarSignIcon />
                         {totalOverallReturn} ({totalOverallReturn > 0 && '+'}
-                        {overallReturnPercent.toFixed(2)}%)
+                        {isNaN(overallReturnPercent.toFixed(2)) ? (0) : (
+                          overallReturnPercent.toFixed(2)
+                        )}%)
                       </span>
                     </div>
                     <div className={`return-item total-value ${colorReturnItemBottom(totalValue)}`}>

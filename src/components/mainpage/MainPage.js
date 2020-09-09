@@ -16,6 +16,7 @@ import { getTotalCash } from '../../actions/cashAction';
 import GetStockPrice from './GetStockPrice';
 import ValuePieChart from './ValuePieChart';
 import SectorPieChart from './SectorPieChart';
+import TenDayChart from './TenDayChart';
 import DollarSignIcon from '../icons/DollarSignIcon';
 import Spinner from '../spinner/Spinner';
 import './mainpage.css';
@@ -167,6 +168,7 @@ const MainPage = ({
                   </div>
                   {stock.stockList.length > 0 && <ValuePieChart stockListLength={stock.stockList.length} />}
                   {stock.stockList.length > 0 && <SectorPieChart />}
+                  <TenDayChart />
                 </React.Fragment>
               ) : <div className="notice-empty-stocklist">The stock list is empty. Please Add Your Stock First!</div>}
             </React.Fragment>

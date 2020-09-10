@@ -44,6 +44,12 @@ const PositionDetail = ({
     }
   }, [PORTFOLIO_ID, TICKER]);
 
+  useEffect(() => {
+    if (stockGroup && stockGroup.length === 0) {
+      history.push('/stocks');
+    }
+  }, [stockGroup]);
+
   const openEditModal = () => {
     setIsEditModalOpen(true);
   }

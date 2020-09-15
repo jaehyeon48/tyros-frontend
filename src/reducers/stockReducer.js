@@ -23,7 +23,8 @@ const initialState = {
   stockList: [],
   stockGroup: [],
   isMarketOpen: null,
-  stockLoading: true
+  stockLoading: true,
+  stockGroupLoading: true
 };
 
 const sortByTicker = (a, b) => {
@@ -65,35 +66,41 @@ export default function stockReducer(state = initialState, action) {
       if (compareStockList(state.stockList, payload)) {
         return {
           ...state,
-          stockLoading: false
+          stockLoading: false,
+          stockGroupLoading: true
         };
       }
       return {
         ...state,
         stockList: payload,
-        stockLoading: false
+        stockLoading: false,
+        stockGroupLoading: true
       };
     case GET_EMPTY_STOCK_LIST:
       return {
         ...state,
         stockList: payload,
-        stockLoading: false
+        stockLoading: false,
+        stockGroupLoading: true
       };
     case GET_STOCK_ERROR:
       return {
         ...state,
         stockList: [],
-        stockLoading: false
+        stockLoading: false,
+        stockGroupLoading: true
       };
     case GET_STOCK_GROUP:
       return {
         ...state,
-        stockGroup: payload
+        stockGroup: payload,
+        stockGroupLoading: false
       };
     case GET_STOCK_GROUP_ERROR:
       return {
         ...state,
-        stockGroup: []
+        stockGroup: [],
+        stockGroupLoading: false
       };
     case EDIT_DAILY_RETURN:
       const tickerObjDaily = state.stockList.filter(stock => stock.ticker === payload.ticker);
@@ -131,7 +138,8 @@ export default function stockReducer(state = initialState, action) {
       return {
         stockList: [],
         isMarketOpen: null,
-        stockLoading: true
+        stockLoading: true,
+        stockGroupLoading: true
       };
     case GET_SECTOR_ERROR:
     case ADD_STOCK:

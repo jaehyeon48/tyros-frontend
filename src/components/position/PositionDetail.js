@@ -18,6 +18,7 @@ import CompanyInfo from './CompanyInfo';
 const PositionDetail = ({
   match,
   stockGroup,
+  stockGroupLoading,
   getStocksByTickerGroup,
   closePosition,
   showAlert
@@ -45,10 +46,10 @@ const PositionDetail = ({
   }, [PORTFOLIO_ID, TICKER]);
 
   useEffect(() => {
-    if (stockGroup && stockGroup.length === 0) {
+    if (!stockGroupLoading && stockGroup && stockGroup.length === 0) {
       history.push('/stocks');
     }
-  }, [stockGroup]);
+  }, [stockGroupLoading, stockGroup]);
 
   const openEditModal = () => {
     setIsEditModalOpen(true);
@@ -142,13 +143,15 @@ const PositionDetail = ({
 
 PositionDetail.propTypes = {
   match: PropTypes.object,
+  stockGroupLoading: PropTypes.bool,
   getStocksByTickerGroup: PropTypes.func,
   closePosition: PropTypes.func,
   showAlert: PropTypes.func
 };
 
 const mapStateToProps = (state) => ({
-  stockGroup: state.stock.stockGroup
+  stockGroup: state.stock.stockGroup,
+  stockGroupLoading: state.stock.stockGroupLoading
 });
 
 export default connect(mapStateToProps, {

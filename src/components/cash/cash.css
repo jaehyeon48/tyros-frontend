@@ -116,6 +116,10 @@
   box-shadow: inset 0 -3px var(--dark-orange-color);
 }
 
+.btn-edit-cash:hover {
+  background-color: var(--dark-orange-color);
+}
+
 .btn-delete-cash {
   grid-row: 1;
   grid-column: 25 / span 5;
@@ -126,6 +130,10 @@
   background: #fc1529;
   border-bottom: 3px solid var(--dark-red-color);
   box-shadow: inset 0 -3px var(--dark-red-color);
+}
+
+.btn-delete-cash:hover {
+  background-color: var(--dark-red-color);
 }
 
 .notice-empty-cashlist {

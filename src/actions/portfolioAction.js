@@ -38,9 +38,11 @@ export const selectPortfolio = (portfolioId) => async (dispatch) => {
   };
   try {
     const reqBody = JSON.stringify({ portfolioId });
-    await axios.post(`${SERVER_URL}/api/portfolio/select`, reqBody, config);
-    dispatch({ type: SELECT_PORTFOLIO });
-    dispatch(getSelectedPortfolio());
+    const selectedPortfolioResult = await axios.post(`${SERVER_URL}/api/portfolio/select`, reqBody, config);
+    dispatch({
+      type: SELECT_PORTFOLIO,
+      payload: selectedPortfolioResult.data
+    });
   } catch (error) {
     console.error(error);
     dispatch({ type: EMPTY_PORTFOLIO });

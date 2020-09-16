@@ -22,6 +22,11 @@ export default function portfolioReducer(state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
+    case SELECT_PORTFOLIO:
+      return {
+        ...state,
+        currentPortfolio: payload
+      };
     case GET_SELECTED_PORTFOLIO:
       return {
         ...state,
@@ -40,7 +45,6 @@ export default function portfolioReducer(state = initialState, action) {
         portfolioList: [],
         currentPortfolio: null
       };
-    case SELECT_PORTFOLIO:
     case PORTFOLIO_CREATE_ERROR:
     case PORTFOLIO_EDIT_ERROR:
     case PORTFOLIO_DELETE_ERROR:

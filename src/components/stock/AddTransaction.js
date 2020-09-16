@@ -12,6 +12,7 @@ const AddTransaction = ({
   closeAddTransactionModal,
   currentPortfolio,
   totalCash,
+  stockList,
   addStock,
   showAlert
 }) => {
@@ -24,6 +25,7 @@ const AddTransaction = ({
     transactionDate: new Date().toJSON().slice(0, 10),
     transactionType: 'buy'
   });
+  const [currentAvgCost, setCurrentAvgCost] = useState(0);
   const [tickerInput, setTickerInput] = useState('');
   const [autoCompleteResults, setAutoCompleteResults] = useState([]);
   const [renderAutoComplete, setRenderAutoComplete] = useState(false);
@@ -40,6 +42,16 @@ const AddTransaction = ({
       setFormData({ ...formData, companyName: '' });
     }
   }, [ticker, companyName]);
+
+  useEffect(() => {
+    if (stockList && stockList.length > 0 && ticker.trim() !== '' && transactionType === 'sell') {
+      const stockItem = stockList.filter(stock => stock.ticker === ticker.toLowerCase());
+      if (stockItem[0]) {
+        const avgCostOfStock = stockItem[0].avgCost;
+        setCurrentAvgCost(avgCostOfStock);
+      }
+    }
+  }, [stockList, ticker, transactionType]);
 
 
   const handleTickerInput = (e) => {
@@ -61,7 +73,8 @@ const AddTransaction = ({
       return;
     }
     else {
-      const addStockResult = await addStock(currentPortfolio, formData);
+      // currentAvgCost is used when the user sells a stock
+      const addStockResult = await addStock(currentPortfolio, formData, currentAvgCost);
 
       if (addStockResult === 0) {
         window.location.reload();
@@ -202,13 +215,15 @@ AddTransaction.propTypes = {
   closeAddTransactionModal: PropTypes.func,
   currentPortfolio: PropTypes.number,
   totalCash: PropTypes.number,
+  stockList: PropTypes.array,
   addStock: PropTypes.func,
   showAlert: PropTypes.func
 }
 
 const mapStateToProps = (state) => ({
   currentPortfolio: state.portfolio.currentPortfolio,
-  totalCash: state.cash.totalCash
+  totalCash: state.cash.totalCash,
+  stockList: state.stock.stockList
 });
 
 export default connect(mapStateToProps, {

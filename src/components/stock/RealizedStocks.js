@@ -43,7 +43,7 @@ const RealizedStocks = ({
         <React.Fragment>
         <div className="total-realized-value">
         <span>Total Realized Value</span>
-        <span className={colorTotalRealizedReturn()}><DollarSignIcon/>{totalRealizedReturn}</span>
+        <span className={colorTotalRealizedReturn()}><DollarSignIcon/>{totalRealizedReturn.toFixed(2)}</span>
         </div>
         <div className="realized-stocks-container">
           {realizedStocks && realizedStocks.length > 0 ? (

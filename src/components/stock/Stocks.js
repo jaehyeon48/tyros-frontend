@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 
 import StockItem from './StockItem';
 import Modal from '../modal/Modal';
@@ -21,6 +21,7 @@ const Stocks = ({
   getStocks,
   getSelectedPortfolio
 }) => {
+  let history = useHistory();
   const [currentPortfolioId, setCurrentPortfolioId] = useState();
   const [isAddTransactionModalOpen, setIsAddTransactionModalOpen] = useState(false);
 
@@ -49,17 +50,30 @@ const Stocks = ({
     setIsAddTransactionModalOpen(false);
   }
 
+  const redirectToRealizedStocks = () => {
+    history.push('/stocks/realized');
+  }
+
   if (!loading && !isAuthenticated) {
     return <Redirect to="/login" />
   }
 
   return (
     <React.Fragment>
-      <button
-        type="button"
-        className="btn btn-open-add-transaction-modal"
-        onClick={openAddTransactionModal}
-      >ADD TRANSACTION</button>
+      <div className="stocks-btn-container">
+        <button
+          type="button"
+          className="btn btn-open-add-transaction-modal"
+          onClick={openAddTransactionModal}
+        >ADD TRANSACTION</button>
+        <button
+          type="button"
+          className="btn btn-redirect-realized-stocks"
+          onClick={redirectToRealizedStocks}
+        >
+          Realized Stocks
+      </button>
+      </div>
       {stock && !stock.stockLoading ? (
         <React.Fragment>
           <div className="stocks-container">

@@ -1,5 +1,6 @@
 import {
   RESET_STOCK_LOADING,
+  RESET_REALIZE_STOCK_LOADING,
   CHECK_MARKET_STATUS,
   CHECK_MARKET_STATUS_ERROR,
   GET_STOCK_LIST,
@@ -9,6 +10,8 @@ import {
   GET_STOCK_GROUP_ERROR,
   GET_SECTOR,
   GET_SECTOR_ERROR,
+  GET_REALIZED_STOCKS,
+  GET_REALIZED_STOCKS_ERROR,
   ADD_STOCK,
   EDIT_STOCK,
   DELETE_STOCK,
@@ -22,9 +25,11 @@ import {
 const initialState = {
   stockList: [],
   stockGroup: [],
+  realizedStocks: [],
   isMarketOpen: null,
   stockLoading: true,
-  stockGroupLoading: true
+  stockGroupLoading: true,
+  realizedStockLoading: true
 };
 
 const sortByTicker = (a, b) => {
@@ -102,6 +107,17 @@ export default function stockReducer(state = initialState, action) {
         stockGroup: [],
         stockGroupLoading: false
       };
+    case GET_REALIZED_STOCKS:
+      return {
+        ...state,
+        realizedStocks: payload,
+        realizedStockLoading: false
+      };
+    case GET_REALIZED_STOCKS_ERROR:
+      return {
+        ...state,
+        realizedStockLoading: false
+      };
     case EDIT_DAILY_RETURN:
       const tickerObjDaily = state.stockList.filter(stock => stock.ticker === payload.ticker);
       const otherStocksDaily = state.stockList.filter(stock => stock.ticker !== payload.ticker);
@@ -133,6 +149,11 @@ export default function stockReducer(state = initialState, action) {
       return {
         ...state,
         stockLoading: true
+      };
+    case RESET_REALIZE_STOCK_LOADING:
+      return {
+        ...state,
+        realizedStockLoading: true
       };
     case LOGOUT:
       return {

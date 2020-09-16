@@ -1,5 +1,6 @@
 import {
   RESET_STOCK_LOADING,
+  RESET_REALIZE_STOCK_LOADING,
   CHECK_MARKET_STATUS,
   CHECK_MARKET_STATUS_ERROR,
   GET_STOCK_LIST,
@@ -7,6 +8,8 @@ import {
   GET_STOCK_ERROR,
   GET_STOCK_GROUP,
   GET_STOCK_GROUP_ERROR,
+  GET_REALIZED_STOCKS,
+  GET_REALIZED_STOCKS_ERROR,
   ADD_STOCK,
   EDIT_STOCK,
   DELETE_STOCK,
@@ -155,8 +158,27 @@ export const getStocksByTickerGroup = (portfolioId, ticker) => async (dispatch) 
   }
 }
 
+export const getRealizedStocks = (portfolioId) => async (dispatch) => {
+  const config = { withCredentials: true };
+  try {
+    const realizedStocksResult = await axios.get(`${SERVER_URL}/api/portfolio/realized/${portfolioId}`, config);
+
+    dispatch({
+      type: GET_REALIZED_STOCKS,
+      payload: realizedStocksResult.data
+    });
+  } catch (error) {
+    console.error(error);
+    dispatch({ type: GET_REALIZED_STOCKS_ERROR });
+  }
+}
+
 export const resetStockLoading = () => (dispatch) => {
   dispatch({ type: RESET_STOCK_LOADING });
+}
+
+export const resetRealizeStockLoading = () => (dispatch) => {
+  dispatch({ type: RESET_REALIZE_STOCK_LOADING });
 }
 
 export const closePosition = (portfolioId, ticker) => async (dispatch) => {

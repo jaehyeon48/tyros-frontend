@@ -39,7 +39,7 @@ export const checkMarketStatus = () => async (dispatch) => {
 export const getStocks = (portfolioId) => async (dispatch) => {
   const config = { withCredentials: true };
   try {
-    const stocksResult = await axios.get(`${SERVER_URL}/api/portfolio/${portfolioId}/stocks`, config);
+    const stocksResult = await axios.get(`${SERVER_URL}/api/portfolio/stocks/${portfolioId}`, config);
     if (stocksResult.data !== null) {
       const sortedStocks = await sortStocks(stocksResult.data);
       dispatch({
@@ -75,7 +75,7 @@ export const getSectorInfo = (ticker) => async (dispatch) => {
   }
 }
 
-export const addStock = (portfolioId, formData) => async (dispatch) => {
+export const addStock = (portfolioId, formData, currentAvgCost) => async (dispatch) => {
   const config = {
     headers: {
       'Content-Type': 'application/json'
@@ -84,7 +84,7 @@ export const addStock = (portfolioId, formData) => async (dispatch) => {
   };
 
   try {
-    const reqBody = JSON.stringify({ portfolioId, ...formData });
+    const reqBody = JSON.stringify({ portfolioId, ...formData, currentAvgCost });
 
     await axios.post(`${SERVER_URL}/api/stock`, reqBody, config);
     dispatch({ type: ADD_STOCK });
@@ -143,7 +143,7 @@ export const editOverallReturn = (ticker, overallReturn) => (dispatch) => {
 export const getStocksByTickerGroup = (portfolioId, ticker) => async (dispatch) => {
   const config = { withCredentials: true };
   try {
-    const tickerGroupResult = await axios.get(`${SERVER_URL}/api/portfolio/${portfolioId}/${ticker}`, config);
+    const tickerGroupResult = await axios.get(`${SERVER_URL}/api/portfolio/group/${portfolioId}/${ticker}`, config);
 
     dispatch({
       type: GET_STOCK_GROUP,

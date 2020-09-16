@@ -34,7 +34,7 @@ export const getTotalCash = (portfolioId) => async (dispatch) => {
   const config = { withCredentials: true };
 
   try {
-    const cashResponse = await axios.get(`${SERVER_URL}/api/portfolio/${portfolioId}/cash`, config);
+    const cashResponse = await axios.get(`${SERVER_URL}/api/portfolio/cash/${portfolioId}`, config);
     if (cashResponse.data.length > 0) {
       const totalCash = calculateTotalCashAmount(cashResponse.data);
       dispatch({

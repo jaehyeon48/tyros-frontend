@@ -58,19 +58,19 @@ const Navbar = ({
       setIsPortfolioOpen(false);
       setIsCashOpen(false);
     }
-    else if (currentLocation === '/stocks') {
+    else if (/stocks.*/.test(currentLocation) || /position.*/.test(currentLocation)) {
       setIsStockListOpen(true);
       setIsDashboardOpen(false);
       setIsPortfolioOpen(false);
       setIsCashOpen(false);
     }
-    else if (currentLocation === '/portfolios') {
+    else if (/portfolios.*/.test(currentLocation)) {
       setIsPortfolioOpen(true);
       setIsStockListOpen(false);
       setIsDashboardOpen(false);
       setIsCashOpen(false);
     }
-    else if (currentLocation === '/cash') {
+    else if (/cash.*/.test(currentLocation)) {
       setIsCashOpen(true);
       setIsDashboardOpen(false);
       setIsStockListOpen(false);

@@ -98,7 +98,7 @@ export const addStock = (portfolioId, formData, currentAvgCost) => async (dispat
   }
 }
 
-export const editStock = (formData) => async (dispatch) => {
+export const editStock = (formData, currentAvgCost) => async (dispatch) => {
   const config = {
     headers: {
       'Content-Type': 'application/json'
@@ -107,7 +107,7 @@ export const editStock = (formData) => async (dispatch) => {
   };
   const { stockId, price, quantity, transactionDate, transactionType } = formData;
   try {
-    const reqBody = JSON.stringify({ price, quantity, transactionDate, transactionType });
+    const reqBody = JSON.stringify({ price, quantity, transactionDate, transactionType, currentAvgCost });
     await axios.put(`${SERVER_URL}/api/stock/${stockId}`, reqBody, config);
     dispatch({ type: EDIT_STOCK });
     return 0;

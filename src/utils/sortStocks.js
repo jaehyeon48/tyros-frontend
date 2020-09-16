@@ -56,7 +56,7 @@ const organizeGroupedStocks = async (ticker, shareInfo) => {
     }
   });
 
-  share.avgCost = Number((totalQty <= 0 ? 0 : (totalCost / totalQty).toFixed(2)));
+  share.avgCost = totalQty > 0 ? parseFloat((totalCost / totalQty).toFixed(2)) : 0;
   share.quantity = (totalQty <= 0 ? 0 : totalQty);
 
   share.dailyReturn = null;

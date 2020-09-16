@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Redirect, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import StockGroupItem from './StockGroupItem';
 import Modal from '../modal/Modal';
 import {
+  getStocks,
   getStocksByTickerGroup,
   closePosition
 } from '../../actions/stockAction';
@@ -19,6 +20,7 @@ const PositionDetail = ({
   match,
   stockGroup,
   stockGroupLoading,
+  getStocks,
   getStocksByTickerGroup,
   closePosition,
   showAlert
@@ -44,6 +46,10 @@ const PositionDetail = ({
       getStocksByTickerGroup(PORTFOLIO_ID, TICKER);
     }
   }, [PORTFOLIO_ID, TICKER]);
+
+  useEffect(() => {
+    getStocks(PORTFOLIO_ID);
+  }, [PORTFOLIO_ID]);
 
   useEffect(() => {
     if (!stockGroupLoading && stockGroup && stockGroup.length === 0) {
@@ -156,6 +162,7 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   getStocksByTickerGroup,
+  getStocks,
   closePosition,
   showAlert
 })(PositionDetail);

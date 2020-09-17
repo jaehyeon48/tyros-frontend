@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter, useHistory } from 'react-router-dom';
 
 import './navbar.css';
 import AvatarImage from '../avatar/AvatarImage';
@@ -23,9 +23,10 @@ const Navbar = ({
   isAuthenticated,
   theme,
   user,
-  history,
-  logout
+  logout,
+  children
 }) => {
+  let history = useHistory();
   const [isHomeOpen, setIsHomeOpen] = useState(false);
   const [isSignUpOpen, setIsSignUpOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
@@ -270,6 +271,7 @@ const Navbar = ({
           {isAuthenticated ? navAuth : navGuest}
         </nav>
       )}
+      {children}
     </React.Fragment>
   );
 }

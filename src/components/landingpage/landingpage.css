@@ -38,12 +38,40 @@
   font-size: 28px;
   font-weight: 400;
   color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.landing-buttons {
+  margin-top: 3rem;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.btn-landing-signup {
+  width: 150px;
+  background-color: var(--highlight-color);
+  color: var(--white-color);
+  margin-bottom: 1rem;
+}
+
+.btn-landing-signup:hover {
+  background-color: #b43e4a;
+}
+
+.btn-landing-login {
+  width: 150px;
+  margin-bottom: 1rem;
+}
+
+.btn-landing-login:hover {
+  background-color: #bbb;
 }
 
 @media only screen and (max-width: 767px) {
   .landing-header-subtitle {
     grid-column: 5 / span 20;
-    margin-bottom: 70px;
   }
 }
 

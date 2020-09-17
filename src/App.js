@@ -28,21 +28,22 @@ export default function App() {
   return (
     <Provider store={store} >
       <Router>
-        <Navbar />
         <Switch>
-          <MainTheme>
-            <Alert />
-            <Route path="/" component={LandingPage} exact={true} />
-            <Route path="/signup" component={SignUp} exact={true} />
-            <Route path="/login" component={Login} exact={true} />
-            <Route path="/dashboard" component={MainPage} exact={true} />
-            <Route path="/stocks" component={Stock} exact={true} />
-            <Route path="/stocks/realized" component={RealizedStocks} exact={true} />
-            <Route path="/cash" component={Cash} exact={true} />
-            <Route path="/portfolios" component={ManagePortfolio} exact={true} />
-            <Route path="/profile" component={Profile} exact={true} />
-            <Route path="/position/:portfolioId/:ticker" component={PositionDetail} exact={true} />
-          </MainTheme>
+          <Route path="/" component={LandingPage} exact={true} />
+          <Navbar>
+            <MainTheme>
+              <Alert />
+              <Route path="/signup" component={SignUp} exact={true} />
+              <Route path="/login" component={Login} exact={true} />
+              <Route path="/dashboard" component={MainPage} exact={true} />
+              <Route path="/stocks" component={Stock} exact={true} />
+              <Route path="/stocks/realized" component={RealizedStocks} exact={true} />
+              <Route path="/cash" component={Cash} exact={true} />
+              <Route path="/portfolios" component={ManagePortfolio} exact={true} />
+              <Route path="/profile" component={Profile} exact={true} />
+              <Route path="/position/:portfolioId/:ticker" component={PositionDetail} exact={true} />
+            </MainTheme>
+          </Navbar>
         </Switch>
       </Router>
     </Provider>

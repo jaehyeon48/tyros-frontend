@@ -47,7 +47,12 @@ const LandingPage = ({
               </div>
             </div>
           </header>
+          <footer class="footer">
+            <span class="footer-copyright">&#169; Jae Hyeon Kim</span>
+            <span class="footer-contact">Contact: imjaehyeon48@gmail.com</span>
+          </footer>
         </main>}
+
     </React.Fragment>
   );
 }
